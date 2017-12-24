@@ -372,3 +372,104 @@ alter table shopxxboot.product_tag add constraint FK_Reference_9 foreign key (pr
 alter table shopxxboot.specification_value add constraint FK5E624376629A04C2 foreign key (specification)
       references shopxxboot.specification (id);
 
+
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_date` datetime NOT NULL,
+  `modify_date` datetime NOT NULL,
+  `department` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `is_enabled` bit(1) NOT NULL,
+  `is_locked` bit(1) NOT NULL,
+  `locked_date` datetime DEFAULT NULL,
+  `login_date` datetime DEFAULT NULL,
+  `login_failure_count` int(11) NOT NULL,
+  `login_ip` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `admin_role`;
+CREATE TABLE `admin_role` (
+  `admins` bigint(20) NOT NULL,
+  `roles` bigint(20) NOT NULL,
+  PRIMARY KEY (`admins`,`roles`),
+  KEY `FKD291D6053FF548F7` (`roles`),
+  KEY `FKD291D605A022690F` (`admins`),
+  CONSTRAINT `FKD291D6053FF548F7` FOREIGN KEY (`roles`) REFERENCES `role` (`id`),
+  CONSTRAINT `FKD291D605A022690F` FOREIGN KEY (`admins`) REFERENCES `admin` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_date` datetime NOT NULL,
+  `modify_date` datetime NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `is_system` bit(1) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `role_authority`;
+CREATE TABLE `role_authority` (
+  `role` bigint(20) NOT NULL,
+  `authorities` varchar(255) DEFAULT NULL,
+  KEY `FKE06165D939B03AB0` (`role`),
+  CONSTRAINT `FKE06165D939B03AB0` FOREIGN KEY (`role`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `member`;
+CREATE TABLE `member` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_date` datetime NOT NULL,
+  `modify_date` datetime NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `amount` decimal(27,12) NOT NULL,
+  `balance` decimal(27,12) NOT NULL,
+  `birth` datetime DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `gender` int(11) DEFAULT NULL,
+  `is_enabled` bit(1) NOT NULL,
+  `is_locked` bit(1) NOT NULL,
+  `locked_date` datetime DEFAULT NULL,
+  `login_date` datetime DEFAULT NULL,
+  `login_failure_count` int(11) NOT NULL,
+  `login_ip` varchar(255) DEFAULT NULL,
+  `mobile` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `point` bigint(20) NOT NULL,
+  `register_ip` varchar(255) NOT NULL,
+  `safe_key_expire` datetime DEFAULT NULL,
+  `safe_key_value` varchar(255) DEFAULT NULL,
+  `username` varchar(255) NOT NULL,
+  `zip_code` varchar(255) DEFAULT NULL,
+  `area` bigint(20) DEFAULT NULL,
+  `member_rank` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  KEY `FK92D398B937884F5B` (`member_rank`),
+  CONSTRAINT `FK92D398B937884F5B` FOREIGN KEY (`member_rank`) REFERENCES `member_rank` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS `log`;
+CREATE TABLE `log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_date` datetime NOT NULL,
+  `modify_date` datetime NOT NULL,
+  `content` longtext,
+  `ip` varchar(255) NOT NULL,
+  `operation` varchar(255) NOT NULL,
+  `operator` varchar(255) DEFAULT NULL,
+  `parameter` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
