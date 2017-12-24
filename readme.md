@@ -7,6 +7,7 @@
 - [thymleaf](http://www.thymeleaf.org/)
 - [admin](https://adminlte.io/)
 - [mybatis](http://www.mybatis.org/mybatis-3/)
+- [mybatis-plus](https://github.com/baomidou/mybatis-plus/)
 
 ---
 ## 数据库设计

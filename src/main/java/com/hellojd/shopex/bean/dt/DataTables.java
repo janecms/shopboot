@@ -1,4 +1,4 @@
-package com.hellojd.shopex.domain;
+package com.hellojd.shopex.bean.dt;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

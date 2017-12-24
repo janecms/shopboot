@@ -1,10 +1,8 @@
 package com.hellojd.shopex.controller;
-
-import com.hellojd.shopex.domain.DataTables;
-import com.hellojd.shopex.domain.Category;
-import com.hellojd.shopex.domain.Product;
-import com.hellojd.shopex.service.CatalogService;
-import com.hellojd.shopex.service.CatalogService;
+import com.hellojd.shopex.entity.Product;
+import com.hellojd.shopex.entity.ProductCategory;
+import com.hellojd.shopex.bean.dt.DataTables;
+import com.hellojd.shopex.service.ProductCategoryService;
 import com.hellojd.shopex.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,24 +20,26 @@ public class CategoryController {
     @Autowired
     ProductService productService;
     @Autowired
-    CatalogService catalogService;
+    ProductCategoryService productCategoryService;
 
     @GetMapping("/{productId}")
     public Product getProduct(@PathVariable("productId") String productId) {
-        return productService.getProduct(productId);
+
+        return productService.selectById(productId);
     }
 
     @GetMapping("/")
     public String categorylist(ModelMap modelMap){
-        List<Category> categoryList = this.catalogService.getCategoryList();
+        List<ProductCategory> categoryList = this.productCategoryService.getRootProductCategoryList();
         modelMap.put("categoryList",categoryList);
         return "/product/categorys";
     }
 
     @GetMapping("/{categoryId}/products")
     @ResponseBody
-    public DataTables<Product> getProductListByCategory(@PathVariable("categoryId") String categoryId,DataTables dt){
-        List<Product> productList = this.productService.getProductListByCategory(categoryId);
+    public DataTables<Product> getProductListByCategory(@PathVariable("categoryId") Long categoryId,DataTables dt){
+        ProductCategory productCategory = productCategoryService.selectById(categoryId);
+        List<Product> productList = this.productService.getProductList(productCategory);
         DataTables<Product> productDataTables = new DataTables<>(productList);
         productDataTables.setDraw(dt.getDraw());
         return productDataTables;
