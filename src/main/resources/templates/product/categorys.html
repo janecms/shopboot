@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header :: head (title='产品管理')">
+    <title>Home Page</title>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header th:replace="/fragments/main :: main-header"></header>
+    <aside th:replace="fragments/main :: main-sidebar"></aside>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                产品管理
+            </h1>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-md-3">
+                    <!-- About Me Box -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">分类列表</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div th:each="category : ${categoryList}">
+                                <a class="category" href="javascript:void(0)" th:data-id="${category.categoryId}">
+                                    <strong th:text="${category.name}"></strong>
+                                    <p class="text-muted" th:text="${category.description}">
+                                    </p>
+                                </a>
+                                <hr>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#activity" data-toggle="tab">产品</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="active tab-pane" id="activity">
+                                <table id="products_datatable" class="table table-bordered table-hover">
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+                    <!-- /.nav-tabs-custom -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+    </div>
+</div>
+<div th:replace="fragments/footer :: jqueryjs">JavaScript tags are loaded here</div>
+<div th:replace="fragments/footer :: bootsrtapjs">JavaScript tags are loaded here</div>
+<div th:replace="fragments/footer :: datatablesjs">JavaScript tags are loaded here</div>
+<div th:replace="fragments/footer :: slimscrolljs">JavaScript tags are loaded here</div>
+<div th:replace="fragments/footer :: fastclickjs">JavaScript tags are loaded here</div>
+<div th:replace="fragments/footer :: adminltejs">JavaScript tags are loaded here</div>
+<div th:replace="fragments/footer :: consolejs">JavaScript tags are loaded here</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var  datatable;
+        $(".category").click(function () {
+            var categoryId = $(this).attr("data-id");
+            if(datatable){
+                datatable.destroy();
+            }
+            datatable=$('#products_datatable').DataTable({
+                retrieve: true,
+                destroy: true,
+                "paging": false,
+                "ordering": false,
+                "processing": false,
+                "searching": false,
+                "info": false,
+                "serverSide": true,
+                "ajax": "/category/"+categoryId+"/products",
+                columns: [
+                    {data: 'productId'},
+                    {data: 'categoryId'},
+                    {data: 'name'},
+                    {data: 'description'}
+                ],
+                columnDefs: [
+                    {
+                        "render": function (data, type, row) {
+                            return "<a>" + data + "</a>";
+                        },
+                        "targets": 0
+                    }
+                ]
+            });
+
+        })
+    });
+</script>
+</body>
+</html>
