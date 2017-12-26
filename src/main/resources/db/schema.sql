@@ -175,7 +175,7 @@ alter table d_tag comment '标签';
 /*==============================================================*/
 create table product
 (
-  product_id            bigint(20) not null,
+  product_id            bigint(20) not null auto_increment,
   create_Date          datetime comment '创建日期',
   modify_Date          datetime comment '修改日期',
   description           text comment '描述',
