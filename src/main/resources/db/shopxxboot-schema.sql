@@ -53,14 +53,14 @@ create user shopxxboot;
 /*==============================================================*/
 create table shopxxboot.d_attribute
 (
-   id                   bigint(20) not null auto_increment,
-   create_date          datetime not null,
-   modify_date          datetime not null,
-   orders               int(11),
-   name                  varchar(255) not null,
-   property_index       int(11) not null,
-   product_category     bigint(20) not null,
-   primary key (id)
+  id                   bigint(20) not null auto_increment,
+  create_date          datetime not null,
+  modify_date          datetime not null,
+  orders               int(11),
+  name                  varchar(255) not null,
+  property_index       int(11) not null,
+  product_category     bigint(20) not null,
+  primary key (id)
 );
 
 /*==============================================================*/
@@ -68,46 +68,46 @@ create table shopxxboot.d_attribute
 /*==============================================================*/
 create table shopxxboot.d_attribute_option
 (
-   attribute            bigint(20) not null,
-   options               varchar(255)
+  attribute            bigint(20) not null,
+  options               varchar(255)
 );
 
-alter table shopxxboot.d_attribute_option comment ' Ù–‘œÓ';
+alter table shopxxboot.d_attribute_option comment 'Â±ûÊÄßÈ°π';
 
 /*==============================================================*/
 /* Table: d_brand                                               */
 /*==============================================================*/
 create table shopxxboot.d_brand
 (
-   id                    varchar(32) not null,
-   create_Date          datetime,
-   modify_Date          datetime,
-   introduction          text,
-   logo                  varchar(255),
-   name                  varchar(255) not null,
-   orders               int(11) not null,
-   url                   varchar(255),
-   primary key (id)
+  id                    varchar(32) not null,
+  create_Date          datetime,
+  modify_Date          datetime,
+  introduction          text,
+  logo                  varchar(255),
+  name                  varchar(255) not null,
+  orders               int(11) not null,
+  url                   varchar(255),
+  primary key (id)
 );
 
-alter table shopxxboot.d_brand comment '∆∑≈∆';
+alter table shopxxboot.d_brand comment 'ÂìÅÁâå';
 
 /*==============================================================*/
 /* Table: d_member_rank                                         */
 /*==============================================================*/
 create table shopxxboot.d_member_rank
 (
-   id                   bigint(20) not null auto_increment,
-   create_date          datetime not null,
-   modify_date          datetime not null,
-   amount               decimal(21,6),
-   is_default           bit(1) not null,
-   is_special           bit(1) not null,
-   name                  varchar(255) not null,
-   scale                double not null,
-   primary key (id),
-   key amount (amount),
-   key name (name)
+  id                   bigint(20) not null auto_increment,
+  create_date          datetime not null,
+  modify_date          datetime not null,
+  amount               decimal(21,6),
+  is_default           bit(1) not null,
+  is_special           bit(1) not null,
+  name                  varchar(255) not null,
+  scale                double not null,
+  primary key (id),
+  key amount (amount),
+  key name (name)
 );
 
 /*==============================================================*/
@@ -115,80 +115,80 @@ create table shopxxboot.d_member_rank
 /*==============================================================*/
 create table shopxxboot.d_parameter
 (
-   id                   bigint(20) not null auto_increment,
-   create_date          datetime not null,
-   modify_date          datetime not null,
-   orders               int(11),
-   name                  varchar(255) not null,
-   parameter_group      bigint(20) not null,
-   primary key (id)
+  id                   bigint(20) not null auto_increment,
+  create_date          datetime not null,
+  modify_date          datetime not null,
+  orders               int(11),
+  name                  varchar(255) not null,
+  parameter_group      bigint(20) not null,
+  primary key (id)
 );
 
-alter table shopxxboot.d_parameter comment '≤Œ ˝';
+alter table shopxxboot.d_parameter comment 'ÂèÇÊï∞';
 
 /*==============================================================*/
 /* Table: d_parameter_group                                     */
 /*==============================================================*/
 create table shopxxboot.d_parameter_group
 (
-   id                   bigint(20) not null auto_increment,
-   create_date          datetime not null,
-   modify_date          datetime not null,
-   orders               int(11),
-   name                  varchar(255) not null,
-   category_id          bigint(20) not null,
-   primary key (id)
+  id                   bigint(20) not null auto_increment,
+  create_date          datetime not null,
+  modify_date          datetime not null,
+  orders               int(11),
+  name                  varchar(255) not null,
+  category_id          bigint(20) not null,
+  primary key (id)
 );
 
-alter table shopxxboot.d_parameter_group comment '≤Œ ˝◊È';
+alter table shopxxboot.d_parameter_group comment 'ÂèÇÊï∞ÁªÑ';
 
 /*==============================================================*/
 /* Table: d_tag                                                 */
 /*==============================================================*/
 create table shopxxboot.d_tag
 (
-   id                   bigint(20) not null auto_increment,
-   create_date          datetime not null,
-   modify_date          datetime not null,
-   orders               int(11),
-   icon                  varchar(255),
-   memo                  varchar(255),
-   name                  varchar(255) not null,
-   type                 int(11) not null,
-   primary key (id)
+  id                   bigint(20) not null auto_increment,
+  create_date          datetime not null,
+  modify_date          datetime not null,
+  orders               int(11),
+  icon                  varchar(255),
+  memo                  varchar(255),
+  name                  varchar(255) not null,
+  type                 int(11) not null,
+  primary key (id)
 );
 
-alter table shopxxboot.d_tag comment '±Í«©';
+alter table shopxxboot.d_tag comment 'Ê†áÁ≠æ';
 
 /*==============================================================*/
 /* Table: product                                               */
 /*==============================================================*/
 create table shopxxboot.product
 (
-   product_id            bigint(20) not null,
-   create_Date          datetime comment '¥¥Ω®»’∆⁄',
-   modify_Date          datetime comment '–ﬁ∏ƒ»’∆⁄',
-   description           text comment '√Ë ˆ',
-   freeze_Store         int(11) not null comment '±ª’º”√ø‚¥Ê ˝',
-   html_File_Path        varchar(255) not null comment 'HTMLæ≤Ã¨Œƒº˛¬∑æ∂',
-   isBest               bit(1) not null comment ' «∑Òæ´∆∑Õ∆ºˆ',
-   isHot                bit(1) not null comment ' «∑Ò»»œ˙Õ∆ºˆ',
-   is_Marketable        bit(1) not null comment ' «∑Ò…œº‹',
-   is_New               bit(1) not null comment ' «∑Ò–¬∆∑Õ∆ºˆ',
-   market_Price         decimal(15,5) not null comment ' –≥° €º€',
-   meta_Description      text comment '“≥√Ê√Ë ˆ',
-   meta_Keywords         text comment '“≥√Êπÿº¸¥ ',
-   name                  varchar(255) not null comment '…Ã∆∑√˚≥∆',
-   point                int(11) not null comment 'ª˝∑÷',
-   price                decimal(15,5) not null comment '±æµÍ €º€',
-   Image_List_Store      text comment '…Ã∆∑Õº∆¨¬∑æ∂¥Ê¥¢',
-   product_sn            varchar(255) not null comment 'ªı∫≈',
-   store                int(11) comment '…Ã∆∑ø‚¥Ê ˝¡ø',
-   weight               double not null comment '…Ã∆∑÷ÿ¡ø',
-   weight_Unit          int(11) not null comment '÷ÿ¡øµ•Œª',
-   brand_id              varchar(32) comment '…Ã∆∑∆∑≈∆',
-   category_id           varchar(32) not null comment '≤˙∆∑∑÷¿‡',
-   key AK_pk_product_id (product_id)
+  product_id            bigint(20) not null,
+  create_Date          datetime comment 'ÂàõÂª∫Êó•Êúü',
+  modify_Date          datetime comment '‰øÆÊîπÊó•Êúü',
+  description           text comment 'ÊèèËø∞',
+  freeze_Store         int(11) not null comment 'Ë¢´Âç†Áî®Â∫ìÂ≠òÊï∞',
+  html_File_Path        varchar(255) not null comment 'HTMLÈùôÊÄÅÊñá‰ª∂Ë∑ØÂæÑ',
+  isBest               bit(1) not null comment 'ÊòØÂê¶Á≤æÂìÅÊé®Ëçê',
+  isHot                bit(1) not null comment 'ÊòØÂê¶ÁÉ≠ÈîÄÊé®Ëçê',
+  is_Marketable        bit(1) not null comment 'ÊòØÂê¶‰∏äÊû∂',
+  is_New               bit(1) not null comment 'ÊòØÂê¶Êñ∞ÂìÅÊé®Ëçê',
+  market_Price         decimal(15,5) not null comment 'Â∏ÇÂú∫ÂîÆ‰ª∑',
+  meta_Description      text comment 'È°µÈù¢ÊèèËø∞',
+  meta_Keywords         text comment 'È°µÈù¢ÂÖ≥ÈîÆËØç',
+  name                  varchar(255) not null comment 'ÂïÜÂìÅÂêçÁß∞',
+  point                int(11) not null comment 'ÁßØÂàÜ',
+  price                decimal(15,5) not null comment 'Êú¨Â∫óÂîÆ‰ª∑',
+  Image_List_Store      text comment 'ÂïÜÂìÅÂõæÁâáË∑ØÂæÑÂ≠òÂÇ®',
+  product_sn            varchar(255) not null comment 'Ë¥ßÂè∑',
+  store                int(11) comment 'ÂïÜÂìÅÂ∫ìÂ≠òÊï∞Èáè',
+  weight               double not null comment 'ÂïÜÂìÅÈáçÈáè',
+  weight_Unit          int(11) not null comment 'ÈáçÈáèÂçï‰Ωç',
+  brand_id              varchar(32) comment 'ÂïÜÂìÅÂìÅÁâå',
+  category_id           varchar(32) not null comment '‰∫ßÂìÅÂàÜÁ±ª',
+  key AK_pk_product_id (product_id)
 );
 
 /*==============================================================*/
@@ -196,28 +196,28 @@ create table shopxxboot.product
 /*==============================================================*/
 create table shopxxboot.product_attribute
 (
-   attribute_id         bigint(20),
-   product_id           bigint(20),
-   options             varchar(255)
+  attribute_id         bigint(20),
+  product_id           bigint(20),
+  options             varchar(255)
 );
 
-alter table shopxxboot.product_attribute comment '≤˙∆∑ Ù–‘';
+alter table shopxxboot.product_attribute comment '‰∫ßÂìÅÂ±ûÊÄß';
 
 /*==============================================================*/
 /* Table: product_category                                      */
 /*==============================================================*/
 create table shopxxboot.product_category
 (
-   id                    varchar(32) not null,
-   create_Date          datetime,
-   modify_Date          datetime,
-   meta_Description      text comment '“≥√Ê√Ë ˆ',
-   meta_Keywords         text comment '“≥√Êπÿº¸¥ ',
-   name                  varchar(255) not null,
-   orders               int(11) not null comment '≈≈–Ú',
-   path                  text comment ' ˜¬∑æ∂',
-   parent_id             varchar(32) comment '…œº∂∑÷¿‡',
-   primary key (id)
+  id                    varchar(32) not null,
+  create_Date          datetime,
+  modify_Date          datetime,
+  meta_Description      text comment 'È°µÈù¢ÊèèËø∞',
+  meta_Keywords         text comment 'È°µÈù¢ÂÖ≥ÈîÆËØç',
+  name                  varchar(255) not null,
+  orders               int(11) not null comment 'ÊéíÂ∫è',
+  path                  text comment 'Ê†ëË∑ØÂæÑ',
+  parent_id             varchar(32) comment '‰∏äÁ∫ßÂàÜÁ±ª',
+  primary key (id)
 );
 
 /*==============================================================*/
@@ -225,152 +225,154 @@ create table shopxxboot.product_category
 /*==============================================================*/
 create table shopxxboot.product_member_price
 (
-   product_id           bigint(20) not null,
-   member_price         decimal(19,2),
-   member_rank_id       bigint(20) not null,
-   primary key (product_id, member_rank_id)
+  product_id           bigint(20) not null,
+  member_price         decimal(19,2),
+  member_rank_id       bigint(20) not null,
+  primary key (product_id, member_rank_id)
 );
 
-alter table shopxxboot.product_member_price comment 'ª·‘±º€∏Ò';
+alter table shopxxboot.product_member_price comment '‰ºöÂëò‰ª∑Ê†º';
 
 /*==============================================================*/
 /* Table: product_parameter_value                               */
 /*==============================================================*/
 create table shopxxboot.product_parameter_value
 (
-   product_id           bigint(20) not null,
-   parameter_value       varchar(255),
-   parameter_value_key  bigint(20) not null,
-   primary key (product_id, parameter_value_key)
+  product_id           bigint(20) not null,
+  parameter_value       varchar(255),
+  parameter_value_key  bigint(20) not null,
+  primary key (product_id, parameter_value_key)
 );
 
-alter table shopxxboot.product_parameter_value comment '≤˙∆∑≤Œ ˝';
+alter table shopxxboot.product_parameter_value comment '‰∫ßÂìÅÂèÇÊï∞';
 
 /*==============================================================*/
 /* Table: product_product_image                                 */
 /*==============================================================*/
 create table shopxxboot.product_product_image
 (
-   product_id           bigint(20),
-   large                 varchar(255),
-   medium                varchar(255),
-   orders               int(11),
-   source                varchar(255),
-   thumbnail             varchar(255),
-   title                 varchar(255)
+  product_id           bigint(20),
+  large                 varchar(255),
+  medium                varchar(255),
+  orders               int(11),
+  source                varchar(255),
+  thumbnail             varchar(255),
+  title                 varchar(255)
 );
 
-alter table shopxxboot.product_product_image comment '≤˙∆∑Õº∆¨';
-
-/*==============================================================*/
-/* Table: product_specification_value                           */
-/*==============================================================*/
-create table shopxxboot.product_specification_value
-(
-   product_id           bigint(20) not null,
-   specifications       bigint(20),
-   specification_values bigint(20) not null,
-   primary key (product_id, specification_values)
-);
+alter table shopxxboot.product_product_image comment '‰∫ßÂìÅÂõæÁâá';
 
 /*==============================================================*/
 /* Table: product_tag                                           */
 /*==============================================================*/
 create table shopxxboot.product_tag
 (
-   product_id           bigint(20) not null,
-   tag_id               bigint(20) not null,
-   primary key (product_id, tag_id)
+  product_id           bigint(20) not null,
+  tag_id               bigint(20) not null,
+  primary key (product_id, tag_id)
 );
 
-alter table shopxxboot.product_tag comment '±Í«©';
+alter table shopxxboot.product_tag comment 'Ê†áÁ≠æ';
 
 /*==============================================================*/
 /* Table: specification                                         */
 /*==============================================================*/
-create table shopxxboot.specification
+create table shopxxboot.d_specification
 (
-   id                   bigint(20) not null auto_increment,
-   create_date          datetime not null,
-   modify_date          datetime not null,
-   orders               int(11),
-   memo                  varchar(255),
-   name                  varchar(255) not null,
-   type                 int(11) not null,
-   primary key (id)
+  id                   bigint(20) not null auto_increment,
+  create_date          datetime not null,
+  modify_date          datetime not null,
+  orders               int(11),
+  memo                  varchar(255),
+  name                  varchar(255) not null,
+  type                 int(11) not null,
+  primary key (id)
 );
 
 /*==============================================================*/
 /* Table: specification_value                                   */
 /*==============================================================*/
-create table shopxxboot.specification_value
+create table shopxxboot.d_specification_value
 (
-   id                   bigint(20) not null auto_increment,
-   create_date          datetime not null,
-   modify_date          datetime not null,
-   orders               int(11),
-   image                 varchar(255),
-   name                  varchar(255) not null,
-   specification        bigint(20) not null,
-   primary key (id)
+  id                   bigint(20) not null auto_increment,
+  create_date          datetime not null,
+  modify_date          datetime not null,
+  orders               int(11),
+  image                 varchar(255),
+  name                  varchar(255) not null,
+  specification        bigint(20) not null,
+  primary key (id)
 );
 
-alter table shopxxboot.d_attribute add constraint FK_Reference_14 foreign key (product_category)
-      references shopxxboot.product_category (id) on delete restrict on update restrict;
+/*==============================================================*/
+/* Table: product_specification_value                           */
+/*==============================================================*/
+create table shopxxboot.product_specification_value
+(
+  product_id           bigint(20) not null,
+  specifications       bigint(20),
+  specification_values bigint(20) not null,
+  primary key (product_id, specification_values)
+);
+alter table shopxxboot.d_specification_value add constraint FK_specification_value_specID foreign key (specification)
+references shopxxboot.d_specification (id);
 
-alter table shopxxboot.d_attribute_option add constraint FK96E026D75E1B95F4 foreign key (attribute)
-      references shopxxboot.d_attribute (id);
-
-alter table shopxxboot.d_parameter add constraint FK8238FD2A818BF383 foreign key (parameter_group)
-      references shopxxboot.d_parameter_group (id);
-
-alter table shopxxboot.product add constraint FK50C664CF59CF1676 foreign key (category_id)
-      references shopxxboot.product_category (id);
-
-alter table shopxxboot.product add constraint FK50C664CFF378EF16 foreign key (brand_id)
-      references shopxxboot.d_brand (id);
-
-alter table shopxxboot.product_attribute add constraint FK_Reference_17 foreign key (product_id)
-      references shopxxboot.product (product_id) on delete restrict on update restrict;
-
-alter table shopxxboot.product_attribute add constraint FK_Reference_18 foreign key (attribute_id)
-      references shopxxboot.d_attribute (id) on delete restrict on update restrict;
-
-alter table shopxxboot.product_category add constraint FKD05546EDB2990399 foreign key (parent_id)
-      references shopxxboot.product_category (id);
-
-alter table shopxxboot.product_member_price add constraint FKDCCD88935CCD83AE foreign key (member_rank_id)
-      references shopxxboot.d_member_rank (id);
-
-alter table shopxxboot.product_member_price add constraint FK_Reference_12 foreign key (product_id)
-      references shopxxboot.product (product_id) on delete restrict on update restrict;
-
-alter table shopxxboot.product_parameter_value add constraint FK_Reference_19 foreign key (product_id)
-      references shopxxboot.product (product_id) on delete restrict on update restrict;
-
-alter table shopxxboot.product_parameter_value add constraint FK_Reference_22 foreign key (parameter_value_key)
-      references shopxxboot.d_parameter (id) on delete restrict on update restrict;
-
-alter table shopxxboot.product_product_image add constraint FK_Reference_10 foreign key (product_id)
-      references shopxxboot.product (product_id) on delete restrict on update restrict;
-
-alter table shopxxboot.product_specification_value add constraint FKBF71FF2677BD1CD0 foreign key (specification_values)
-      references shopxxboot.specification_value (id);
+alter table product_specification_value add constraint product_specification_value_ibfk_2 foreign key
+  (specification_values)
+references d_specification_value (id);
 
 alter table shopxxboot.product_specification_value add constraint FK_Reference_15 foreign key (product_id)
-      references shopxxboot.product (product_id) on delete restrict on update restrict;
+references shopxxboot.product (product_id) on delete restrict on update restrict;
 
 alter table shopxxboot.product_specification_value add constraint FK_Reference_16 foreign key (specifications)
-      references shopxxboot.specification (id) on delete restrict on update restrict;
+references shopxxboot.d_specification (id) on delete restrict on update restrict;
+
+alter table shopxxboot.d_attribute add constraint FK_Reference_14 foreign key (product_category)
+references shopxxboot.product_category (id) on delete restrict on update restrict;
+
+alter table shopxxboot.d_attribute_option add constraint FK96E026D75E1B95F4 foreign key (attribute)
+references shopxxboot.d_attribute (id);
+
+alter table shopxxboot.d_parameter add constraint FK8238FD2A818BF383 foreign key (parameter_group)
+references shopxxboot.d_parameter_group (id);
+
+alter table shopxxboot.product add constraint FK50C664CF59CF1676 foreign key (category_id)
+references shopxxboot.product_category (id);
+
+alter table shopxxboot.product add constraint FK50C664CFF378EF16 foreign key (brand_id)
+references shopxxboot.d_brand (id);
+
+alter table shopxxboot.product_attribute add constraint FK_Reference_17 foreign key (product_id)
+references shopxxboot.product (product_id) on delete restrict on update restrict;
+
+alter table shopxxboot.product_attribute add constraint FK_Reference_18 foreign key (attribute_id)
+references shopxxboot.d_attribute (id) on delete restrict on update restrict;
+
+alter table shopxxboot.product_category add constraint FKD05546EDB2990399 foreign key (parent_id)
+references shopxxboot.product_category (id);
+
+alter table shopxxboot.product_member_price add constraint FKDCCD88935CCD83AE foreign key (member_rank_id)
+references shopxxboot.d_member_rank (id);
+
+alter table shopxxboot.product_member_price add constraint FK_Reference_12 foreign key (product_id)
+references shopxxboot.product (product_id) on delete restrict on update restrict;
+
+alter table shopxxboot.product_parameter_value add constraint FK_Reference_19 foreign key (product_id)
+references shopxxboot.product (product_id) on delete restrict on update restrict;
+
+alter table shopxxboot.product_parameter_value add constraint FK_Reference_22 foreign key (parameter_value_key)
+references shopxxboot.d_parameter (id) on delete restrict on update restrict;
+
+alter table shopxxboot.product_product_image add constraint FK_Reference_10 foreign key (product_id)
+references shopxxboot.product (product_id) on delete restrict on update restrict;
 
 alter table shopxxboot.product_tag add constraint FK2F6A998BC842716F foreign key (tag_id)
-      references shopxxboot.d_tag (id);
+references shopxxboot.d_tag (id);
 
 alter table shopxxboot.product_tag add constraint FK_Reference_9 foreign key (product_id)
-      references shopxxboot.product (product_id) on delete restrict on update restrict;
+references shopxxboot.product (product_id) on delete restrict on update restrict;
 
-alter table shopxxboot.specification_value add constraint FK5E624376629A04C2 foreign key (specification)
-      references shopxxboot.specification (id);
+
 
 
 DROP TABLE IF EXISTS `admin`;
@@ -393,6 +395,16 @@ CREATE TABLE `admin` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_date` datetime NOT NULL,
+  `modify_date` datetime NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `is_system` bit(1) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `admin_role`;
 CREATE TABLE `admin_role` (
@@ -405,16 +417,7 @@ CREATE TABLE `admin_role` (
   CONSTRAINT `FKD291D605A022690F` FOREIGN KEY (`admins`) REFERENCES `admin` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `role`;
-CREATE TABLE `role` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `create_date` datetime NOT NULL,
-  `modify_date` datetime NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `is_system` bit(1) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `role_authority`;
 CREATE TABLE `role_authority` (
@@ -456,7 +459,7 @@ CREATE TABLE `member` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `FK92D398B937884F5B` (`member_rank`),
-  CONSTRAINT `FK92D398B937884F5B` FOREIGN KEY (`member_rank`) REFERENCES `member_rank` (`id`)
+  CONSTRAINT `FK92D398B937884F5B` FOREIGN KEY (`member_rank`) REFERENCES `d_member_rank` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 
