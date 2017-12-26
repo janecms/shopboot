@@ -5,7 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hellojd.shopex.LogConfig;
+import com.hellojd.shopex.common.LogConfig;
 import com.hellojd.shopex.entity.Log;
 import com.hellojd.shopex.service.AdminService;
 import com.hellojd.shopex.service.LogConfigService;

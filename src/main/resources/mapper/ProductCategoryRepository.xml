@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hellojd.shopex.repository.ProductCategoryRepository">
+
+  <cache />
+  <resultMap id="ProductCategoryResultMap" type="ProductCategory">
+    <result property="id" column="id" />
+    <result property="name" column="name" />
+    <result property="metaKeywords" column="meta_keywords" />
+    <result property="metaDescription" column="meta_description" />
+    <result property="order" column="orders" />
+    <result property="path" column="path" />
+    <result property="createDate" column="create_date" />
+    <result property="modifyDate" column="modify_date" />
+    <association property="parent"  column="parent_id" select="getCategoryById" fetchType="lazy"/>
+    <collection property="children" column="id" select="getCategoryListByParentId" fetchType="lazy"></collection>
+  </resultMap>
+  <select id="getRootProductCategoryList" resultMap="ProductCategoryResultMap">
+    select
+        id,
+        create_date,
+        modify_date,
+        meta_description,
+        meta_keywords,
+        name,
+        orders,
+        path,
+        parent_id
+      from product_category
+      where parent_id=0
+  </select>
+
+  <select id="getCategoryById" resultMap="ProductCategoryResultMap">
+    select
+        id,
+        create_date,
+        modify_date,
+        meta_description,
+        meta_keywords,
+        name,
+        orders,
+        path,
+        parent_id
+      from product_category where id=#{id}
+  </select>
+  <select id="getCategoryListByParentId" resultMap="ProductCategoryResultMap">
+    select
+    id,
+    create_date,
+    modify_date,
+    meta_description,
+    meta_keywords,
+    name,
+    orders,
+    path,
+    parent_id
+    from product_category where parent_id=#{parentId}
+  </select>
+</mapper>

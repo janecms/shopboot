@@ -1,5 +1,5 @@
 package com.hellojd.shopex.util;
-import com.hellojd.shopex.Setting;
+import com.hellojd.shopex.common.Setting;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;

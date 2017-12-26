@@ -1,6 +1,6 @@
 package com.hellojd.shopex.service;
 
-import com.hellojd.shopex.LogConfig;
+import com.hellojd.shopex.common.LogConfig;
 
 import java.util.List;
 

@@ -1,5 +1,4 @@
 package com.hellojd.shopex.repository;
-
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.hellojd.shopex.bean.Pager;
 import com.hellojd.shopex.entity.Product;

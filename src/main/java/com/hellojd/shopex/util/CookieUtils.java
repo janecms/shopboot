@@ -6,7 +6,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hellojd.shopex.Setting;
+import com.hellojd.shopex.common.Setting;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 public final class CookieUtils

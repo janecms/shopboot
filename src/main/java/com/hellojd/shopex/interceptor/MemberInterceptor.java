@@ -1,6 +1,6 @@
 package com.hellojd.shopex.interceptor;
 
-import com.hellojd.shopex.Principal;
+import com.hellojd.shopex.common.Principal;
 import com.hellojd.shopex.entity.Member;
 import com.hellojd.shopex.service.MemberService;
 import org.apache.commons.lang.StringUtils;

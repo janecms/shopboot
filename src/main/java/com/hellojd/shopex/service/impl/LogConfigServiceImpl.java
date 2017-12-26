@@ -5,17 +5,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.hellojd.shopex.LogConfig;
+import com.hellojd.shopex.common.LogConfig;
 import com.hellojd.shopex.service.LogConfigService;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-
-import java.io.File;
-import java.util.List;
 
 @Service
 public class LogConfigServiceImpl

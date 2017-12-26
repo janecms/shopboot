@@ -17,5 +17,5 @@ druid:
     test-on-borrow: true
 
 mybatis:
-    type-aliases-package: com.hellojd.shopex.domain
+    type-aliases-package: com.hellojd.shopex.entity
     mapper-locations: classpath:mapper/*.xml

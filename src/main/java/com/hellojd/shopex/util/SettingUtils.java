@@ -1,8 +1,8 @@
 package com.hellojd.shopex.util;
 
-import com.hellojd.shopex.CommonAttributes;
-import com.hellojd.shopex.EnumConverter;
-import com.hellojd.shopex.Setting;
+import com.hellojd.shopex.common.CommonAttributes;
+import com.hellojd.shopex.common.EnumConverter;
+import com.hellojd.shopex.common.Setting;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import org.apache.commons.beanutils.BeanUtilsBean;

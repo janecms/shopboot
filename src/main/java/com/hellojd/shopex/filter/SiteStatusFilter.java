@@ -1,6 +1,6 @@
 package com.hellojd.shopex.filter;
 
-import com.hellojd.shopex.Setting;
+import com.hellojd.shopex.common.Setting;
 import com.hellojd.shopex.util.SettingUtils;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
