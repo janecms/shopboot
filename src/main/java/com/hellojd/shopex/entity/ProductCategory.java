@@ -12,10 +12,12 @@ import lombok.Data;
 public class ProductCategory extends  BaseEntity implements Serializable {
     private static final long serialVersionUID = 3992469837058393712L;
     private String name;// 分类名称
-    private String metaKeywords;// 页面关键词
-    private String metaDescription;// 页面描述
+    private String seoKeywords;// 页面关键词
+    private String seoTitle;// 页面关键词
+    private String seoDescription;// 页面描述
     private Integer order;// 排序
-    private String path;// 树路径
+    private String treePath;// 树路径
     private ProductCategory parent;// 上级分类
     private List<ProductCategory> children;
+    Integer grade;
 }

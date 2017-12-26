@@ -8,7 +8,13 @@ spring:
       mode: html
   profiles:
     active: dev
-
-mybatis:
-    type-aliases-package: com.hellojd.shopex.domain
-    mapper-locations: classpath:mapper/*.xml
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  typeAliasesPackage:  com.hellojd.shopex.domain
+  typeEnumsPackage:  com.hellojd.shopex.enums
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)",
+    id-type: 1
+    dbType: mysql
+     #驼峰下划线转换
+    db-column-underline: true

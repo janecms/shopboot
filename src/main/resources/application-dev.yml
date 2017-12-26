@@ -6,7 +6,11 @@ spring:
     thymeleaf:
       cache: false
       mode: html
-
+  h2:
+    console:
+      settings.web-allow-others: true #远程访问
+      enabled: true # 默认启动程序启动
+      path: /h2 #访问路径 localhost:9100/h2
 druid:
     url: jdbc:mysql://127.0.0.1:3306/shopxxboot?useUnicode=true&characterEncoding=utf-8&characterSetResults=utf-8
     username: root
