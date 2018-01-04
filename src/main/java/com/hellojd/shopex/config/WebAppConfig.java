@@ -65,6 +65,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter implements Application
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
         resolver.setApplicationContext(applicationContext);
         resolver.setPrefix(VIEWS);
+        resolver.setCacheable(false);
         resolver.setSuffix(".html");
         resolver.setTemplateMode(TemplateMode.HTML);
         return resolver;

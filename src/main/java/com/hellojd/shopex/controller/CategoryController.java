@@ -32,7 +32,7 @@ public class CategoryController {
     public String categorylist(ModelMap modelMap){
         List<ProductCategory> categoryList = this.productCategoryService.getRootProductCategoryList();
         modelMap.put("categoryList",categoryList);
-        return "/product/categorys";
+        return "product/categorys";
     }
 
     @GetMapping("/{categoryId}/products")
