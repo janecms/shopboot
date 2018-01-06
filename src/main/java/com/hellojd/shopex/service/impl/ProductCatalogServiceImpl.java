@@ -1,53 +1,27 @@
 package com.hellojd.shopex.service.impl;
 
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.hellojd.shopex.entity.Product;
 import com.hellojd.shopex.entity.ProductCategory;
 import com.hellojd.shopex.repository.ProductCategoryRepository;
 import com.hellojd.shopex.service.ProductCategoryService;
+import com.hellojd.shopex.util.TreeGridUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Set;
+
 @Service
-public class ProductCatalogServiceImpl extends ServiceImpl<ProductCategoryRepository,ProductCategory> implements ProductCategoryService
+public class ProductCatalogServiceImpl  implements ProductCategoryService
 {
+    @Autowired
+    ProductCategoryRepository productCategoryRepository;
     @Override
-    public List<ProductCategory> getRootProductCategoryList() {
-        return null;
+    public Set<ProductCategory> getRootProductCategoryList() {
+        Set<ProductCategory> rootList = this.productCategoryRepository.getRootProductCategoryList();
+        return TreeGridUtils.build(rootList);
     }
 
     @Override
-    public List<ProductCategory> getParentProductCategoryList(ProductCategory productCategory) {
-        return null;
-    }
-
-    @Override
-    public List<ProductCategory> getParentProductCategoryList(Product product) {
-        return null;
-    }
-
-    @Override
-    public List<ProductCategory> getProductCategoryPathList(ProductCategory productCategory) {
-        return null;
-    }
-
-    @Override
-    public List<ProductCategory> getProductCategoryPathList(Product product) {
-        return null;
-    }
-
-    @Override
-    public List<ProductCategory> getChildrenProductCategoryList(ProductCategory productCategory) {
-        return null;
-    }
-
-    @Override
-    public List<ProductCategory> getChildrenProductCategoryList(Product product) {
-        return null;
-    }
-
-    @Override
-    public List<ProductCategory> getProductCategoryTreeList() {
-        return null;
+    public ProductCategory get(Long id) {
+        return productCategoryRepository.getProductById(id);
     }
 }
