@@ -1,13 +1,15 @@
 package com.hellojd.shopex.service.impl;
 
+import com.hellojd.shopex.bean.treeview.TreeViewBean;
 import com.hellojd.shopex.entity.ProductCategory;
 import com.hellojd.shopex.repository.ProductCategoryRepository;
 import com.hellojd.shopex.service.ProductCategoryService;
 import com.hellojd.shopex.util.TreeGridUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ProductCatalogServiceImpl  implements ProductCategoryService
@@ -16,12 +18,51 @@ public class ProductCatalogServiceImpl  implements ProductCategoryService
     ProductCategoryRepository productCategoryRepository;
     @Override
     public Set<ProductCategory> getRootProductCategoryList() {
-        Set<ProductCategory> rootList = this.productCategoryRepository.getRootProductCategoryList();
-        return TreeGridUtils.build(rootList);
+        Set<ProductCategory> rootSet = this.productCategoryRepository.getRootProductCategoryList();
+        return TreeGridUtils.build(rootSet);
     }
 
     @Override
-    public ProductCategory get(Long id) {
-        return productCategoryRepository.getProductById(id);
+    public ProductCategory getProductCategoryById(Long id) {
+        return productCategoryRepository.getProductCategoryById(id);
+    }
+    @Override
+    public List<TreeViewBean> buildCategoryTree(ProductCategory selectNode){
+        Set<ProductCategory> rootSet = this.productCategoryRepository.getRootProductCategoryList();
+        final Iterator<ProductCategory> iter = rootSet.iterator();
+        List<TreeViewBean> treeNodeList = new ArrayList<>();
+        while (iter.hasNext()){
+            final ProductCategory productCategory = iter.next();
+            TreeViewBean treeRootNode = new TreeViewBean(productCategory.getId(),productCategory.getName());
+            if(selectNode!=null&& Objects.equals(selectNode.getId(),productCategory.getId())){
+                treeRootNode.setSelected(true);
+            }
+            treeNodeList.add(treeRootNode);
+            if(CollectionUtils.isEmpty(productCategory.getChildren())){
+                continue;
+            }else{
+                //recur
+                recurBuildCategoryTree(treeRootNode,productCategory.getChildren(),selectNode);
+            }
+        }
+
+        return treeNodeList;
+    }
+
+    private void recurBuildCategoryTree(TreeViewBean parent,Set<ProductCategory> children,ProductCategory selectNode){
+        final Iterator<ProductCategory> iter = children.iterator();
+        while (iter.hasNext()){
+            final ProductCategory productCategory = iter.next();
+            TreeViewBean childNode = new TreeViewBean(productCategory.getId(),productCategory.getName());
+            if(selectNode!=null&& Objects.equals(selectNode.getId(),productCategory.getId())){
+                childNode.setSelected(true);
+            }
+            parent.addChild(childNode);
+            if(CollectionUtils.isEmpty(productCategory.getChildren())){
+                continue;
+            }else{
+                recurBuildCategoryTree(childNode,productCategory.getChildren(),selectNode);
+            }
+        }
     }
 }

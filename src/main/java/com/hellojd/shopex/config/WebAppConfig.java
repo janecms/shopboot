@@ -1,11 +1,17 @@
 package com.hellojd.shopex.config;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -70,4 +76,25 @@ public class WebAppConfig extends WebMvcConfigurerAdapter implements Application
         resolver.setTemplateMode(TemplateMode.HTML);
         return resolver;
     }
+    /*
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer customJackson() {
+        return new Jackson2ObjectMapperBuilderCustomizer() {
+
+            @Override
+            public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
+                jacksonObjectMapperBuilder.serializationInclusion(JsonInclude.Include.NON_NULL);
+                jacksonObjectMapperBuilder.failOnUnknownProperties(false);
+                jacksonObjectMapperBuilder.configure();
+                jacksonObjectMapperBuilder.propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+            }
+
+        };
+    }
+    @Bean
+    public ObjectMapper ObjectMapper(){
+        ObjectMapper objectMapper=new ObjectMapper();
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        return objectMapper;
+    }*/
 }

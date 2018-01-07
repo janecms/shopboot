@@ -3,6 +3,7 @@ package com.hellojd.shopex.repository;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.hellojd.shopex.entity.ProductCategory;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Set;
@@ -19,7 +20,7 @@ public interface ProductCategoryRepository extends BaseMapper<ProductCategory>{
      *
      */
     public Set<ProductCategory> getRootProductCategoryList();
-    public ProductCategory getProductById(Long id);
+    public ProductCategory getProductCategoryById(Long id);
 
     /**
      * 根据ProductCategory对象获取所有子类集合，若无子类则返回null;

@@ -17,7 +17,7 @@
         <result column="seo_description" property="seoDescription"></result>
         <result column="tree_path" property="treePath"></result>
         <association property="parent" javaType="com.hellojd.shopex.entity.ProductCategory" column="parent_id"
-                     select="getProductById" fetchType="lazy"></association>
+                     select="getProductCategoryById" fetchType="lazy"></association>
         <collection property="children" ofType="com.hellojd.shopex.entity.ProductCategory" column="id" select="getChildrenProductCategoryList" fetchType="lazy"></collection>
     </resultMap>
     <sql id="select_product_category">
@@ -42,7 +42,7 @@
         WHERE parent_id is null
     </select>
 
-    <select id="getProductById" parameterType="long" resultMap="productCategoryResultMap">
+    <select id="getProductCategoryById" parameterType="long" resultMap="productCategoryResultMap">
         <include refid="select_product_category"/>
         WHERE  id = #{id}
     </select>

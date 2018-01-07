@@ -2,6 +2,7 @@ package com.hellojd.shopex.service;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.hellojd.shopex.bean.treeview.TreeViewBean;
 import com.hellojd.shopex.entity.Product;
 import com.hellojd.shopex.entity.ProductCategory;
 
@@ -17,6 +18,6 @@ public interface ProductCategoryService{
 	 * 
 	 */
 	public Set<ProductCategory> getRootProductCategoryList();
-	public ProductCategory get(Long id);
-
+	public ProductCategory getProductCategoryById(Long id);
+	public List<TreeViewBean> buildCategoryTree(ProductCategory selectNode);
 }
