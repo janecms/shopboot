@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/header :: head (title='产品分类')">
-</head>
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="fragments/main">
+<th:block layout:fragment="commonhead">
+    <!--treegrid -->
+    <title>产品分类管理</title>
+    <link rel="stylesheet" href="../../bower_components/treegrid/css/jquery.treegrid.css"
+          th:href="@{/static/bower_components/treegrid/css/jquery.treegrid.css}">
+</th:block>
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
-    <header th:replace="fragments/main :: main-header"></header>
-    <aside th:replace="fragments/main :: main-sidebar"></aside>
+<div layout:fragment="content">
     <div class="content-wrapper">
         <table class="table tree-2 table-bordered table-striped table-condensed">
             <tr>
@@ -26,13 +30,17 @@
             </tr>
         </table>
     </div>
-    <div th:replace="fragments/footer :: jqueryjs">JavaScript tags are loaded here</div>
-    <div th:replace="fragments/footer :: bootsrtapjs">JavaScript tags are loaded here</div>
-    <div th:replace="fragments/footer :: datatablesjs">JavaScript tags are loaded here</div>
-    <div th:replace="fragments/footer :: slimscrolljs">JavaScript tags are loaded here</div>
-    <div th:replace="fragments/footer :: fastclickjs">JavaScript tags are loaded here</div>
-    <div th:replace="fragments/footer :: adminltejs">JavaScript tags are loaded here</div>
-    <div th:replace="fragments/footer :: consolejs">JavaScript tags are loaded here</div>
+</div>
+<!--
+<div th:replace="fragments/footer :: jqueryjs">JavaScript tags are loaded here</div>
+<div th:replace="fragments/footer :: bootsrtapjs">JavaScript tags are loaded here</div>
+<div th:replace="fragments/footer :: datatablesjs">JavaScript tags are loaded here</div>
+<div th:replace="fragments/footer :: slimscrolljs">JavaScript tags are loaded here</div>
+<div th:replace="fragments/footer :: fastclickjs">JavaScript tags are loaded here</div>
+<div th:replace="fragments/footer :: adminltejs">JavaScript tags are loaded here</div>
+<div th:replace="fragments/footer :: consolejs">JavaScript tags are loaded here</div>
+-->
+<th:block layout:fragment="commonscript">
     <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
     <script type="text/javascript" th:src="@{/static/bower_components/treegrid/js/jquery.treegrid.js}"></script>
     <script type="text/javascript"
@@ -46,6 +54,6 @@
             });
         });
     </script>
-</div>
+</th:block>
 </body>
 </html>
