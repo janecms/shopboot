@@ -9,7 +9,7 @@ import javax.validation.constraints.Min;
 public class OrderAbleEntity extends BaseEntity implements Comparable<OrderAbleEntity>{
     @Min(0L)
     @TableField("orders")
-    private Integer order;
+    protected Integer order;
     @Override
     public int compareTo(OrderAbleEntity orderEntity)
     {

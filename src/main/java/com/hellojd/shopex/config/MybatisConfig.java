@@ -1,6 +1,8 @@
 package com.hellojd.shopex.config;
 
 import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
+
+import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
+@MapperScan("com.hellojd.shopex.repository")
 public class MybatisConfig {
  /*
     @Autowired

@@ -1,5 +1,6 @@
 package com.hellojd.shopex.service.impl;
 
+import com.hellojd.shopex.bean.ProductCategoryBean;
 import com.hellojd.shopex.bean.treeview.TreeViewBean;
 import com.hellojd.shopex.entity.ProductCategory;
 import com.hellojd.shopex.repository.ProductCategoryRepository;
@@ -17,22 +18,22 @@ public class ProductCatalogServiceImpl  implements ProductCategoryService
     @Autowired
     ProductCategoryRepository productCategoryRepository;
     @Override
-    public Set<ProductCategory> getRootProductCategoryList() {
-        Set<ProductCategory> rootSet = this.productCategoryRepository.getRootProductCategoryList();
+    public Set<ProductCategoryBean> getRootProductCategoryList() {
+        Set<ProductCategoryBean> rootSet = this.productCategoryRepository.getRootProductCategoryList();
         return TreeGridUtils.build(rootSet);
     }
 
     @Override
-    public ProductCategory getProductCategoryById(Long id) {
+    public ProductCategoryBean getProductCategoryById(Long id) {
         return productCategoryRepository.getProductCategoryById(id);
     }
     @Override
-    public List<TreeViewBean> buildCategoryTree(ProductCategory selectNode){
-        Set<ProductCategory> rootSet = this.productCategoryRepository.getRootProductCategoryList();
-        final Iterator<ProductCategory> iter = rootSet.iterator();
+    public List<TreeViewBean> buildCategoryTree(ProductCategoryBean selectNode){
+        Set<ProductCategoryBean> rootSet = this.productCategoryRepository.getRootProductCategoryList();
+        final Iterator<ProductCategoryBean> iter = rootSet.iterator();
         List<TreeViewBean> treeNodeList = new ArrayList<>();
         while (iter.hasNext()){
-            final ProductCategory productCategory = iter.next();
+            final ProductCategoryBean productCategory = iter.next();
             TreeViewBean treeRootNode = new TreeViewBean(productCategory.getId(),productCategory.getName());
             if(selectNode!=null&& Objects.equals(selectNode.getId(),productCategory.getId())){
                 treeRootNode.setSelected(true);
@@ -49,10 +50,10 @@ public class ProductCatalogServiceImpl  implements ProductCategoryService
         return treeNodeList;
     }
 
-    private void recurBuildCategoryTree(TreeViewBean parent,Set<ProductCategory> children,ProductCategory selectNode){
-        final Iterator<ProductCategory> iter = children.iterator();
+    private void recurBuildCategoryTree(TreeViewBean parent,Set<ProductCategoryBean> children,ProductCategoryBean selectNode){
+        final Iterator<ProductCategoryBean> iter = children.iterator();
         while (iter.hasNext()){
-            final ProductCategory productCategory = iter.next();
+            final ProductCategoryBean productCategory = iter.next();
             TreeViewBean childNode = new TreeViewBean(productCategory.getId(),productCategory.getName());
             if(selectNode!=null&& Objects.equals(selectNode.getId(),productCategory.getId())){
                 childNode.setSelected(true);

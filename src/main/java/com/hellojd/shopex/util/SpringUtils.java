@@ -35,6 +35,9 @@ public final class SpringUtils
         Assert.hasText(name);
         return APPLICATION_CONTEXT.getBean(name);
     }
+    public static <T>T getBean(Class<T> type){
+        return APPLICATION_CONTEXT.getBean(type);
+    }
     public static <T> T getBean(String name, Class<T> type)
     {
         Assert.hasText(name);

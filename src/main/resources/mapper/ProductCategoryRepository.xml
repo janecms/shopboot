@@ -4,58 +4,50 @@
 
 <mapper namespace="com.hellojd.shopex.repository.ProductCategoryRepository">
 
-  <cache />
-  <resultMap id="ProductCategoryResultMap" type="ProductCategory">
-    <result property="id" column="id" />
-    <result property="name" column="name" />
-    <result property="metaKeywords" column="meta_keywords" />
-    <result property="metaDescription" column="meta_description" />
-    <result property="order" column="orders" />
-    <result property="path" column="path" />
-    <result property="createDate" column="create_date" />
-    <result property="modifyDate" column="modify_date" />
-    <association property="parent"  column="parent_id" select="getCategoryById" fetchType="lazy"/>
-    <collection property="children" column="id" select="getCategoryListByParentId" fetchType="lazy"></collection>
-  </resultMap>
-  <select id="getRootProductCategoryList" resultMap="ProductCategoryResultMap">
-    select
+    <cache/>
+    <resultMap id="productCategoryResultMap" type="com.hellojd.shopex.bean.ProductCategoryBean">
+        <id property="id" column="id"></id>
+        <result column="create_date" property="createDate"></result>
+        <result column="modify_date" property="modifyDate"></result>
+        <result column="orders" property="order"></result>
+        <result column="name" property="name"></result>
+        <result column="seo_title" property="seoTitle"></result>
+        <result column="seo_description" property="seoDescription"></result>
+        <result column="parent_id" property="parentId"></result>
+        <result column="tree_path" property="treePath"></result>
+        <association property="parent" javaType="com.hellojd.shopex.bean.ProductCategoryBean" column="parent_id"
+                     select="getProductCategoryById" fetchType="lazy"></association>
+        <collection property="children" ofType="com.hellojd.shopex.bean.ProductCategoryBean" column="id" select="getChildrenProductCategoryList" fetchType="lazy"></collection>
+    </resultMap>
+    <sql id="select_product_category">
+        SELECT
         id,
         create_date,
         modify_date,
-        meta_description,
-        meta_keywords,
-        name,
         orders,
-        path,
+        grade,
+        NAME,
+        seo_description,
+        seo_keywords,
+        seo_title,
+        tree_path,
         parent_id
-      from product_category
-      where parent_id=0
-  </select>
+        FROM
+        product_category t
+    </sql>
 
-  <select id="getCategoryById" resultMap="ProductCategoryResultMap">
-    select
-        id,
-        create_date,
-        modify_date,
-        meta_description,
-        meta_keywords,
-        name,
-        orders,
-        path,
-        parent_id
-      from product_category where id=#{id}
-  </select>
-  <select id="getCategoryListByParentId" resultMap="ProductCategoryResultMap">
-    select
-    id,
-    create_date,
-    modify_date,
-    meta_description,
-    meta_keywords,
-    name,
-    orders,
-    path,
-    parent_id
-    from product_category where parent_id=#{parentId}
-  </select>
+    <select id="getRootProductCategoryList" resultMap="productCategoryResultMap">
+        <include refid="select_product_category"></include>
+        WHERE parent_id is null
+    </select>
+
+    <select id="getProductCategoryById" parameterType="long" resultMap="productCategoryResultMap">
+        <include refid="select_product_category"/>
+        WHERE  id = #{id}
+    </select>
+
+    <select id="getChildrenProductCategoryList" parameterType="long" resultMap="productCategoryResultMap">
+        <include refid="select_product_category"/>
+        WHERE parent_id = #{id}
+    </select>
 </mapper>

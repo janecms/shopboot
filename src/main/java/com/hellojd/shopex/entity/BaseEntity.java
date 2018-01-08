@@ -11,11 +11,11 @@ import java.util.Date;
  */
 public class BaseEntity implements Serializable {
     @TableId("id")
-    private Long id;// ID
+    protected Long id;// ID
     @TableField("create_date")
-    private Date createDate;// 创建日期
+    protected Date createDate;// 创建日期
     @TableField("modify_date")
-    private Date modifyDate;// 修改日期
+    protected Date modifyDate;// 修改日期
 
     public Long getId() {
         return id;

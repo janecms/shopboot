@@ -2,6 +2,7 @@ package com.hellojd.shopex.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.hellojd.shopex.bean.ProductCategoryBean;
 import com.hellojd.shopex.bean.treeview.TreeViewBean;
 import com.hellojd.shopex.entity.Brand;
 import com.hellojd.shopex.entity.Product;
@@ -44,14 +45,14 @@ public class CategoryController {
 
     @GetMapping("/")
     public String treeGrid(ModelMap modelMap){
-        Set<ProductCategory> grid = this.productCategoryService.getRootProductCategoryList();
+        Set<ProductCategoryBean> grid = this.productCategoryService.getRootProductCategoryList();
         modelMap.put("grid",grid);
         return "product/categorys_grid";
     }
 
     @GetMapping("/{categoryId}/edit")
     public String edit(@PathVariable("categoryId") Long categoryId,ModelMap model) throws Exception {
-        ProductCategory productCategory = this.productCategoryService.getProductCategoryById(categoryId);
+        ProductCategoryBean productCategory = this.productCategoryService.getProductCategoryById(categoryId);
         assert productCategory !=null;
         List<Brand> allBrands = this.brandService.selectList(null);
         model.addAttribute("brands", allBrands);
@@ -63,14 +64,15 @@ public class CategoryController {
         return "product/category_edit";
     }
     @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-    public String update(ProductCategory productCategory, Long parentId, List<Long> brandIds, RedirectAttributes redirectAttributes){
+    public String update(ProductCategoryBean productCategory, Long parentId, List<Long> brandIds, RedirectAttributes
+        redirectAttributes){
         productCategory.setBrands(new HashSet(this.brandService.selectBatchIds(brandIds)));
         return null;
     }
     @ResponseBody
     @RequestMapping("/treeview/{selectId}")
     public List<TreeViewBean> buildCategoryTree(@PathVariable("selectId") Long selectId){
-        ProductCategory productCategory = this.productCategoryService.getProductCategoryById(selectId);
+        ProductCategoryBean productCategory = this.productCategoryService.getProductCategoryById(selectId);
         final List<TreeViewBean> treeView = this.productCategoryService.buildCategoryTree(productCategory);
         return treeView;
     }

@@ -1,5 +1,6 @@
 package com.hellojd.shopex.repository;
 
+import com.hellojd.shopex.bean.ProductCategoryBean;
 import com.hellojd.shopex.entity.ProductCategory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,8 +19,11 @@ public class ProductCategoryRepositoryTest {
     ProductCategoryRepository productCategoryRepository;
     @Test
     public void getRootProductCategoryList() throws Exception {
-        Set<ProductCategory> rootList = productCategoryRepository.getRootProductCategoryList();
-        assertNotNull(rootList);
+        Set<ProductCategoryBean> rootSet = productCategoryRepository.getRootProductCategoryList();
+        assertNotNull(rootSet);
+
+        ProductCategory category = productCategoryRepository.selectById(29);
+        assertNotNull(category);
     }
 
 }

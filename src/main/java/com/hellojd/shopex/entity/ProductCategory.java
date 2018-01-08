@@ -8,20 +8,16 @@ import java.io.Serializable;
 import java.util.Set;
 @Data
 @TableName("product_category")
-public class ProductCategory extends  OrderAbleEntity implements Serializable,CategoryBean {
+public class ProductCategory extends  OrderAbleEntity implements Serializable {
     private static final long serialVersionUID = 3992469837058393712L;
-    String name;
-    String seoTitle;
-    String seoKeywords;
-    String seoDescription;
-    String treePath;// 树路径
-    Integer grade;
-    ProductCategory parent;// 上级分类
-    Set<ProductCategory> children;
-    Set<Product> products;
-    Set<Brand> brands;
-    Set<ParameterGroup> parameterGroups;
-    Set<Attribute> attributes;
+   protected String name;
+   protected String seoTitle;
+   protected String seoKeywords;
+   protected String seoDescription;
+   protected String treePath;// 树路径
+   protected Integer grade;
+   protected Long parentId;
+
 
     @Override
     public boolean equals(Object o) {
