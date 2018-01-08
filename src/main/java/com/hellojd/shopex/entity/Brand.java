@@ -49,4 +49,29 @@ public class Brand extends BaseEntity{
     public void setOrders(Integer orders) {
         this.orders = orders;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Brand)) return false;
+
+        Brand brand = (Brand) o;
+        if (this.getId() != null ? !this.getId().equals(brand.getId()) : brand.getId() != null) return false;
+        if (name != null ? !name.equals(brand.name) : brand.name != null) return false;
+        if (logo != null ? !logo.equals(brand.logo) : brand.logo != null) return false;
+        if (url != null ? !url.equals(brand.url) : brand.url != null) return false;
+        if (introduction != null ? !introduction.equals(brand.introduction) : brand.introduction != null) return false;
+        return orders != null ? orders.equals(brand.orders) : brand.orders == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (this.getId() != null ? getId().hashCode() : 0);
+        result = 31 * result + (logo != null ? logo.hashCode() : 0);
+        result = 31 * result + (url != null ? url.hashCode() : 0);
+        result = 31 * result + (introduction != null ? introduction.hashCode() : 0);
+        result = 31 * result + (orders != null ? orders.hashCode() : 0);
+        return result;
+    }
 }

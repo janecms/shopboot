@@ -1,20 +1,36 @@
 server:
-#  port: 8081
+  port: 8090
 spring:
+ profiles:
   application:
     name: shopex
     thymeleaf:
       cache: false
       mode: html
-  profiles:
-    active: dev
+  active: dev
+ jackson:
+   serialization:
+      FAIL_ON_EMPTY_BEANS: false
 mybatis-plus:
-  mapper-locations: classpath:/mapper/*Mapper.xml
-  typeAliasesPackage:  com.hellojd.shopex.domain
-  typeEnumsPackage:  com.hellojd.shopex.enums
+  mapper-locations: classpath:/mapper/*.xml
+  typeAliasesPackage: com.hellojd.shopex.entity
+  #typeEnumsPackage: com.hellojd.shopex.enums
   global-config:
-    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)",
-    id-type: 1
-    dbType: mysql
-     #驼峰下划线转换
+   #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 0
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 2
+    auto-set-db-type: true
+    #驼峰下划线转换
     db-column-underline: true
+     #刷新mapper 调试神器
+    refresh-mapper: true
+    #自定义填充策略接口实现
+    #meta-object-handler: com.baomidou.springboot.xxx
+    #自定义SQL注入器
+    #sql-injector: com.baomidou.springboot.xxx
+  configuration:
+      map-underscore-to-camel-case: true
+      cache-enabled: false
+logging:
+  level: debug

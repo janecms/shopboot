@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="input(name)">
+    <div th:id="${name}+'DropDown'" class="dropdown clearfix">
+        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+           aria-expanded="false">
+            <input type="hidden" id="parentId">
+            <input class="form-control" style="width:50%;display:inline-block"
+                   th:id="${name}+'Text'">
+            <span class="caret" style="margin-left: -20px;cursor:pointer"></span>
+        </a>
+        <div th:id="${name}+'treeview'"
+             class="pre-scrollable dropdown-toggle dropdown-menu treeview"
+             style="width:50%"></div>
+    </div>
+
+</div>
+<div th:fragment="treeview_script(name,data)">
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            var defaultData = [[${data}]];
+            var canClose = true;
+            var name =[[${name}]];
+            $('.dropdown-toggle').dropdown('toggle');
+            $('#'+name +'DropDown').on("hide.bs.dropdown", function () {
+                return canClose;
+            }).on("hidden.bs.dropdown", function () {
+                canClose = true;
+            });
+
+            $('#'+name+'treeview').treeview({
+                color: "#428bca",
+                multiSelect: false,
+                data: defaultData,
+                onNodeExpanded: function (event, node) {
+                    canClose = false;
+                },
+                onNodeCollapsed: function (event, node) {
+                    canClose = false;
+                },
+                onNodeSelected: function (event, node) {
+                    $('#'+name+'Text').val(node.text);
+                    $('#'+name).val(node.href);
+                    canClose = true;
+                }
+            });
+        });
+    </script>
+</div>
+</body>
+</html>   
+    

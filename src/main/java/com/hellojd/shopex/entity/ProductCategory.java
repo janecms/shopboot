@@ -1,23 +1,63 @@
 package com.hellojd.shopex.entity;
 
 import com.baomidou.mybatisplus.annotations.TableName;
-
-import java.io.Serializable;
-import java.util.List;
-
+import com.hellojd.shopex.bean.CategoryBean;
 import lombok.Data;
 
-@TableName("product_category")
+import java.io.Serializable;
+import java.util.Set;
 @Data
-public class ProductCategory extends  BaseEntity implements Serializable {
+@TableName("product_category")
+public class ProductCategory extends  OrderAbleEntity implements Serializable,CategoryBean {
     private static final long serialVersionUID = 3992469837058393712L;
-    private String name;// 分类名称
-    private String seoKeywords;// 页面关键词
-    private String seoTitle;// 页面关键词
-    private String seoDescription;// 页面描述
-    private Integer order;// 排序
-    private String treePath;// 树路径
-    private ProductCategory parent;// 上级分类
-    private List<ProductCategory> children;
+    String name;
+    String seoTitle;
+    String seoKeywords;
+    String seoDescription;
+    String treePath;// 树路径
     Integer grade;
+    ProductCategory parent;// 上级分类
+    Set<ProductCategory> children;
+    Set<Product> products;
+    Set<Brand> brands;
+    Set<ParameterGroup> parameterGroups;
+    Set<Attribute> attributes;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ProductCategory that = (ProductCategory) o;
+        if (this.getId() != null ? !this.getId().equals(that.getId()) : that.getId() != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (seoTitle != null ? !seoTitle.equals(that.seoTitle) : that.seoTitle != null) return false;
+        if (seoKeywords != null ? !seoKeywords.equals(that.seoKeywords) : that.seoKeywords != null) return false;
+        if (seoDescription != null ? !seoDescription.equals(that.seoDescription) : that.seoDescription != null)
+            return false;
+        if (treePath != null ? !treePath.equals(that.treePath) : that.treePath != null) return false;
+        return grade != null ? grade.equals(that.grade) : that.grade == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (this.getId() != null ? this.getId().hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (seoTitle != null ? seoTitle.hashCode() : 0);
+        result = 31 * result + (seoKeywords != null ? seoKeywords.hashCode() : 0);
+        result = 31 * result + (seoDescription != null ? seoDescription.hashCode() : 0);
+        result = 31 * result + (treePath != null ? treePath.hashCode() : 0);
+        result = 31 * result + (grade != null ? grade.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductCategory{" +
+                "id=" + this.getId()+
+                ",name='" + name + '\'' +
+                ", treePath='" + treePath + '\'' +
+                '}';
+    }
 }
