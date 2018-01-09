@@ -7,6 +7,7 @@ drop table if exists d_attribute_option;
 drop table if exists d_attribute;
 
 drop table if exists product_member_price;
+drop table if exists product_category_brand;
 drop table if exists product_parameter_value;
 drop table if exists product_product_image;
 drop table if exists product_specification_value;
@@ -200,6 +201,16 @@ CREATE TABLE `product_category` (
   KEY `FK1B7971ADFBDD5B73` (`parent_id`),
   CONSTRAINT `FK1B7971ADFBDD5B73` FOREIGN KEY (`parent_id`) REFERENCES `product_category` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `product_category_brand` (
+  `product_category_id` bigint(20) NOT NULL,
+  `brand_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`product_categories`,`brands`),
+  KEY `FKE42D6A75A2AB700F` (`brand_id`),
+  KEY `FKE42D6A758C4C0635` (`product_category_id`),
+  CONSTRAINT `FKE42D6A758C4C0635` FOREIGN KEY (`product_category_id`) REFERENCES `product_category` (`id`),
+  CONSTRAINT `FKE42D6A75A2AB700F` FOREIGN KEY (`brand_id`) REFERENCES `d_brand` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品分类中筛选品牌';
 /*==============================================================*/
 /* Table: product_member_price                                  */
 /*==============================================================*/

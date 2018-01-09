@@ -27,7 +27,7 @@ import java.util.Set;
 
 @Controller
 @RequestMapping("/category")
-public class CategoryController {
+public class CategoryController extends BaseController{
     @Autowired
     ProductService productService;
     @Autowired
@@ -66,8 +66,25 @@ public class CategoryController {
     @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
     public String update(ProductCategoryBean productCategory, Long parentId, List<Long> brandIds, RedirectAttributes
         redirectAttributes){
+        productCategory.setParent(this.productCategoryService.getProductCategoryById(parentId));
         productCategory.setBrands(new HashSet(this.brandService.selectBatchIds(brandIds)));
-        return null;
+        if (!validate(productCategory, new Class[0])) {
+            return "/admin/common/error";
+        }
+        if (productCategory.getParent() != null)
+        {
+            ProductCategoryBean localProductCategory = productCategory.getParent();
+            if (localProductCategory.equals(productCategory)) {
+                return "/admin/common/error";
+            }
+            Set localList =localProductCategory.getChildren();
+            if ((localList != null) && (localList.contains(localProductCategory))) {
+                return "/admin/common/error";
+            }
+        }
+        this.productCategoryService.update(productCategory,brandIds);
+        addAttribute(redirectAttributes, SUCCESS);
+        return "redirect:/category/";
     }
     @ResponseBody
     @RequestMapping("/treeview/{selectId}")

@@ -21,4 +21,5 @@ public interface ProductCategoryService{
 	public Set<ProductCategoryBean> getRootProductCategoryList();
 	public ProductCategoryBean getProductCategoryById(Long id);
 	public List<TreeViewBean> buildCategoryTree(ProductCategoryBean selectNode);
+	public int update(ProductCategoryBean categoryBean,List<Long> brandIds);
 }

@@ -3,6 +3,7 @@ package com.hellojd.shopex.repository;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.hellojd.shopex.bean.ProductCategoryBean;
 import com.hellojd.shopex.entity.ProductCategory;
+import com.hellojd.shopex.entity.ProductCategoryBrand;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.ResultMap;
 import org.springframework.stereotype.Repository;
@@ -31,5 +32,6 @@ public interface ProductCategoryRepository extends BaseMapper<ProductCategory>{
      *
      */
     public List<ProductCategoryBean> getChildrenProductCategoryList(ProductCategory productCategory);
-
+    public void saveProductCategoryBrand(ProductCategoryBrand pcb);
+    public void deleteProductCategoryBrand(ProductCategoryBrand pcb);
 }
