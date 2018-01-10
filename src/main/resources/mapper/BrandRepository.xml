@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hellojd.shopex.repository.BrandRepository">
+    <cache/>
+    <resultMap id="brandResultMap" type="com.hellojd.shopex.entity.Brand">
+        <id property="id" column="id"></id>
+        <result column="create_date" property="createDate" />
+        <result column="modify_date" property="modifyDate"></result>
+        <result column="name" property="name" />
+        <result column="logo" property="logo" />
+        <result column="url" property="url" />
+        <result column="introduction" property="introduction" />
+        <result column="orders" property="order" />
+    </resultMap>
+
+</mapper>

@@ -3,12 +3,11 @@ package com.hellojd.shopex.entity;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 @TableName("d_brand")
-public class Brand extends BaseEntity{
+public class Brand extends OrderAbleEntity{
     private String name;// 名称
     private String logo;// Logo
     private String url;// 网址
     private String introduction;// 介绍
-    private Integer orders;// 排序
 
     public String getName() {
         return name;
@@ -42,14 +41,6 @@ public class Brand extends BaseEntity{
         this.introduction = introduction;
     }
 
-    public Integer getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Integer orders) {
-        this.orders = orders;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -61,7 +52,7 @@ public class Brand extends BaseEntity{
         if (logo != null ? !logo.equals(brand.logo) : brand.logo != null) return false;
         if (url != null ? !url.equals(brand.url) : brand.url != null) return false;
         if (introduction != null ? !introduction.equals(brand.introduction) : brand.introduction != null) return false;
-        return orders != null ? orders.equals(brand.orders) : brand.orders == null;
+        return true;
     }
 
     @Override
@@ -71,7 +62,6 @@ public class Brand extends BaseEntity{
         result = 31 * result + (logo != null ? logo.hashCode() : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (introduction != null ? introduction.hashCode() : 0);
-        result = 31 * result + (orders != null ? orders.hashCode() : 0);
         return result;
     }
 }

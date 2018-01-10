@@ -58,7 +58,7 @@ create table d_attribute_option
   options               varchar(255)
 );
 
-alter table d_attribute_option comment 'ÊôĞÔÏî';
+alter table d_attribute_option comment 'å±æ€§é¡¹';
 
 CREATE TABLE `d_brand` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -72,7 +72,7 @@ CREATE TABLE `d_brand` (
   `url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
-alter table d_brand comment 'Æ·ÅÆ';
+alter table d_brand comment 'å“ç‰Œ';
 
 /*==============================================================*/
 /* Table: d_member_rank                                         */
@@ -106,7 +106,7 @@ create table d_parameter
   primary key (id)
 );
 
-alter table d_parameter comment '²ÎÊı';
+alter table d_parameter comment 'å‚æ•°';
 
 /*==============================================================*/
 /* Table: d_parameter_group                                     */
@@ -122,7 +122,7 @@ create table d_parameter_group
   primary key (id)
 );
 
-alter table d_parameter_group comment '²ÎÊı×é';
+alter table d_parameter_group comment 'å‚æ•°ç»„';
 
 /*==============================================================*/
 /* Table: d_tag                                                 */
@@ -140,7 +140,7 @@ create table d_tag
   primary key (id)
 );
 
-alter table d_tag comment '±êÇ©';
+alter table d_tag comment 'æ ‡ç­¾';
 
 /*==============================================================*/
 /* Table: product                                               */
@@ -148,28 +148,28 @@ alter table d_tag comment '±êÇ©';
 create table product
 (
   product_id            bigint(20) not null AUTO_INCREMENT,
-  create_Date          datetime comment '´´½¨ÈÕÆÚ',
-  modify_Date          datetime comment 'ĞŞ¸ÄÈÕÆÚ',
-  description           text comment 'ÃèÊö',
-  freeze_Store         int(11) not null comment '±»Õ¼ÓÃ¿â´æÊı',
-  html_File_Path        varchar(255) not null comment 'HTML¾²Ì¬ÎÄ¼şÂ·¾¶',
-  isBest               bit(1) not null comment 'ÊÇ·ñ¾«Æ·ÍÆ¼ö',
-  isHot                bit(1) not null comment 'ÊÇ·ñÈÈÏúÍÆ¼ö',
-  is_Marketable        bit(1) not null comment 'ÊÇ·ñÉÏ¼Ü',
-  is_New               bit(1) not null comment 'ÊÇ·ñĞÂÆ·ÍÆ¼ö',
-  market_Price         decimal(15,5) not null comment 'ÊĞ³¡ÊÛ¼Û',
-  meta_Description      text comment 'Ò³ÃæÃèÊö',
-  meta_Keywords         text comment 'Ò³Ãæ¹Ø¼ü´Ê',
-  name                  varchar(255) not null comment 'ÉÌÆ·Ãû³Æ',
-  point                int(11) not null comment '»ı·Ö',
-  price                decimal(15,5) not null comment '±¾µêÊÛ¼Û',
-  Image_List_Store      text comment 'ÉÌÆ·Í¼Æ¬Â·¾¶´æ´¢',
-  product_sn            varchar(255) not null comment '»õºÅ',
-  store                int(11) comment 'ÉÌÆ·¿â´æÊıÁ¿',
-  weight               double not null comment 'ÉÌÆ·ÖØÁ¿',
-  weight_Unit          int(11) not null comment 'ÖØÁ¿µ¥Î»',
-  brand_id              BIGINT(20) comment 'ÉÌÆ·Æ·ÅÆ',
-  category_id           BIGINT(20) not null comment '²úÆ··ÖÀà',
+  create_Date          datetime comment 'åˆ›å»ºæ—¥æœŸ',
+  modify_Date          datetime comment 'ä¿®æ”¹æ—¥æœŸ',
+  description           text comment 'æè¿°',
+  freeze_Store         int(11) not null comment 'è¢«å ç”¨åº“å­˜æ•°',
+  html_File_Path        varchar(255) not null comment 'HTMLé™æ€æ–‡ä»¶è·¯å¾„',
+  isBest               bit(1) not null comment 'æ˜¯å¦ç²¾å“æ¨è',
+  isHot                bit(1) not null comment 'æ˜¯å¦çƒ­é”€æ¨è',
+  is_Marketable        bit(1) not null comment 'æ˜¯å¦ä¸Šæ¶',
+  is_New               bit(1) not null comment 'æ˜¯å¦æ–°å“æ¨è',
+  market_Price         decimal(15,5) not null comment 'å¸‚åœºå”®ä»·',
+  meta_Description      text comment 'é¡µé¢æè¿°',
+  meta_Keywords         text comment 'é¡µé¢å…³é”®è¯',
+  name                  varchar(255) not null comment 'å•†å“åç§°',
+  point                int(11) not null comment 'ç§¯åˆ†',
+  price                decimal(15,5) not null comment 'æœ¬åº—å”®ä»·',
+  Image_List_Store      text comment 'å•†å“å›¾ç‰‡è·¯å¾„å­˜å‚¨',
+  product_sn            varchar(255) not null comment 'è´§å·',
+  store                int(11) comment 'å•†å“åº“å­˜æ•°é‡',
+  weight               double not null comment 'å•†å“é‡é‡',
+  weight_Unit          int(11) not null comment 'é‡é‡å•ä½',
+  brand_id              BIGINT(20) comment 'å•†å“å“ç‰Œ',
+  category_id           BIGINT(20) not null comment 'äº§å“åˆ†ç±»',
   key AK_pk_product_id (product_id)
 );
 
@@ -183,7 +183,7 @@ create table product_attribute
   options             varchar(255)
 );
 
-alter table product_attribute comment '²úÆ·ÊôĞÔ';
+alter table product_attribute comment 'äº§å“å±æ€§';
 
 CREATE TABLE `product_category` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -205,12 +205,13 @@ CREATE TABLE `product_category` (
 CREATE TABLE `product_category_brand` (
   `product_category_id` bigint(20) NOT NULL,
   `brand_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`product_categories`,`brands`),
+  PRIMARY KEY (`product_category_id`,`brand_id`),
   KEY `FKE42D6A75A2AB700F` (`brand_id`),
   KEY `FKE42D6A758C4C0635` (`product_category_id`),
   CONSTRAINT `FKE42D6A758C4C0635` FOREIGN KEY (`product_category_id`) REFERENCES `product_category` (`id`),
   CONSTRAINT `FKE42D6A75A2AB700F` FOREIGN KEY (`brand_id`) REFERENCES `d_brand` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='²úÆ··ÖÀàÖĞÉ¸Ñ¡Æ·ÅÆ';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='äº§å“åˆ†ç±»ä¸­ç­›é€‰å“ç‰Œ';
+
 /*==============================================================*/
 /* Table: product_member_price                                  */
 /*==============================================================*/
@@ -222,7 +223,7 @@ create table product_member_price
   primary key (product_id, member_rank_id)
 );
 
-alter table product_member_price comment '»áÔ±¼Û¸ñ';
+alter table product_member_price comment 'ä¼šå‘˜ä»·æ ¼';
 
 /*==============================================================*/
 /* Table: product_parameter_value                               */
@@ -235,7 +236,7 @@ create table product_parameter_value
   primary key (product_id, parameter_value_key)
 );
 
-alter table product_parameter_value comment '²úÆ·²ÎÊı';
+alter table product_parameter_value comment 'äº§å“å‚æ•°';
 
 /*==============================================================*/
 /* Table: product_product_image                                 */
@@ -251,7 +252,7 @@ create table product_product_image
   title                 varchar(255)
 );
 
-alter table product_product_image comment '²úÆ·Í¼Æ¬';
+alter table product_product_image comment 'äº§å“å›¾ç‰‡';
 
 /*==============================================================*/
 /* Table: product_specification_value                           */
@@ -274,7 +275,7 @@ create table product_tag
   primary key (product_id, tag_id)
 );
 
-alter table product_tag comment '±êÇ©';
+alter table product_tag comment 'æ ‡ç­¾';
 
 /*==============================================================*/
 /* Table: specification                                         */
