@@ -2,13 +2,13 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <body>
-<div th:fragment="input(name)">
+<div th:fragment="input(name,defaultNodeId,defaultNodeText)">
     <div th:id="${name}+'DropDown'" class="dropdown clearfix">
         <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
            aria-expanded="false">
-            <input type="hidden" id="parentId">
+            <input type="hidden" th:name="${name}" th:id="${name}" th:value="${defaultNodeId!=null}? ${defaultNodeId}:''">
             <input class="form-control" style="width:50%;display:inline-block"
-                   th:id="${name}+'Text'">
+                   th:id="${name}+'Text'" th:value="${defaultNodeText!=null}? ${defaultNodeText}:''">
             <span class="caret" style="margin-left: -20px;cursor:pointer"></span>
         </a>
         <div th:id="${name}+'treeview'"

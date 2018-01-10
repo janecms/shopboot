@@ -1,34 +1,19 @@
 package com.hellojd.shopex.service.impl;
 
-import java.beans.PropertyDescriptor;
-import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
 import com.hellojd.shopex.bean.ProductCategoryBean;
 import com.hellojd.shopex.bean.treeview.TreeViewBean;
 import com.hellojd.shopex.entity.Brand;
-import com.hellojd.shopex.entity.ProductCategory;
 import com.hellojd.shopex.entity.ProductCategoryBrand;
 import com.hellojd.shopex.repository.ProductCategoryRepository;
 import com.hellojd.shopex.service.ProductCategoryService;
 import com.hellojd.shopex.util.TreeGridUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.apache.commons.lang.ArrayUtils;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.FatalBeanException;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
-
+import  com.hellojd.shopex.util.BeanUtils;
 import java.util.*;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Administrator
@@ -75,15 +60,16 @@ public class ProductCatalogServiceImpl implements ProductCategoryService {
     @Transactional
     @Override
     public int update(ProductCategoryBean categoryBean,List<Long> brandIds) {
-        final ProductCategory categoryPO = this.productCategoryRepository.selectById(categoryBean.getId());
-        BeanUtils.copyProperties(categoryBean, categoryPO, new String[]{"treePath", "grade", "children", "products", "parameterGroups", "attributes", "promotions"});
+        final ProductCategoryBean categoryPO = this.productCategoryRepository.getProductCategoryById(categoryBean.getId());
+
         Set<ProductCategoryBrand> reqBrands=new HashSet<>();
-        if(CollectionUtils.isEmpty(brandIds)){
+        if(CollectionUtils.isNotEmpty(brandIds)){
             brandIds.forEach(brandId->{
                 reqBrands.add(new ProductCategoryBrand(categoryBean.getId(),brandId));
             });
         }
-        this.sysnProductCategoryBrands(categoryBean.getId(),reqBrands,categoryBean.getBrands());
+        this.sysnProductCategoryBrands(categoryBean.getId(),reqBrands,categoryPO.getBrands());
+        BeanUtils.copyProperties(categoryBean, categoryPO, new String[]{"treePath", "grade", "children", "products", "parameterGroups", "attributes", "promotions"});
         return this.productCategoryRepository.updateById(categoryPO);
     }
 
@@ -91,7 +77,7 @@ public class ProductCatalogServiceImpl implements ProductCategoryService {
         Collection<ProductCategoryBrand> saves =null;
         Collection<ProductCategoryBrand> deletes =null;
         Set<ProductCategoryBrand> poSet =new HashSet<>();
-        if(CollectionUtils.isEmpty(brands)){
+        if(CollectionUtils.isNotEmpty(brands)){
             brands.forEach(item ->{
                 poSet.add(new ProductCategoryBrand(categoryId,item.getId()));
                 });

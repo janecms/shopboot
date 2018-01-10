@@ -50,4 +50,17 @@ public class ProductCategoryBean extends ProductCategory implements  CategoryBea
     result = 31 * result + (grade != null ? grade.hashCode() : 0);
     return result;
   }
+
+  @Override
+  public String toString() {
+    return "ProductCategoryBean{" +
+            "name='" + name + '\'' +
+            ", seoTitle='" + seoTitle + '\'' +
+            ", treePath='" + treePath + '\'' +
+            ", grade=" + grade +
+            ", parentId=" + parentId +
+            ", order=" + order +
+            ", id=" + id +
+            '}';
+  }
 }

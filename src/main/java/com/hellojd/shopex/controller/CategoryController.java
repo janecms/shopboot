@@ -11,6 +11,7 @@ import com.hellojd.shopex.bean.dt.DataTables;
 import com.hellojd.shopex.service.BrandService;
 import com.hellojd.shopex.service.ProductCategoryService;
 import com.hellojd.shopex.service.ProductService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,10 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/category")
@@ -64,10 +62,10 @@ public class CategoryController extends BaseController{
         return "product/category_edit";
     }
     @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-    public String update(ProductCategoryBean productCategory, Long parentId, List<Long> brandIds, RedirectAttributes
+    public String update(ProductCategoryBean productCategory, Long parentId, Long[] brandIds, RedirectAttributes
         redirectAttributes){
         productCategory.setParent(this.productCategoryService.getProductCategoryById(parentId));
-        productCategory.setBrands(new HashSet(this.brandService.selectBatchIds(brandIds)));
+        final List<Long> brandIdList = Arrays.asList(brandIds);
         if (!validate(productCategory, new Class[0])) {
             return "/admin/common/error";
         }
@@ -82,7 +80,7 @@ public class CategoryController extends BaseController{
                 return "/admin/common/error";
             }
         }
-        this.productCategoryService.update(productCategory,brandIds);
+        this.productCategoryService.update(productCategory,brandIdList);
         addAttribute(redirectAttributes, SUCCESS);
         return "redirect:/category/";
     }

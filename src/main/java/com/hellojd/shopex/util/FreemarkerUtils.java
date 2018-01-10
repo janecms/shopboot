@@ -22,7 +22,6 @@ import org.apache.commons.beanutils.Converter;
 public final class FreemarkerUtils
 {
     private static final ConvertUtilsBean CONVERT_UTILS_BEAN = new FreemarkerUtils.ShopexConvertUtilsBean();
-
     static
     {
         DateConverter localDateConverter = new DateConverter();
@@ -37,18 +36,21 @@ public final class FreemarkerUtils
         if (localApplicationContext != null)
         {
             FreeMarkerConfigurer localFreeMarkerConfigurer = (FreeMarkerConfigurer)SpringUtils.getBean("freeMarkerConfigurer", FreeMarkerConfigurer.class);
-            if (localFreeMarkerConfigurer != null)
+            if (localFreeMarkerConfigurer != null) {
                 localConfiguration = localFreeMarkerConfigurer.getConfiguration();
+            }
         }
         return process(template, model, localConfiguration);
     }
 
     public static String process(String template, Map<String, ?> model, Configuration configuration)
     {
-        if (template == null)
+        if (template == null) {
             return null;
-        if (configuration == null)
+        }
+        if (configuration == null) {
             configuration = new Configuration();
+        }
         StringWriter localStringWriter = new StringWriter();
         try
         {
@@ -71,8 +73,9 @@ public final class FreemarkerUtils
         Assert.notNull(type);
         Assert.notNull(params);
         TemplateModel localTemplateModel = (TemplateModel)params.get(name);
-        if (localTemplateModel == null)
+        if (localTemplateModel == null) {
             return null;
+        }
         Object localObject = null;
         try {
             localObject = DeepUnwrap.unwrap(localTemplateModel);
@@ -160,33 +163,33 @@ public final class FreemarkerUtils
         @Override
         public Object convert(String value, Class clazz)
         {
-            if ((clazz.isEnum()) && (super.lookup(clazz) == null))
+            if ((clazz.isEnum()) && (super.lookup(clazz) == null)) {
                 super.register(new EnumConverter(clazz), clazz);
+            }
             return super.convert(value, clazz);
         }
 
         @Override
         public Object convert(String[] values, Class clazz)
         {
-            if ((clazz.isArray()) && (clazz.getComponentType().isEnum()) && (super.lookup(clazz.getComponentType()) == null))
+            if ((clazz.isArray()) && (clazz.getComponentType().isEnum()) && (super.lookup(clazz.getComponentType()) == null)) {
                 super.register(new EnumConverter(clazz.getComponentType()), clazz.getComponentType());
+            }
             return super.convert(values, clazz);
         }
 
         @Override
         public Object convert(Object value, Class targetType)
         {
-            if (super.lookup(targetType) == null)
-                if (targetType.isEnum())
-                {
+            if (super.lookup(targetType) == null) {
+                if (targetType.isEnum()) {
                     super.register(new EnumConverter(targetType), targetType);
-                }
-                else if ((targetType.isArray()) && (targetType.getComponentType().isEnum()))
-                {
+                } else if ((targetType.isArray()) && (targetType.getComponentType().isEnum())) {
                     ArrayConverter localArrayConverter = new ArrayConverter(targetType, new EnumConverter(targetType.getComponentType()), 0);
                     localArrayConverter.setOnlyFirstToString(false);
                     super.register(localArrayConverter, targetType);
                 }
+            }
             return super.convert(value, targetType);
         }
     }

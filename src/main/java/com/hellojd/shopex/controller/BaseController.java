@@ -20,13 +20,21 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
-public class BaseController {
-    protected static final String ADMIN_COMMON_ERROR = "/admin/common/error";
-    protected static final Message ERROR = Message.error("admin.message.error", new Object[0]);
-    protected static final Message SUCCESS = Message.success("admin.message.success", new Object[0]);
+/**
+ * @author Administrator
+ */
+public abstract  class BaseController {
+    protected  final String ADMIN_COMMON_ERROR = "/admin/common/error";
+    protected   Message ERROR =null;
+    protected   Message SUCCESS = null;
     private static final String CONSTRAINT_VIOLATIONS = "constraintViolations";
 
-    @Resource(name="validator")
+    public BaseController() {
+//        ERROR = Message.error("admin.message.error", new Object[0]);
+//        SUCCESS = Message.success("admin.message.success", new Object[0]);
+    }
+
+    @Resource
     private Validator validator;
 
     @InitBinder

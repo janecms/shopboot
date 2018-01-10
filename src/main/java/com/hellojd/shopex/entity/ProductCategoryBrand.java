@@ -18,4 +18,23 @@ import java.io.Serializable;
 public class ProductCategoryBrand implements Serializable{
     Long productCategoryId;
     Long brandId;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductCategoryBrand that = (ProductCategoryBrand) o;
+
+        if (productCategoryId != null ? !productCategoryId.equals(that.productCategoryId) : that.productCategoryId != null)
+            return false;
+        return brandId != null ? brandId.equals(that.brandId) : that.brandId == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 0;
+        result = 31 * result + (productCategoryId != null ? productCategoryId.hashCode() : 0);
+        result = 31 * result + (brandId != null ? brandId.hashCode() : 0);
+        return result;
+    }
 }

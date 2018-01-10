@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class BeanUtils {
-    private static void copyProperties(Object source, Object target, String[] ignoreProperties) {
+    public static void copyProperties(Object source, Object target, String[] ignoreProperties) {
         Assert.notNull(source, "Source must not be null");
         Assert.notNull(target, "Target must not be null");
         PropertyDescriptor[] targetPropertyDescriptors = org.springframework.beans.BeanUtils.getPropertyDescriptors(target.getClass());
