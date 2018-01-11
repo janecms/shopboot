@@ -1,11 +1,16 @@
 server:
   port: 8090
+  jetty:
+    selectors:
 spring:
   application:
     name: shopex
     thymeleaf:
       cache: false
       mode: html
+  devtools:
+    restart:
+      additional-paths: src/main/resources/templates
   h2:
     console:
       settings.web-allow-others: true #远程访问
