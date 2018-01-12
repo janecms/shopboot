@@ -3,19 +3,19 @@
       xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="alerts">
-    <div id="alert" th:if="${flashMessage}!=null and ${flashMessage.warn}" class="alert alert-warning alert-dismissible" >
+    <div id="alert" th:if="${flashMessage}!=null and ${#strings.toString(flashMessage.type)}=='warn' " class="alert alert-warning alert-dismissible" >
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4><i class="icon fa fa-warning"></i> Alert!</h4>
         <span th:text="${flashMessage.content}"></span>
     </div>
 
-    <div id="alert" th:if="${flashMessage}!=null and ${flashMessage.success}" class="alert alert-success alert-dismissible">
+    <div id="alert" th:if="${flashMessage}!=null and ${#strings.toString(flashMessage.type)}=='success'" class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4><i class="icon fa fa-check"></i> Success!</h4>
         <span th:text="${flashMessage.content}"></span>
     </div>
-    <script type="text/javascript" th:inline="javascript">
-        setTimeout("$('#alert').alert('close')", [[${flashMessage.success}? 1000 :2000]]);
+    <script type="text/javascript" th:inline="javascript" th:if="${flashMessage}!=null">
+        setTimeout("$('#alert').alert('close')", [[${#strings.toString(flashMessage.type)}=='success'? 1000 :2000]]);
     </script>
 </div>
 </body>

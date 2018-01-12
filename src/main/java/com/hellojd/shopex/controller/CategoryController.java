@@ -12,6 +12,7 @@ import com.hellojd.shopex.bean.dt.DataTables;
 import com.hellojd.shopex.service.BrandService;
 import com.hellojd.shopex.service.ProductCategoryService;
 import com.hellojd.shopex.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/category")
+@Slf4j
 public class CategoryController extends BaseController{
     @Autowired
     ProductService productService;
@@ -66,7 +68,11 @@ public class CategoryController extends BaseController{
     public String update(ProductCategoryBean productCategory, Long parentId, Long[] brandIds, RedirectAttributes
         redirectAttributes){
         productCategory.setParent(this.productCategoryService.getProductCategoryById(parentId));
-        final List<Long> brandIdList = Arrays.asList(brandIds);
+         List<Long> brandIdList =null;
+        if (brandIds==null){
+           log.info("brandIds is null");
+            brandIdList=Arrays.asList(brandIds);
+        }
         if (!validate(productCategory, new Class[0])) {
             return "/admin/common/error";
         }

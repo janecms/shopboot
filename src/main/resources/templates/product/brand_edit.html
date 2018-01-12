@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="fragments/main">
+<th:block layout:fragment="commonhead">
+    <title>品牌</title>
+    <link rel="stylesheet" href="../../static/bower_components/treeview/css/bootstrap-treeview.css"
+          th:href="@{/static/bower_components/treeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
+</th:block>
+<body class="hold-transition skin-blue sidebar-mini">
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                品牌
+                <small>管理</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Forms</a></li>
+                <li class="active">General Elements</li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">编辑</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="name">名称</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="name" type="text"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="type">类型</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="type" type="text"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="browserButton">logo</label>
+                                    <div class="col-sm-10">
+                                        <span class="fieldSet">
+                                        <input id="logo" class="text" name="logo" maxlength="200" disabled="disabled"
+                                               type="text">
+                                        <input id="browserButton" class="button" value="选择文件" disabled="disabled"
+                                               type="button">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="url">网址</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="url" type="text"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="order">排序</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="order" type="text"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="introduction">介绍</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="introduction" name="introduction" rows="10" cols="80"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<th:block layout:fragment="commonscript">
+    <script th:src="@{/static/bower_components/ckeditor/ckeditor.js}"></script>
+    <script type="text/javascript">
+        $(function () {
+            CKEDITOR.replace('introduction')
+        })
+    </script>
+</th:block>
+</body>
+</html>

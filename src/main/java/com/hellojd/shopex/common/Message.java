@@ -10,12 +10,15 @@ public class Message {
     private Message.Type type;
     private String content;
     public boolean isSuccess(){
+        if(type==null){return false;}
         return type==success;
     }
     public boolean isWarn(){
+        if(type==null){return false;}
         return type==warn;
     }
     public boolean isError(){
+        if(type==null){return false;}
         return type==error;
     }
     public Message()
