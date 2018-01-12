@@ -30,10 +30,12 @@ public abstract  class BaseController {
     private static final String CONSTRAINT_VIOLATIONS = "constraintViolations";
 
     public BaseController() {
-//        ERROR = Message.error("admin.message.error", new Object[0]);
-//        SUCCESS = Message.success("admin.message.success", new Object[0]);
+        ERROR = Message.error("admin.message.error", new Object[0]);
+        SUCCESS = Message.success("admin.message.success", new Object[0]);
     }
-
+    protected  Message successMessage(){
+        return Message.success("admin.message.success", new Object[0]);
+    }
     @Resource
     private Validator validator;
 
@@ -70,10 +72,12 @@ public abstract  class BaseController {
     {
         Setting localSetting = SettingUtils.get();
         String str = localSetting.setScale(paramBigDecimal).toString();
-        if (currencySign)
+        if (currencySign) {
             str = localSetting.getCurrencySign() + str;
-        if (currencyUnit)
+        }
+        if (currencyUnit) {
             str = str + localSetting.getCurrencyUnit();
+        }
         return str;
     }
 

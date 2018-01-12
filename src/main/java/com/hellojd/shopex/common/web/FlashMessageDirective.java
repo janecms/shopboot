@@ -1,7 +1,8 @@
 package com.hellojd.shopex.common.web;
 
+/**
+ * @author zhaoguoyu
+ */
 public class FlashMessageDirective {
-    public static final String FLASH_MESSAGE_ATTRIBUTE_NAME = FlashMessageDirective.class.getName() + ".FLASH_MESSAGE";
-    private static final String IIIllIlI = "flashMessage";
-
+    public static final String FLASH_MESSAGE_ATTRIBUTE_NAME = "flashMessage";
 }

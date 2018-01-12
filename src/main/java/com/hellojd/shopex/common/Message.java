@@ -57,6 +57,7 @@ public class Message {
         this.content = content;
     }
 
+    @Override
     public String toString()
     {
         return SpringUtils.getMessage(this.content, new Object[0]);

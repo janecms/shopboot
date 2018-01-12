@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.hellojd.shopex.bean.ProductCategoryBean;
 import com.hellojd.shopex.bean.treeview.TreeViewBean;
+import com.hellojd.shopex.common.Message;
 import com.hellojd.shopex.entity.Brand;
 import com.hellojd.shopex.entity.Product;
 import com.hellojd.shopex.entity.ProductCategory;
@@ -45,6 +46,7 @@ public class CategoryController extends BaseController{
     public String treeGrid(ModelMap modelMap){
         Set<ProductCategoryBean> grid = this.productCategoryService.getRootProductCategoryList();
         modelMap.put("grid",grid);
+        modelMap.put("flashMessage",Message.success("admin.message.error",null));
         return "product/categorys_grid";
     }
 
@@ -73,11 +75,11 @@ public class CategoryController extends BaseController{
         {
             ProductCategoryBean localProductCategory = productCategory.getParent();
             if (localProductCategory.equals(productCategory)) {
-                return "/admin/common/error";
+                return "/admin/common/505";
             }
             Set localList =localProductCategory.getChildren();
             if ((localList != null) && (localList.contains(localProductCategory))) {
-                return "/admin/common/error";
+                return "/admin/common/505";
             }
         }
         this.productCategoryService.update(productCategory,brandIdList);
