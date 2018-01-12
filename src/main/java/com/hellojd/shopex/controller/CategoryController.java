@@ -46,7 +46,6 @@ public class CategoryController extends BaseController{
     public String treeGrid(ModelMap modelMap){
         Set<ProductCategoryBean> grid = this.productCategoryService.getRootProductCategoryList();
         modelMap.put("grid",grid);
-        modelMap.put("flashMessage",Message.success("admin.message.error",null));
         return "product/categorys_grid";
     }
 
@@ -83,7 +82,7 @@ public class CategoryController extends BaseController{
             }
         }
         this.productCategoryService.update(productCategory,brandIdList);
-        addAttribute(redirectAttributes, SUCCESS);
+        this.addAttribute(redirectAttributes, SUCCESS);
         return "redirect:/category/";
     }
     @ResponseBody

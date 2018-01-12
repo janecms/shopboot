@@ -2,10 +2,22 @@ package com.hellojd.shopex.common;
 
 import com.hellojd.shopex.util.SpringUtils;
 
+import static com.hellojd.shopex.common.Message.Type.error;
+import static com.hellojd.shopex.common.Message.Type.success;
+import static com.hellojd.shopex.common.Message.Type.warn;
+
 public class Message {
     private Message.Type type;
     private String content;
-
+    public boolean isSuccess(){
+        return type==success;
+    }
+    public boolean isWarn(){
+        return type==warn;
+    }
+    public boolean isError(){
+        return type==error;
+    }
     public Message()
     {
     }
@@ -24,7 +36,7 @@ public class Message {
 
     public static Message success(String content, Object[] args)
     {
-        return new Message(Message.Type.success, content, args);
+        return new Message(success, content, args);
     }
 
     public static Message warn(String content, Object[] args)
@@ -34,7 +46,7 @@ public class Message {
 
     public static Message error(String content, Object[] args)
     {
-        return new Message(Message.Type.error, content, args);
+        return new Message(error, content, args);
     }
 
     public Message.Type getType()
