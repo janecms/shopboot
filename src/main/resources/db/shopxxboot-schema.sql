@@ -457,3 +457,29 @@ CREATE TABLE `log` (
   `parameter` longtext,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `plugin_config`;
+CREATE TABLE `plugin_config` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_date` datetime NOT NULL,
+  `modify_date` datetime NOT NULL,
+  `orders` int(11) DEFAULT NULL,
+  `is_enabled` bit(1) NOT NULL,
+  `plugin_id` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `plugin_id` (`plugin_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for xx_plugin_config_attribute
+-- ----------------------------
+DROP TABLE IF EXISTS `plugin_config_attribute`;
+CREATE TABLE `plugin_config_attribute` (
+  `plugin_config` bigint(20) NOT NULL,
+  `attributes` varchar(255) DEFAULT NULL,
+  `attributes_key` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`plugin_config`,`attributes_key`),
+  KEY `FK42CB712CE174C3E7` (`plugin_config`),
+  CONSTRAINT `FK42CB712CE174C3E7` FOREIGN KEY (`plugin_config`) REFERENCES `plugin_config` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

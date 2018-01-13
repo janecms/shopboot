@@ -19,29 +19,6 @@ import com.hellojd.shopex.entity.ProductCategoryBrand;
 public class ProductCatalogServiceImplTest {
   @Autowired
   ProductCatalogServiceImpl productCatalogServiceImpl;
-  @Test
-  public void sysnProductCategoryBrands() throws Exception {
-    ProductCategoryBean cat = productCatalogServiceImpl.getProductCategoryById(10L);
-    productCatalogServiceImpl.sysnProductCategoryBrands(10L,null,cat.getBrands());
-    cat = productCatalogServiceImpl.getProductCategoryById(10L);
-    Set<ProductCategoryBrand> reqs = new HashSet<>();
-    reqs.add(new ProductCategoryBrand(10L,1L));
-    reqs.add(new ProductCategoryBrand(10L,2L));
-    productCatalogServiceImpl.sysnProductCategoryBrands(10L,reqs,cat.getBrands());
-     cat = productCatalogServiceImpl.getProductCategoryById(10L);
-     assertEquals(2,cat.getBrands().size());
-
-    reqs.add(new ProductCategoryBrand(10L,3L));
-    productCatalogServiceImpl.sysnProductCategoryBrands(10L,reqs,cat.getBrands());
-    cat = productCatalogServiceImpl.getProductCategoryById(10L);
-    assertEquals(3,cat.getBrands().size());
-    Set<ProductCategoryBrand> reqs2 = new HashSet<>();
-    reqs2.add(new ProductCategoryBrand(10L,1L));
-    reqs2.add(new ProductCategoryBrand(10L,3L));
-    productCatalogServiceImpl.sysnProductCategoryBrands(10L,reqs2,cat.getBrands());
-    cat = productCatalogServiceImpl.getProductCategoryById(10L);
-    assertEquals(2,cat.getBrands().size());
-  }
 @Test
   public void eqs(){
     final ProductCategoryBrand pc1 = new ProductCategoryBrand(10L, 1L);

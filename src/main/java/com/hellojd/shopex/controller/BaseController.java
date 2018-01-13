@@ -24,7 +24,8 @@ import java.util.Set;
  * @author Administrator
  */
 public abstract  class BaseController {
-    protected  final String ADMIN_COMMON_ERROR = "/admin/common/error";
+    protected  final String ADMIN_COMMON_ERROR_PAGE = "/common/error";
+    protected  final String ADMIN_SERVER_ERROR_PAGE = "/common/505";
     protected   Message ERROR =null;
     protected   Message SUCCESS = null;
     private static final String CONSTRAINT_VIOLATIONS = "constraintViolations";

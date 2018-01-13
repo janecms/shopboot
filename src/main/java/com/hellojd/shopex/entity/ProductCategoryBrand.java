@@ -2,6 +2,7 @@ package com.hellojd.shopex.entity;
 
 import com.baomidou.mybatisplus.annotations.TableName;
 
+import com.hellojd.shopex.bean.RefBean;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.io.Serializable;
 @TableName("product_category_brand")
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductCategoryBrand implements Serializable{
+public class ProductCategoryBrand implements RefBean,Serializable{
     Long productCategoryId;
     Long brandId;
 
@@ -36,5 +37,15 @@ public class ProductCategoryBrand implements Serializable{
         result = 31 * result + (productCategoryId != null ? productCategoryId.hashCode() : 0);
         result = 31 * result + (brandId != null ? brandId.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public Serializable getParentId() {
+        return productCategoryId;
+    }
+
+    @Override
+    public Serializable getChildId() {
+        return brandId;
     }
 }

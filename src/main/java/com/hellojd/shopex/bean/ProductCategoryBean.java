@@ -14,7 +14,7 @@ import lombok.Data;
  * Created by zhaoguoyu on 2018/1/8.
  */
 @Data
-public class ProductCategoryBean extends ProductCategory implements  CategoryBean<ProductCategoryBean>{
+public class ProductCategoryBean extends ProductCategory implements CategoryBean<ProductCategoryBean>{
   // 上级分类
   ProductCategoryBean parent;
   Set<ProductCategoryBean> children;

@@ -1,8 +1,11 @@
 package com.hellojd.shopex.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.hellojd.shopex.bean.ProductCategoryBean;
+import com.hellojd.shopex.bean.RefBean;
 import com.hellojd.shopex.bean.treeview.TreeViewBean;
 import com.hellojd.shopex.entity.Brand;
+import com.hellojd.shopex.entity.ProductCategory;
 import com.hellojd.shopex.entity.ProductCategoryBrand;
 import com.hellojd.shopex.repository.ProductCategoryRepository;
 import com.hellojd.shopex.service.ProductCategoryService;
@@ -20,7 +23,8 @@ import java.util.*;
  */
 @Slf4j
 @Service
-public class ProductCatalogServiceImpl implements ProductCategoryService {
+public class ProductCatalogServiceImpl extends  ShopBaseServiceImpl<ProductCategoryRepository,ProductCategory>
+        implements ProductCategoryService {
     @Autowired
     ProductCategoryRepository productCategoryRepository;
 
@@ -60,20 +64,40 @@ public class ProductCatalogServiceImpl implements ProductCategoryService {
     @Transactional
     @Override
     public int update(ProductCategoryBean categoryBean,List<Long> brandIds) {
-        final ProductCategoryBean categoryPO = this.productCategoryRepository.getProductCategoryById(categoryBean.getId());
+        final Long categoryId = categoryBean.getId();
+        final ProductCategoryBean categoryPO = this.productCategoryRepository.getProductCategoryById(categoryId);
 
         Set<ProductCategoryBrand> reqBrands=new HashSet<>();
         if(CollectionUtils.isNotEmpty(brandIds)){
             brandIds.forEach(brandId->{
-                reqBrands.add(new ProductCategoryBrand(categoryBean.getId(),brandId));
+                reqBrands.add(new ProductCategoryBrand(categoryId,brandId));
             });
         }
-        this.sysnProductCategoryBrands(categoryBean.getId(),reqBrands,categoryPO.getBrands());
+        Set<ProductCategoryBrand> persists =new HashSet<>();
+        final Set<Brand> brands = categoryPO.getBrands();
+        if(CollectionUtils.isNotEmpty(brands)){
+            brands.forEach(item ->{
+                persists.add(new ProductCategoryBrand(categoryId,item.getId()));
+            });
+        }
+//        this.sysnProductCategoryBrands(categoryBean.getId(),reqBrands,categoryPO.getBrands());
+        this.updateRefResult(reqBrands,persists,new RefResultUpdater<ProductCategoryBrand>(){
+            @Override
+            public void execute(RefResult<ProductCategoryBrand> refResult) {
+                refResult.savingSet.forEach(item ->{
+                    productCategoryRepository.saveProductCategoryBrand(item);
+                });
+                refResult.deletingSet.forEach(item ->{
+                    productCategoryRepository.deleteProductCategoryBrand(item);
+                });
+            }
+        });
         BeanUtils.copyProperties(categoryBean, categoryPO, new String[]{"treePath", "grade", "children", "products", "parameterGroups", "attributes", "promotions"});
         return this.productCategoryRepository.updateById(categoryPO);
     }
 
-    public void sysnProductCategoryBrands(Long categoryId,Set<ProductCategoryBrand> requests,Set<Brand> brands){
+    @Deprecated
+    private void sysnProductCategoryBrands(Long categoryId,Set<ProductCategoryBrand> requests,Set<Brand> brands){
         Collection<ProductCategoryBrand> saves =null;
         Collection<ProductCategoryBrand> deletes =null;
         Set<ProductCategoryBrand> poSet =new HashSet<>();

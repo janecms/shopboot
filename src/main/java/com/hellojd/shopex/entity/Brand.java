@@ -1,6 +1,7 @@
 package com.hellojd.shopex.entity;
 
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.hellojd.shopex.enums.BrandType;
 
 @TableName("d_brand")
 public class Brand extends OrderAbleEntity{
@@ -8,7 +9,7 @@ public class Brand extends OrderAbleEntity{
     private String logo;// Logo
     private String url;// 网址
     private String introduction;// 介绍
-
+    private BrandType type;
     public String getName() {
         return name;
     }
@@ -63,5 +64,13 @@ public class Brand extends OrderAbleEntity{
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (introduction != null ? introduction.hashCode() : 0);
         return result;
+    }
+
+    public BrandType getType() {
+        return type;
+    }
+
+    public void setType(BrandType type) {
+        this.type = type;
     }
 }

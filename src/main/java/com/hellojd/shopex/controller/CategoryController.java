@@ -43,7 +43,6 @@ public class CategoryController extends BaseController{
 //        return productService.selectById(productId);
     }
 
-
     @GetMapping("/")
     public String treeGrid(ModelMap modelMap){
         Set<ProductCategoryBean> grid = this.productCategoryService.getRootProductCategoryList();
@@ -64,6 +63,7 @@ public class CategoryController extends BaseController{
         model.addAttribute("productCategoryTreeViewJson", productCategoryTreeViewJson);
         return "product/category_edit";
     }
+
     @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
     public String update(ProductCategoryBean productCategory, Long parentId, Long[] brandIds, RedirectAttributes
         redirectAttributes){
@@ -74,17 +74,17 @@ public class CategoryController extends BaseController{
             brandIdList=Arrays.asList(brandIds);
         }
         if (!validate(productCategory, new Class[0])) {
-            return "/admin/common/error";
+            return this.ADMIN_COMMON_ERROR_PAGE;
         }
         if (productCategory.getParent() != null)
         {
             ProductCategoryBean localProductCategory = productCategory.getParent();
             if (localProductCategory.equals(productCategory)) {
-                return "/admin/common/505";
+                return ADMIN_COMMON_ERROR_PAGE;
             }
             Set localList =localProductCategory.getChildren();
             if ((localList != null) && (localList.contains(localProductCategory))) {
-                return "/admin/common/505";
+                return ADMIN_COMMON_ERROR_PAGE;
             }
         }
         this.productCategoryService.update(productCategory,brandIdList);

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hellojd.shopex.repository.SpecificationRepository">
+    <cache/>
+    <resultMap id="specisficationResultMap" type="com.hellojd.shopex.bean.SpecificationBean">
+        <id property="id" column="id"></id>
+        <result column="create_date" property="createDate"></result>
+        <result column="modify_date" property="modifyDate"></result>
+        <result column="orders" property="order"></result>
+        <result column="name" property="name"></result>
+        <result column="memo" property="memo"></result>
+        <result column="type" property="type"></result>
+        <collection property="specificationValues" ofType="com.hellojd.shopex.entity.SpecificationValue" column="id"
+                    select="getSpecificationValues" fetchType="lazy"></collection>
+    </resultMap>
+    <resultMap id="specificationValueResultMap" type="com.hellojd.shopex.entity.SpecificationValue">
+        <id property="id" column="id"></id>
+        <result column="create_date" property="createDate"></result>
+        <result column="modify_date" property="modifyDate"></result>
+        <result column="orders" property="order"></result>
+        <result column="name" property="name"></result>
+        <result column="image" property="image"></result>
+        <result column="specification" property="specification"></result>
+    </resultMap>
+    <select id="getSpecificationValues" parameterType="long" resultMap="specificationValueResultMap">
+          SELECT  id,create_date,modify_date,orders,image,name,specification
+          from
+          d_specification_value
+          where specification=#{specification}
+    </select>
+    <select id="getSpecification" resultMap="specisficationResultMap">
+        select * from d_specification  where id=#{id}
+    </select>
+</mapper>

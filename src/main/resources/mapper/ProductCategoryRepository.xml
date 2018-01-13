@@ -6,21 +6,21 @@
 
     <cache/>
     <resultMap id="productCategoryResultMap" type="com.hellojd.shopex.bean.ProductCategoryBean">
-        <id property="id" column="id"></id>
-        <result column="create_date" property="createDate"></result>
-        <result column="modify_date" property="modifyDate"></result>
-        <result column="orders" property="order"></result>
-        <result column="name" property="name"></result>
-        <result column="seo_title" property="seoTitle"></result>
-        <result column="seo_description" property="seoDescription"></result>
-        <result column="parent_id" property="parentId"></result>
-        <result column="tree_path" property="treePath"></result>
-        <association property="parent" javaType="com.hellojd.shopex.bean.ProductCategoryBean" column="parent_id"
-                     select="getProductCategoryById" fetchType="lazy"></association>
-        <collection property="children" ofType="com.hellojd.shopex.bean.ProductCategoryBean" column="id" select="getChildrenProductCategoryList" fetchType="lazy"></collection>
-        <collection property="brands" ofType="com.hellojd.shopex.entity.Brand" column="id" select="getBrandsByCategoryId">
-        </collection>
-    </resultMap>
+    <id property="id" column="id"></id>
+    <result column="create_date" property="createDate"></result>
+    <result column="modify_date" property="modifyDate"></result>
+    <result column="orders" property="order"></result>
+    <result column="name" property="name"></result>
+    <result column="seo_title" property="seoTitle"></result>
+    <result column="seo_description" property="seoDescription"></result>
+    <result column="parent_id" property="parentId"></result>
+    <result column="tree_path" property="treePath"></result>
+    <association property="parent" javaType="com.hellojd.shopex.bean.ProductCategoryBean" column="parent_id"
+                 select="getProductCategoryById" fetchType="lazy"></association>
+    <collection property="children" ofType="com.hellojd.shopex.bean.ProductCategoryBean" column="id" select="getChildrenProductCategoryList" fetchType="lazy"></collection>
+    <collection property="brands" ofType="com.hellojd.shopex.entity.Brand" column="id" select="getBrandsByCategoryId">
+    </collection>
+</resultMap>
     <sql id="select_product_category">
         SELECT
         id,

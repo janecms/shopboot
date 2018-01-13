@@ -769,3 +769,12 @@ VALUES(1, '2013-01-01 13:24:32', '2013-01-01 14:37:48', '技术部', 'admin@shop
 
 INSERT INTO `admin_role` (`admins`, `roles`) VALUES(1, 1);
 
+INSERT INTO `plugin_config` (`id`, `create_date`, `modify_date`, `orders`, `is_enabled`, `plugin_id`) VALUES (1, '2013-1-1 22:05:27', '2013-1-1 22:06:34', 100, '', 'filePlugin');
+INSERT INTO `plugin_config` (`id`, `create_date`, `modify_date`, `orders`, `is_enabled`, `plugin_id`) VALUES (2, '2013-1-1 13:31:50', '2013-1-1 14:15:37', 1, '', 'alipayDirectPlugin');
+
+INSERT INTO `plugin_config_attribute` (`plugin_config`, `attributes`, `attributes_key`) VALUES (2, '0', 'fee');
+INSERT INTO `plugin_config_attribute` (`plugin_config`, `attributes`, `attributes_key`) VALUES (2, 'fixed', 'feeType');
+INSERT INTO `plugin_config_attribute` (`plugin_config`, `attributes`, `attributes_key`) VALUES (2, 'abc', 'key');
+INSERT INTO `plugin_config_attribute` (`plugin_config`, `attributes`, `attributes_key`) VALUES (2, 'http://storage.shopxx.net/demo-image/3.0/payment_plugin/alipay.gif', 'logo');
+INSERT INTO `plugin_config_attribute` (`plugin_config`, `attributes`, `attributes_key`) VALUES (2, 'abc', 'partner');
+INSERT INTO `plugin_config_attribute` (`plugin_config`, `attributes`, `attributes_key`) VALUES (2, '支付宝即时交易', 'paymentName');

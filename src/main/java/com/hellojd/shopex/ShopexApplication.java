@@ -13,11 +13,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.context.request.RequestContextListener;
 
 /**
  * @author zhaoguoyu
  */
+@EnableAsync
 @SpringBootApplication
 public class ShopexApplication extends SpringBootServletInitializer {
 
