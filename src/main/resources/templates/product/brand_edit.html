@@ -5,9 +5,7 @@
       layout:decorator="fragments/main">
 <th:block layout:fragment="commonhead">
     <title>品牌</title>
-    <link rel="stylesheet" href="../../static/bower_components/treeview/css/bootstrap-treeview.css"
-          th:href="@{/static/bower_components/treeview/css/bootstrap-treeview.css}">
-    <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
+    <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/static/css/common.css}">
 </th:block>
 <body class="hold-transition skin-blue sidebar-mini">
 <div layout:fragment="content">
@@ -32,45 +30,50 @@
                     <div class="row">
                         <div class="col-md-12">
                             <form class="form-horizontal">
+                                <input type="hidden" name="id" th:value="${brand.id}"/>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="name">名称</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="name" type="text"/>
+                                        <input class="form-control" id="name" type="text" th:value="${brand.name}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="type">类型</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="type" type="text"/>
+                                        <select class="form-control" id="type" name="type">
+                                            <option th:each="op : ${types}" th:value="${op}"
+                                                    th:selected="${brand.type==op}" th:text="${op.name}"></option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="browserButton">logo</label>
                                     <div class="col-sm-10">
                                         <span class="fieldSet">
-                                        <input id="logo" class="text" name="logo" maxlength="200" disabled="disabled"
-                                               type="text">
-                                        <input id="browserButton" class="button" value="选择文件" disabled="disabled"
-                                               type="button">
+                                        <input id="logo" class="text" name="logo" maxlength="200" type="text">
+                                        <input id="browserButton" class="button" value="选择文件" type="button">
                                         </span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="url">网址</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="url" type="text"/>
+                                        <input class="form-control" id="url" name="url" type="text"
+                                               th:value="${brand.url}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="order">排序</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="order" type="text"/>
+                                        <input class="form-control" id="order" name="order" type="text"
+                                               th:value="${brand.order}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="introduction">介绍</label>
                                     <div class="col-sm-10">
-                                        <textarea id="introduction" name="introduction" rows="10" cols="80"></textarea>
+                                        <textarea id="introduction" name="introduction" rows="10" cols="80"
+                                                  th:text="${brand.introduction}"></textarea>
                                     </div>
                                 </div>
                             </form>
@@ -84,10 +87,24 @@
 </div>
 <th:block layout:fragment="commonscript">
     <script th:src="@{/static/bower_components/ckeditor/ckeditor.js}"></script>
+    <script th:src="@{/static/js/common.js}"></script>
     <script type="text/javascript">
         $(function () {
             CKEDITOR.replace('introduction')
         })
+        var $type = $("#type");
+        var $logo = $("#logo");
+        var $browserButton = $("#browserButton");
+        $type.change(function () {
+            if ($(this).val() == "text") {
+                $logo.val("").prop("disabled", true);
+                $browserButton.prop("disabled", true);
+            } else {
+                $logo.prop("disabled", false);
+                $browserButton.prop("disabled", false);
+            }
+        });
+        $browserButton.browser();
     </script>
 </th:block>
 </body>

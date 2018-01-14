@@ -7,6 +7,7 @@ import com.hellojd.shopex.enums.FileType;
 import com.hellojd.shopex.service.FileService;
 import com.hellojd.shopex.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,7 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
-
+@Controller
+@RequestMapping("/file")
 public class FileController extends BaseController {
     @Autowired
     private FileService fileService;

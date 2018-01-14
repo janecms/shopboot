@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,8 +42,8 @@ public class BrandController  extends BaseController {
         model.addAttribute("types", BrandType.values());
         return "product/brand_edit";
     }
-    @RequestMapping(value={"/edit"}, method={RequestMethod.GET})
-    public String edit(Long id, ModelMap model)
+    @RequestMapping(value={"/{id}"}, method={RequestMethod.GET})
+    public String edit(@PathVariable Long id, ModelMap model)
     {
         model.addAttribute("types", BrandType.values());
         model.addAttribute("brand", this.brandService.selectById(id));

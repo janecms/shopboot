@@ -9,9 +9,25 @@ import java.io.Serializable;
  */
 
 public enum  BrandType implements IEnum {
-    text, image;
+    text(0,"文本"), image(1,"图片");
+    int code;
+    String name;
+
+    BrandType(int code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
     @Override
     public Serializable getValue() {
-        return this.name();
+        return this.code;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
     }
 }

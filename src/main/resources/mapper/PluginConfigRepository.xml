@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hellojd.shopex.repository.PluginConfigRepository">
+    <cache/>
+    <resultMap id="specisficationResultMap" type="com.hellojd.shopex.entity.PluginConfig">
+        <id property="id" column="id"></id>
+        <id property="pluginId" column="plugin_id"></id>
+        <result column="create_date" property="createDate"></result>
+        <result column="modify_date" property="modifyDate"></result>
+        <result column="orders" property="order"></result>
+        <result column="is_enabled" property="isEnabled"></result>
+        <collection property="attributes" column="plugin_id" select="getConfigAttributes" fetchType="lazy"></collection>
+    </resultMap>
+    <resultMap id="specificationValueResultMap" type="com.hellojd.shopex.entity.SpecificationValue">
+        <id property="id" column="id"></id>
+        <result column="create_date" property="createDate"></result>
+        <result column="modify_date" property="modifyDate"></result>
+        <result column="orders" property="order"></result>
+        <result column="name" property="name"></result>
+        <result column="image" property="image"></result>
+        <result column="specification" property="specification"></result>
+    </resultMap>
+    <select id="getConfigAttributes" resultType="com.hellojd.shopex.entity.PluginConfigAttribute">
+        SELECT
+            attributes_key as attributeKey,
+            attributes as attributeValue
+        FROM
+            plugin_config_attribute
+        WHERE
+	      plugin_config = #{pluginId}
+    </select>
+</mapper>

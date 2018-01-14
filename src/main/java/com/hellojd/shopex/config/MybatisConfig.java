@@ -1,5 +1,7 @@
 package com.hellojd.shopex.config;
 
+import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.plugins.PerformanceInterceptor;
 import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 
 import org.mybatis.spring.annotation.MapperScan;
@@ -13,6 +15,24 @@ import javax.sql.DataSource;
 @Configuration
 @MapperScan("com.hellojd.shopex.repository")
 public class MybatisConfig {
+    /**
+     * mybatis-plus SQL执行效率插件【生产环境可以关闭】
+     */
+    @Bean
+    public PerformanceInterceptor performanceInterceptor() {
+        return new PerformanceInterceptor();
+    }
+
+    /**
+     * mybatis-plus分页插件<br>
+     * 文档：http://mp.baomidou.com<br>
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+        paginationInterceptor.setLocalPage(true);// 开启 PageHelper 的支持
+        return paginationInterceptor;
+    }
  /*
     @Autowired
     private DataSource dataSource;
@@ -29,4 +49,6 @@ public class MybatisConfig {
         mybatisPlus.setDataSource(dataSource);
         return mybatisPlus;
     }*/
+
+
 }

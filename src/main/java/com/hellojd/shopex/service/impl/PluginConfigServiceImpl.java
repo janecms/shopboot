@@ -14,11 +14,11 @@ public class PluginConfigServiceImpl extends ServiceImpl<PluginConfigRepository,
 
     @Override
     public boolean pluginIdExists(String id) {
-        return false;
+        return findByPluginId(id)!=null;
     }
 
     @Override
     public PluginConfig findByPluginId(String id) {
-        return null;
+        return this.baseMapper.selectById(id);
     }
 }

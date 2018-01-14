@@ -3,7 +3,12 @@ package com.hellojd.shopex.plugin;
 import com.hellojd.shopex.bean.FileInfo;
 import com.hellojd.shopex.common.Setting;
 import com.hellojd.shopex.util.SettingUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.springframework.context.ResourceLoaderAware;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.ServletContextAware;
 
@@ -17,9 +22,9 @@ import java.util.List;
 /**
  * @author Administrator
  */
-@Service
-public class FilePlugin extends StoragePlugin implements ServletContextAware {
-    private ServletContext servletContext;
+@Slf4j
+@Component("filePlugin")
+public class FilePlugin extends StoragePlugin implements ResourceLoaderAware {
     @Override
     public String getName() {
         return "本地文件存储";
@@ -57,10 +62,10 @@ public class FilePlugin extends StoragePlugin implements ServletContextAware {
 
     @Override
     public void upload(String path, File file, String contentType) {
-        File localFile = new File(this.servletContext.getRealPath(path));
+        final Resource resource = this.resourceLoader.getResource(path);
         try
         {
-            FileUtils.moveFile(file, localFile);
+            FileUtils.moveFile(file, resource.getFile());
         }
         catch (IOException localIOException)
         {
@@ -77,24 +82,36 @@ public class FilePlugin extends StoragePlugin implements ServletContextAware {
     @Override
     public List<FileInfo> browser(String path) {
         Setting setting = SettingUtils.get();
-        List localArrayList = new ArrayList();
-        File browserFile = new File(this.servletContext.getRealPath(path));
-        if ((browserFile.exists()) && (browserFile.isDirectory())) {
-            for (File file : browserFile.listFiles()) {
-                FileInfo localFileInfo = new FileInfo();
-                localFileInfo.setName(file.getName());
-                localFileInfo.setUrl(setting.getSiteUrl() + path + file.getName());
-                localFileInfo.setIsDirectory(Boolean.valueOf(file.isDirectory()));
-                localFileInfo.setSize(Long.valueOf(file.length()));
-                localFileInfo.setLastModified(new Date(file.lastModified()));
-                localArrayList.add(localFileInfo);
+        List files = new ArrayList();
+        final Resource resource = this.resourceLoader.getResource(path);
+        final String realPath;
+        try {
+            realPath = resource.getFile().getAbsolutePath();
+            File browserFile = new File(realPath);
+            if ((browserFile.exists()) && (browserFile.isDirectory())) {
+                for (File file : browserFile.listFiles()) {
+                    FileInfo localFileInfo = new FileInfo();
+                    localFileInfo.setName(file.getName());
+                    localFileInfo.setUrl(setting.getSiteUrl() + path + file.getName());
+                    localFileInfo.setIsDirectory(Boolean.valueOf(file.isDirectory()));
+                    localFileInfo.setSize(Long.valueOf(file.length()));
+                    localFileInfo.setLastModified(new Date(file.lastModified()));
+                    files.add(localFileInfo);
+                }
             }
+        } catch (IOException e) {
+            log.error("文件路径不存在:{}",path);
+            e.printStackTrace();
         }
-        return localArrayList;
+        return files;
     }
 
+
+
     @Override
-    public void setServletContext(ServletContext servletContext) {
-        this.servletContext=servletContext;
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+         this.resourceLoader=resourceLoader;
     }
+
+    ResourceLoader resourceLoader;
 }

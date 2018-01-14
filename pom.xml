@@ -54,6 +54,7 @@
         <mybatisplus-boot-starter.version>1.0.5</mybatisplus-boot-starter.version>
         <commons-lang3.version>3.6</commons-lang3.version>
         <commons-io.version>2.5</commons-io.version>
+        <jaxen.version>1.1.6</jaxen.version>
     </properties>
     <dependencies>
         <dependency>
@@ -179,6 +180,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>${jaxen.version}</version>
         </dependency>
     </dependencies>
 

@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.util.ResourceUtils;
 
 public class Setting
   implements Serializable
@@ -705,15 +706,7 @@ public class Setting
   
   public void setImageUploadPath(String imageUploadPath)
   {
-    if (imageUploadPath != null)
-    {
-      if (!imageUploadPath.startsWith("/")) {
-        imageUploadPath = "/" + imageUploadPath;
-      }
-      if (!imageUploadPath.endsWith("/")) {
-        imageUploadPath = imageUploadPath + "/";
-      }
-    }
+    imageUploadPath = decorate(imageUploadPath);
     this.imageUploadPath = imageUploadPath;
   }
   
@@ -726,15 +719,7 @@ public class Setting
   
   public void setFlashUploadPath(String flashUploadPath)
   {
-    if (flashUploadPath != null)
-    {
-      if (!flashUploadPath.startsWith("/")) {
-        flashUploadPath = "/" + flashUploadPath;
-      }
-      if (!flashUploadPath.endsWith("/")) {
-        flashUploadPath = flashUploadPath + "/";
-      }
-    }
+    flashUploadPath = decorate(flashUploadPath);
     this.flashUploadPath = flashUploadPath;
   }
   
@@ -747,15 +732,7 @@ public class Setting
   
   public void setMediaUploadPath(String mediaUploadPath)
   {
-    if (mediaUploadPath != null)
-    {
-      if (!mediaUploadPath.startsWith("/")) {
-        mediaUploadPath = "/" + mediaUploadPath;
-      }
-      if (!mediaUploadPath.endsWith("/")) {
-        mediaUploadPath = mediaUploadPath + "/";
-      }
-    }
+    mediaUploadPath = decorate(mediaUploadPath);
     this.mediaUploadPath = mediaUploadPath;
   }
   
@@ -768,18 +745,35 @@ public class Setting
   
   public void setFileUploadPath(String fileUploadPath)
   {
-    if (fileUploadPath != null)
-    {
-      if (!fileUploadPath.startsWith("/")) {
-        fileUploadPath = "/" + fileUploadPath;
-      }
-      if (!fileUploadPath.endsWith("/")) {
-        fileUploadPath = fileUploadPath + "/";
-      }
-    }
+    fileUploadPath = decorate(fileUploadPath);
     this.fileUploadPath = fileUploadPath;
   }
-  
+
+  /**
+   * 装饰下路径
+   * @param path
+   * @return
+   */
+  private String decorate(String path) {
+    if (path != null)
+    {
+      if(path.startsWith(ResourceUtils.CLASSPATH_URL_PREFIX)
+              || path.startsWith(ResourceUtils.JAR_URL_PREFIX)
+              || path.startsWith(ResourceUtils.FILE_URL_PREFIX)){
+
+      }else{
+        if (!path.startsWith("/")) {
+          path = "/" + path;
+        }
+
+        if (!path.endsWith("/")) {
+          path = path + "/";
+        }
+      }
+    }
+    return path;
+  }
+
   @NotEmpty
   @Email
   @Length(max=200)

@@ -14,6 +14,8 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.CompareToBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,9 +28,12 @@ import org.springframework.core.task.TaskExecutor;
 /**
  * @author zgy
  */
+@Service
 public class FileServiceImpl implements FileService, ServletContextAware {
+    @Autowired
     private TaskExecutor taskExecutor;
     private ServletContext servletContext;
+    @Autowired
     private PluginService pluginService;
     @Override
     public boolean isValid(FileType fileType, MultipartFile multipartFile) {

@@ -36,6 +36,6 @@ public class PluginServiceImpl implements PluginService {
 
     @Override
     public StoragePlugin getStoragePlugin(String id) {
-        return (StoragePlugin)this.storagePluginMap.get(id);
+        return this.storagePluginMap.get(id);
     }
 }

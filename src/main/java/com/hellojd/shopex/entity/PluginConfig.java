@@ -1,19 +1,25 @@
 package com.hellojd.shopex.entity;
 
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import org.apache.commons.collections.CollectionUtils;
 
 import java.beans.Transient;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
+/**
+ * @author Administrator
+ */
 @TableName("plugin_config")
 public class PluginConfig extends OrderAbleEntity {
     String pluginId;
-    Boolean isEnabled;
-    private Map<String, String> attributes = new HashMap();
-    public Map<String, String> getAttributes()
-    {
-        return this.attributes;
-    }
+    @TableField("is_enabled")
+    Boolean enabled;
+    private transient Set<PluginConfigAttribute> attributes = new HashSet();
+
+    private  transient Map<String,String> attributesMap = new HashMap<>();
+
     public String getPluginId()
     {
         return this.pluginId;
@@ -23,21 +29,20 @@ public class PluginConfig extends OrderAbleEntity {
     {
         this.pluginId = pluginId;
     }
-    public Boolean getIsEnabled()
-    {
-        return this.isEnabled;
+
+    public Boolean getEnabled() {
+        return enabled;
     }
 
-    public void setIsEnabled(Boolean isEnabled)
-    {
-        this.isEnabled = isEnabled;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Transient
     public String getAttribute(String name)
     {
-        if ((getAttributes() != null) && (name != null)) {
-            return (String) getAttributes().get(name);
+        if ((attributesMap != null) && (name != null)) {
+            return attributesMap.get(name);
         }
         return null;
     }
@@ -45,8 +50,18 @@ public class PluginConfig extends OrderAbleEntity {
     @Transient
     public void setAttribute(String name, String value)
     {
-        if ((getAttributes() != null) && (name != null)) {
-            getAttributes().put(name, value);
+        attributes.add(new PluginConfigAttribute(name,value));
+    }
+
+    public void setAttributes(Set<PluginConfigAttribute> attributes) {
+        this.attributes = attributes;
+        if(CollectionUtils.isNotEmpty(attributes)){
+            final Iterator<PluginConfigAttribute> iter = attributes.iterator();
+            while (iter.hasNext()){
+                final PluginConfigAttribute pluginConfigAttribute = iter.next();
+                this.attributesMap.put(pluginConfigAttribute.attributeKey,pluginConfigAttribute.attributeValue);
+            }
+
         }
     }
 }
