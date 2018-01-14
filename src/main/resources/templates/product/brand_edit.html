@@ -89,23 +89,24 @@
     <script th:src="@{/static/bower_components/ckeditor/ckeditor.js}"></script>
     <script th:src="@{/static/js/common.js}"></script>
     <script type="text/javascript">
-        $(function () {
-            CKEDITOR.replace('introduction')
-        })
-        var $type = $("#type");
-        var $logo = $("#logo");
-        var $browserButton = $("#browserButton");
-        $type.change(function () {
-            if ($(this).val() == "text") {
-                $logo.val("").prop("disabled", true);
-                $browserButton.prop("disabled", true);
-            } else {
-                $logo.prop("disabled", false);
-                $browserButton.prop("disabled", false);
-            }
+        $().ready(function() {
+            var $inputForm = $("#inputForm");
+            var $type = $("#type");
+            var $logo = $("#logo");
+            var $browserButton = $("#browserButton");
+            $browserButton.browser();
+            $type.change(function() {
+                if ($(this).val() == "text") {
+                    $logo.val("").prop("disabled", true);
+                    $browserButton.prop("disabled", true);
+                } else {
+                    $logo.prop("disabled", false);
+                    $browserButton.prop("disabled", false);
+                }
+            });
         });
-        $browserButton.browser();
     </script>
+
 </th:block>
 </body>
 </html>

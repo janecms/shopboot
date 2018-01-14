@@ -11,6 +11,7 @@ import com.hellojd.shopex.util.FreemarkerUtils;
 import com.hellojd.shopex.util.SettingUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.CompareToBuilder;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.*;
 
 import org.springframework.core.task.TaskExecutor;
@@ -159,7 +161,13 @@ public class FileServiceImpl implements FileService, ServletContextAware {
                 if (!file.getParentFile().exists()) {
                     file.getParentFile().mkdirs();
                 }
-                multipartFile.transferTo(file);
+                final FileOutputStream fos = new FileOutputStream(file);
+                try {
+                    IOUtils.copy(multipartFile.getInputStream(), fos);
+                } finally {
+                    IOUtils.closeQuietly(fos);
+                }
+//                multipartFile.transferTo(file);
                 if (async) {
                     asyncUpload(localStoragePlugin, path, file, multipartFile.getContentType());
                 } else {

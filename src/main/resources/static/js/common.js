@@ -403,13 +403,13 @@ function message(code) {
 							var iconUrl;
 							var title;
 							if (fileInfo.isDirectory) {
-								iconUrl = shopxx.base + "/resources/admin/images/folder_icon.gif";
+								iconUrl = shopxx.base + "/static/images/folder_icon.gif";
 								title = fileInfo.name;
 							} else if (new RegExp("^\\S.*\\.(jpg|jpeg|bmp|gif|png)$", "i").test(fileInfo.name)) {
 								iconUrl = fileInfo.url;
 								title = fileInfo.name + " (" + Math.ceil(fileInfo.size / 1024) + "KB, " + new Date(fileInfo.lastModified).toLocaleString() + ")";
 							} else {
-								iconUrl = shopxx.base + "/resources/admin/images/file_icon.gif";
+								iconUrl = shopxx.base + "/static/images/file_icon.gif";
 								title = fileInfo.name + " (" + Math.ceil(fileInfo.size / 1024) + "KB, " + new Date(fileInfo.lastModified).toLocaleString() + ")";
 							}
 							browserListHtml += '<div class="browserItem"><img src="' + iconUrl + '" title="' + title + '" url="' + fileInfo.url + '" isDirectory="' + fileInfo.isDirectory + '" \/><div>' + fileInfo.name + '<\/div><\/div>';
@@ -468,7 +468,7 @@ function message(code) {
 						$browserForm.submit();
 					});
 					
-					$browserFrame.load(function() {
+					$browserFrame.on("load",function() {
 						var text;
 						var io = document.getElementById(browserFrameId);
 						if(io.contentWindow) {
@@ -489,7 +489,7 @@ function message(code) {
 									settings.callback(data.url);
 								}
 								cache = new Array();
-								$dialog.next(".dialogOverlay").andSelf().remove();
+								$dialog.next(".dialogOverlay").addBack().remove();
 							} else {
 								$.message(data);
 							}

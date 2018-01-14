@@ -76,7 +76,7 @@ public class FilePlugin extends StoragePlugin implements ResourceLoaderAware {
     @Override
     public String getUrl(String path) {
         Setting localSetting = SettingUtils.get();
-        return localSetting.getSiteUrl() + path;
+        return localSetting.getSiteUrl() +"/file?path="+ path;
     }
 
     @Override
@@ -92,7 +92,7 @@ public class FilePlugin extends StoragePlugin implements ResourceLoaderAware {
                 for (File file : browserFile.listFiles()) {
                     FileInfo localFileInfo = new FileInfo();
                     localFileInfo.setName(file.getName());
-                    localFileInfo.setUrl(setting.getSiteUrl() + path + file.getName());
+                    localFileInfo.setUrl(setting.getSiteUrl() +"/file?path="+ path + file.getName());
                     localFileInfo.setIsDirectory(Boolean.valueOf(file.isDirectory()));
                     localFileInfo.setSize(Long.valueOf(file.length()));
                     localFileInfo.setLastModified(new Date(file.lastModified()));
