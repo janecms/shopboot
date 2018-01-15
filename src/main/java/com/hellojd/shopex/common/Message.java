@@ -2,11 +2,13 @@ package com.hellojd.shopex.common;
 
 import com.hellojd.shopex.util.SpringUtils;
 
+import java.io.Serializable;
+
 import static com.hellojd.shopex.common.Message.Type.error;
 import static com.hellojd.shopex.common.Message.Type.success;
 import static com.hellojd.shopex.common.Message.Type.warn;
 
-public class Message {
+public class Message implements Serializable{
     private Message.Type type;
     private String content;
     public boolean isSuccess(){

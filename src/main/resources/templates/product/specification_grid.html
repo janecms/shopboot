@@ -32,30 +32,20 @@
                     <table class="table table-bordered">
                         <tbody>
                         <tr>
-                            <th style="width: 10px">#</th>
                             <th>名称</th>
-                            <th>logo</th>
-                            <th style="width: 40px">网址</th>
+                            <th>类型</th>
+                            <th>规格值</th>
                             <th>排序</th>
                             <th>操作</th>
                         </tr>
-                        <tr>
-                            <td>1.</td>
-                            <td>梵希蔓 </td>
-                            <td>查看</td>
-                            <td>http://www.shangdubila.net</td>
-                            <td>1</td>
-                            <td> [编辑] [查看]</td>
-                        </tr>
-                        <tr>
-                            <td>2.</td>
-                            <td>Clean database</td>
+                        <tr th:each="specification : ${page.records}">
+                            <td th:text="${specification.id}"></td>
+                            <td th:text="${specification.name}"></td>
+                            <td></td>
+                            <td th:text="${specification.order}"></td>
                             <td>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                                </div>
+                                <a th:href="'/specification/'+${specification.id}">[编辑]</a>
                             </td>
-                            <td><span class="badge bg-yellow">70%</span></td>
                         </tr>
                         </tbody>
                     </table>

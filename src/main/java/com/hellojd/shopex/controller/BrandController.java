@@ -81,7 +81,7 @@ public class BrandController  extends BaseController {
         }
         this.brandService.update(brand);
         addAttribute(redirectAttributes, SUCCESS);
-        return "redirect:list.jhtml";
+        return "redirect:/brand/";
     }
     @RequestMapping(value={"/"}, method={RequestMethod.DELETE})
     @ResponseBody
