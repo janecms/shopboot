@@ -432,7 +432,7 @@ function message(code) {
 								if (settings.callback != null && typeof settings.callback == "function") {
 									settings.callback(url);
 								}
-								$dialog.next(".dialogOverlay").andSelf().remove();
+								$dialog.next(".dialogOverlay").addBack().remove();
 							}
 						});
 						

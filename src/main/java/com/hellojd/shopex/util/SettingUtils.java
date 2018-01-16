@@ -48,10 +48,10 @@ public final class SettingUtils {
                 Iterator localIterator = localList.iterator();
                 while (localIterator.hasNext()) {
                     org.dom4j.Element localElement1 = (org.dom4j.Element) localIterator.next();
-                    String str1 = localElement1.attributeValue("name");
-                    String str2 = localElement1.attributeValue("value");
+                    String name = localElement1.attributeValue("name");
+                    String value = localElement1.attributeValue("value");
                     try {
-                        BEAN_UTILS_BEAN.setProperty(localSetting, str1, str2);
+                        BEAN_UTILS_BEAN.setProperty(localSetting, name, value);
                     } catch (IllegalAccessException localIllegalAccessException) {
                         localIllegalAccessException.printStackTrace();
                     } catch (InvocationTargetException localInvocationTargetException) {

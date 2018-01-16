@@ -42,7 +42,7 @@ public class SpecificationController extends BaseController {
     }
     @RequestMapping(value={"/{id}"}, method={RequestMethod.GET})
     public String edit(@PathVariable Long id, ModelMap model) {
-        final Specification specification = this.specificationService.selectById(id);
+        final SpecificationBean specification = this.specificationService.getSpecification(id);
         model.addAttribute("types", SpecificationType.values());
         model.put("specification",specification);
         return "product/specification_edit";

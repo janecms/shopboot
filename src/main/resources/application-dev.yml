@@ -24,3 +24,80 @@ druid:
     min-idle: 1
     max-active: 20
     test-on-borrow: true
+
+setting:
+  siteName: SHOP++商城
+  siteUrl: http://localhost:8090
+  logo: /upload/image/logo.gif
+  hotSearch: T恤,衬衫,西服,西裤,森马,七匹狼,梵希蔓,春夏新款,牛仔裤
+  address: 湖南长沙经济技术开发区
+  phone: 400-8888888
+  zipCode: 400000
+  email: service@shopxx.net
+  certtext: 湘ICP备10000000号
+  isSiteEnabled: true
+  siteCloseMessage: 本网站正在进行系统维护和技术升级，网站暂时无法访问
+  largeProductImageWidth: 800
+  largeProductImageHeight: 800
+  mediumProductImageWidth: 300
+  mediumProductImageHeight: 300
+  thumbnailProductImageWidth: 170
+  thumbnailProductImageHeight: 170
+  defaultLargeProductImage: /upload/image/default_large.jpg
+  defaultMediumProductImage: /upload/image/default_medium.jpg
+  defaultThumbnailProductImage: /upload/image/default_thumbnail.jpg
+  watermarkAlpha: 50
+  watermarkImage: /upload/image/watermark.png
+  watermarkPosition: bottomRight
+  priceScale: 2
+  priceRoundType: roundHalfUp
+  isShowMarketPrice: true
+  defaultMarketPriceScale: 1.2
+  isRegisterEnabled: true
+  isDuplicateEmail: false
+  disabledUsername: admin,管理员
+  usernameMinLength: 2
+  usernameMaxLength: 20
+  passwordMinLength: 4
+  passwordMaxLength: 20
+  registerPoint: 0
+  isEmailLogin: true
+  captchaTypes: memberLogin,memberRegister,adminLogin,review,consultation,findPassword,resetPassword,other
+  accountLockTypes: member,admin
+  accountLockCount: 5
+  accountLockTime: 10
+  safeKeyExpiryTime: 1440
+  uploadMaxSize: 10
+  uploadImageExtension: jpg,jpeg,bmp,gif,png
+  uploadFlashExtension: swf,flv
+  uploadMediaExtension: swf,flv,mp3,wav,avi,rm,rmvb
+  uploadFileExtension: zip,rar,7z,doc,docx,xls,xlsx,ppt,pptx
+ # imageUploadPath: "file:d:/upload/image/${.now?string('yyyyMM')}/"
+ # flashUploadPath: 'file:d:/upload/flash/${.now?string(''yyyyMM'')}/'
+ # mediaUploadPath: 'file:d:/upload/media/${.now?string(''yyyyMM'')}/'
+  smtpFromMail: test@shopxx.net
+  smtpHost: smtp.shopxx.net
+  smtpPort: 25
+  smtpUsername: test
+  smtpPassword: test
+  currencySign: ￥
+  currencyUnit: 元
+  stockAlertCount: 5
+  stockAllocationTime: order
+  defaultPointScale: 1
+  isDevelopmentEnabled: false
+  isReviewEnabled: true
+  isReviewCheck: true
+  reviewAuthority: purchased
+  isConsultationEnabled: true
+  isConsultationCheck: true
+  consultationAuthority: member
+  isInvoiceEnabled: true
+  isTaxPriceEnabled: true
+  taxRate: 0.06
+  cookiePath: /
+  cookieDomain:
+  kuaidi100Key:
+  isCnzzEnabled: false
+  cnzzSiteId:
+  cnzzPassword:

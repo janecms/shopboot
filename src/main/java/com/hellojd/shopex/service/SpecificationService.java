@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 public interface SpecificationService extends IService<Specification> {
-
+    SpecificationBean getSpecification(Long specificationId);
     void save(SpecificationBean specification);
 
     void update(SpecificationBean specification);

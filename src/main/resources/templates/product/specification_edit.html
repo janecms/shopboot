@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorator="fragments/main">
 <th:block layout:fragment="commonhead">
-    <title>品牌</title>
+    <title>规格</title>
     <link rel="stylesheet" href="../../static/bower_components/treeview/css/bootstrap-treeview.css"
           th:href="@{/static/bower_components/treeview/css/bootstrap-treeview.css}">
     <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
@@ -31,12 +31,13 @@
                 <div class="box-body">
                     <div class="row">
 
-                        <form class="form-horizontal">
+                        <form id="inputForm" class="form-horizontal">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="name">名称</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="name" type="text" th:value="${specification.name}" />
+                                        <input class="form-control" id="name" type="text"
+                                               th:value="${specification.name}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -44,72 +45,78 @@
                                     <div class="col-sm-10">
                                         <select class="form-control" id="type" name="type">
                                             <option th:each="op : ${types}" th:value="${op}"
-                                                    th:selected="${specification.type==op}" th:text="${op.name}"></option>
+                                                    th:selected="${specification.type==op}"
+                                                    th:text="${op.name}"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="memo">备注</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="memo" type="text" th:value="${specification.memo}"/>
+                                        <input class="form-control" id="memo" type="text"
+                                               th:value="${specification.memo}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="order">排序</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="order" type="text" th:value="${specification.order}"/>
+                                        <input class="form-control" id="order" type="text"
+                                               th:value="${specification.order}"/>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                            </div>
                             <div class="col-md-10">
+                                <button class="btn btn-primary" type="button">增加规格值</button>
                                 <table class="table">
                                     <tbody>
                                     <tr>
+                                        <th>#</th>
                                         <th>规格值名称</th>
                                         <th>规格值图片</th>
                                         <th>规格值排序</th>
                                         <th>删除</th>
                                     </tr>
-                                    <tr>
-                                        <td>1.</td>
-                                        <td>Update software</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                                    <tr th:each="specvalue,iterStat : ${specification.specificationValues}">
+                                        <td class="col-xs-1">
+                                            <input type="hidden"
+                                                   th:name="'specificationValues['+${iterStat.index}+'].id'"
+                                                   th:value="${specvalue.id}">
+                                        </td>
+                                        <td class="col-xs-3">
+                                            <div>
+                                                <input type="text"
+                                                       th:name="'specificationValues['+${iterStat.index}+'].name'"
+                                                       class="form-control input-sm specificationValuesName"
+                                                       th:value="${specvalue.name}"
+                                                       maxlength="200">
                                             </div>
                                         </td>
-                                        <td><span class="badge bg-red">55%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2.</td>
-                                        <td>Clean database</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
+                                        <td class="col-xs-4">
+                                            <div class="form-inline">
+                                                <input type="text"
+                                                       th:name="'specificationValues['+${iterStat.index}+'].image'"
+                                                       class="form-control input-sm specificationValuesImage"
+                                                       th:value="${specvalue.image}"
+                                                       maxlength="200">
+                                                <input type="button" class="btn btn-default btn-sm browserButton"
+                                                       value="选择文件">
+                                                <img th:src="${specvalue.image}"
+                                                     style="width: 20px; height: 20px; padding: 1px;
+                                                                 vertical-align: middle; border: 1px solid #b2d3f4;">
                                             </div>
                                         </td>
-                                        <td><span class="badge bg-yellow">70%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3.</td>
-                                        <td>Cron job running</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                                            </div>
+                                        <td class="col-xs-2">
+                                            <input type="text"
+                                                   th:name="'specificationValues['+${iterStat.index}+'].order'"
+                                                   class="form-control input-sm specificationValuesOrder"
+                                                   th:value="${specvalue.order}"
+                                                   maxlength="9">
                                         </td>
-                                        <td><span class="badge bg-light-blue">30%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4.</td>
-                                        <td>Fix and squish bugs</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                                            </div>
+                                        <td class="col-xs-2">
+                                            <a href="javascript:;" class="deleteSpecificationValue">[删除]</a>
                                         </td>
-                                        <td><span class="badge bg-green">90%</span></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -123,5 +130,32 @@
         </section>
     </div>
 </div>
+<th:block layout:fragment="commonscript">
+    <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/static/css/common.css}">
+    <script th:src="@{/static/js/common.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+        $().ready(function () {
+            var $inputForm = $("#inputForm");
+            var $specificationTable = $("#specificationTable");
+            var $type = $("#type");
+            var $addSpecificationValueButton = $("#addSpecificationValueButton");
+            var $deleteSpecificationValue = $("a.deleteSpecificationValue");
+            var specificationValueIndex = [[${#sets.size(specification.specificationValues)}]];
+
+            // 修改规格类型
+            $type.change(function () {
+                var $type = $("#type");
+                if ($(this).val() == "text") {
+                    $("input.specificationValuesImage").val("").prop("disabled", true);
+                    $("input.browserButton").prop("disabled", true);
+                } else {
+                    $("input.specificationValuesImage").prop("disabled", false);
+                    $("input.browserButton").prop("disabled", false);
+                }
+            });
+            $("input.browserButton").browser();
+        });
+    </script>
+</th:block>
 </body>
 </html>

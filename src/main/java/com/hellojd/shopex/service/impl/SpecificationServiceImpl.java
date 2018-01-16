@@ -28,6 +28,11 @@ public class SpecificationServiceImpl extends ShopBaseServiceImpl<SpecificationR
     SpecificationValueRepository specificationValueRepository;
 
     @Override
+    public SpecificationBean getSpecification(Long specificationId) {
+        return baseMapper.getSpecification(specificationId);
+    }
+
+    @Override
     public void save(SpecificationBean specification) {
         this.baseMapper.insert(specification);
         final Set<SpecificationValue> specificationValues = specification.getSpecificationValues();
