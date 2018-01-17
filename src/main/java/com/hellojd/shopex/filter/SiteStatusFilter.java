@@ -1,6 +1,7 @@
 package com.hellojd.shopex.filter;
 
 import com.hellojd.shopex.common.Setting;
+import com.hellojd.shopex.common.ShopxxSettings;
 import com.hellojd.shopex.util.SettingUtils;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author Administrator
+ */
 public class SiteStatusFilter
         extends OncePerRequestFilter {
     private static final String[] DEFAULT_IGNORE_URL_PATTERNS = { "/admin/**" };
@@ -19,8 +23,8 @@ public class SiteStatusFilter
     private String redirectUrl = "/common/site_close.jhtml";
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        Setting localSetting = SettingUtils.get();
-        if (localSetting.getIsSiteEnabled().booleanValue())
+        ShopxxSettings settings = SettingUtils.get();
+        if (settings.isSiteEnabled())
         {
             filterChain.doFilter(request, response);
         }

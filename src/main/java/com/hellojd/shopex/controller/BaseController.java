@@ -2,6 +2,7 @@ package com.hellojd.shopex.controller;
 
 import com.hellojd.shopex.common.Message;
 import com.hellojd.shopex.common.Setting;
+import com.hellojd.shopex.common.ShopxxSettings;
 import com.hellojd.shopex.common.web.DateEditor;
 import com.hellojd.shopex.common.web.FlashMessageDirective;
 import com.hellojd.shopex.entity.Log;
@@ -71,13 +72,13 @@ public abstract  class BaseController {
 
     protected String unit(BigDecimal paramBigDecimal, boolean currencySign, boolean currencyUnit)
     {
-        Setting localSetting = SettingUtils.get();
-        String str = localSetting.setScale(paramBigDecimal).toString();
+        ShopxxSettings settings= SettingUtils.get();
+        String str = settings.setScale(paramBigDecimal).toString();
         if (currencySign) {
-            str = localSetting.getCurrencySign() + str;
+            str = settings.getCurrencySign() + str;
         }
         if (currencyUnit) {
-            str = str + localSetting.getCurrencyUnit();
+            str = str + settings.getCurrencyUnit();
         }
         return str;
     }

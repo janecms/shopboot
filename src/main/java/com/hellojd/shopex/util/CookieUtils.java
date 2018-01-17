@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hellojd.shopex.common.Setting;
+import com.hellojd.shopex.common.ShopxxSettings;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 public final class CookieUtils
@@ -43,14 +44,14 @@ public final class CookieUtils
 
     public static void addCookie(HttpServletRequest request, HttpServletResponse response, String name, String value, Integer maxAge)
     {
-        Setting localSetting = SettingUtils.get();
-        addCookie(request, response, name, value, maxAge, localSetting.getCookiePath(), localSetting.getCookieDomain(), null);
+        final ShopxxSettings settings = SpringUtils.getBean(ShopxxSettings.class);
+        addCookie(request, response, name, value, maxAge, settings.getCookiePath(), settings.getCookieDomain(), null);
     }
 
     public static void addCookie(HttpServletRequest request, HttpServletResponse response, String name, String value)
     {
-        Setting localSetting = SettingUtils.get();
-        addCookie(request, response, name, value, null, localSetting.getCookiePath(), localSetting.getCookieDomain(), null);
+        final ShopxxSettings settings = SpringUtils.getBean(ShopxxSettings.class);
+        addCookie(request, response, name, value, null, settings.getCookiePath(), settings.getCookieDomain(), null);
     }
 
     public static String getCookie(HttpServletRequest request, String name)
@@ -106,7 +107,7 @@ public final class CookieUtils
 
     public static void removeCookie(HttpServletRequest request, HttpServletResponse response, String name)
     {
-        Setting localSetting = SettingUtils.get();
-        removeCookie(request, response, name, localSetting.getCookiePath(), localSetting.getCookieDomain());
+        ShopxxSettings settings = SettingUtils.get();
+        removeCookie(request, response, name, settings.getCookiePath(), settings.getCookieDomain());
     }
 }

@@ -2,6 +2,7 @@ package com.hellojd.shopex.plugin;
 
 import com.hellojd.shopex.bean.FileInfo;
 import com.hellojd.shopex.common.Setting;
+import com.hellojd.shopex.common.ShopxxSettings;
 import com.hellojd.shopex.util.SettingUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -75,13 +76,13 @@ public class FilePlugin extends StoragePlugin implements ResourceLoaderAware {
 
     @Override
     public String getUrl(String path) {
-        Setting localSetting = SettingUtils.get();
-        return localSetting.getSiteUrl() +"/file?path="+ path;
+        ShopxxSettings settings = SettingUtils.get();
+        return settings.getSiteUrl() +"/file?path="+ path;
     }
 
     @Override
     public List<FileInfo> browser(String path) {
-        Setting setting = SettingUtils.get();
+        ShopxxSettings setting = SettingUtils.get();
         List files = new ArrayList();
         final Resource resource = this.resourceLoader.getResource(path);
         final String realPath;

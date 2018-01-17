@@ -2,6 +2,7 @@ package com.hellojd.shopex.service.impl;
 
 import com.hellojd.shopex.bean.FileInfo;
 import com.hellojd.shopex.common.Setting;
+import com.hellojd.shopex.common.ShopxxSettings;
 import com.hellojd.shopex.enums.FileOrderType;
 import com.hellojd.shopex.enums.FileType;
 import com.hellojd.shopex.plugin.StoragePlugin;
@@ -37,24 +38,26 @@ public class FileServiceImpl implements FileService, ServletContextAware {
     private ServletContext servletContext;
     @Autowired
     private PluginService pluginService;
+    @Autowired
+    ShopxxSettings settings;
     @Override
     public boolean isValid(FileType fileType, MultipartFile multipartFile) {
         if (multipartFile == null) {
             return false;
         }
-        Setting setting = SettingUtils.get();
-        if ((setting.getUploadMaxSize() != null) && (setting.getUploadMaxSize().intValue() != 0) && (multipartFile.getSize() > setting.getUploadMaxSize().intValue() * 1024L * 1024L)) {
+
+        if ((settings.getUploadMaxSize() != null) && (settings.getUploadMaxSize() != 0) && (multipartFile.getSize() > settings.getUploadMaxSize() * 1024L * 1024L)) {
             return false;
         }
         String[] extensions;
         if (fileType == FileType.flash) {
-            extensions = setting.getUploadFlashExtensions();
+            extensions = settings.getUploadFlashExtensions();
         } else if (fileType == FileType.media) {
-            extensions = setting.getUploadMediaExtensions();
+            extensions = settings.getUploadMediaExtensions();
         } else if (fileType == FileType.file) {
-            extensions = setting.getUploadFileExtensions();
+            extensions = settings.getUploadFileExtensions();
         } else {
-            extensions = setting.getUploadImageExtensions();
+            extensions = settings.getUploadImageExtensions();
         }
         if (ArrayUtils.isNotEmpty(extensions)) {
             return FilenameUtils.isExtension(multipartFile.getOriginalFilename(), extensions);
@@ -101,16 +104,15 @@ public class FileServiceImpl implements FileService, ServletContextAware {
         } else {
             path = "/";
         }
-        Setting setting = SettingUtils.get();
         String uploadPath;
         if (fileType == FileType.flash) {
-            uploadPath = setting.getFlashUploadPath();
+            uploadPath = settings.getFlashUploadPath();
         } else if (fileType == FileType.media) {
-            uploadPath = setting.getMediaUploadPath();
+            uploadPath = settings.getMediaUploadPath();
         } else if (fileType == FileType.file) {
-            uploadPath = setting.getFileUploadPath();
+            uploadPath = settings.getFileUploadPath();
         } else {
-            uploadPath = setting.getImageUploadPath();
+            uploadPath = settings.getImageUploadPath();
         }
         String fullPath = StringUtils.substringBefore(uploadPath, "${");
         fullPath = StringUtils.substringBeforeLast(fullPath, "/") + path;
@@ -138,16 +140,15 @@ public class FileServiceImpl implements FileService, ServletContextAware {
         if (multipartFile == null) {
             return null;
         }
-        Setting setting = SettingUtils.get();
         String uploadPath;
         if (fileType == FileType.flash) {
-            uploadPath = setting.getFlashUploadPath();
+            uploadPath = settings.getFlashUploadPath();
         } else if (fileType == FileType.media) {
-            uploadPath = setting.getMediaUploadPath();
+            uploadPath = settings.getMediaUploadPath();
         } else if (fileType == FileType.file) {
-            uploadPath = setting.getFileUploadPath();
+            uploadPath = settings.getFileUploadPath();
         } else {
-            uploadPath = setting.getImageUploadPath();
+            uploadPath = settings.getImageUploadPath();
         }
         try {
             HashMap localHashMap = new HashMap();
@@ -195,16 +196,15 @@ public class FileServiceImpl implements FileService, ServletContextAware {
         if (multipartFile == null) {
             return null;
         }
-        Setting localSetting = SettingUtils.get();
         String pathTemplate;
         if (fileType == FileType.flash) {
-            pathTemplate = localSetting.getFlashUploadPath();
+            pathTemplate = settings.getFlashUploadPath();
         } else if (fileType == FileType.media) {
-            pathTemplate = localSetting.getMediaUploadPath();
+            pathTemplate = settings.getMediaUploadPath();
         } else if (fileType == FileType.file) {
-            pathTemplate = localSetting.getFileUploadPath();
+            pathTemplate = settings.getFileUploadPath();
         } else {
-            pathTemplate = localSetting.getImageUploadPath();
+            pathTemplate = settings.getImageUploadPath();
         }
         try {
             HashMap dataModel = new HashMap();

@@ -68,13 +68,36 @@ setting:
   accountLockTime: 10
   safeKeyExpiryTime: 1440
   uploadMaxSize: 10
-  uploadImageExtension: jpg,jpeg,bmp,gif,png
-  uploadFlashExtension: swf,flv
-  uploadMediaExtension: swf,flv,mp3,wav,avi,rm,rmvb
-  uploadFileExtension: zip,rar,7z,doc,docx,xls,xlsx,ppt,pptx
- # imageUploadPath: "file:d:/upload/image/${.now?string('yyyyMM')}/"
- # flashUploadPath: 'file:d:/upload/flash/${.now?string(''yyyyMM'')}/'
- # mediaUploadPath: 'file:d:/upload/media/${.now?string(''yyyyMM'')}/'
+  uploadImageExtensions:
+    - jpg
+    - jpeg
+    - bmp
+    - gif
+    - png
+  uploadFlashExtensions:
+    - swf
+    - flv
+  uploadMediaExtensions:
+    - swf
+    - flv
+    - mp3
+    - wav
+    - avi
+    - rm
+    - rmvb
+  uploadFileExtensions:
+    - zip
+    - rar
+    - 7z
+    - doc
+    - docx
+    - xls
+    - xlsx
+    - ppt
+    - pptx
+  imageUploadPath: file:d:/upload/image/
+  flashUploadPath: file:d:/upload/flash/
+  mediaUploadPath: file:d:/upload/media/
   smtpFromMail: test@shopxx.net
   smtpHost: smtp.shopxx.net
   smtpPort: 25
