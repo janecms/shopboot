@@ -23,20 +23,21 @@
                 <li class="active">General Elements</li>
             </ol>
         </section>
-        <section class="content">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">编辑</h3>
-                </div>
-                <div class="box-body">
-                    <div class="row">
 
-                        <form id="inputForm" class="form-horizontal">
+        <form id="inputForm" action="/specification/save"  method="post" class="form-horizontal">
+            <input type="hidden" id="id" name="id" th:value="${specification.id}" />
+            <section class="content">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">编辑</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="name">名称</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="name" type="text"
+                                        <input class="form-control" id="name" name="name" type="text"
                                                th:value="${specification.name}"/>
                                     </div>
                                 </div>
@@ -53,14 +54,14 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="memo">备注</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="memo" type="text"
+                                        <input class="form-control" id="memo" name="memo" type="text"
                                                th:value="${specification.memo}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="order">排序</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="order" type="text"
+                                        <input class="form-control" id="order" name="order" type="text"
                                                th:value="${specification.order}"/>
                                     </div>
                                 </div>
@@ -70,7 +71,7 @@
                             <div class="col-md-10">
                                 <button class="btn btn-primary" type="button" id="addSpecificationValueButton">增加规格值
                                 </button>
-                                <table class="table">
+                                <table id="specificationTable" class="table">
                                     <tbody>
                                     <tr>
                                         <th>#</th>
@@ -79,7 +80,8 @@
                                         <th>规格值排序</th>
                                         <th>删除</th>
                                     </tr>
-                                    <tr th:each="specvalue,iterStat : ${specification.specificationValues}">
+                                    <tr class="specificationValueTr"
+                                        th:each="specvalue,iterStat : ${specification.specificationValues}">
                                         <td class="col-xs-1">
                                             <input type="hidden"
                                                    th:name="'specificationValues['+${iterStat.index}+'].id'"
@@ -100,9 +102,11 @@
                                                        th:name="'specificationValues['+${iterStat.index}+'].image'"
                                                        class="form-control input-sm specificationValuesImage"
                                                        th:value="${specvalue.image}"
+                                                       th:disabled="${specification.type == 'text'? 'disabled':''}"
                                                        maxlength="200">
                                                 <input type="button" class="btn btn-default btn-sm browserButton"
-                                                       value="选择文件">
+                                                       value="选择文件"
+                                                       th:disabled="${specification.type == 'text'? 'disabled':''}">
                                                 <img th:src="${specvalue.image}"
                                                      style="width: 20px; height: 20px; padding: 1px;
                                                                  vertical-align: middle; border: 1px solid #b2d3f4;">
@@ -122,13 +126,18 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </form>
 
+
+                        </div>
+                        <!-- /.row -->
                     </div>
-                    <!-- /.row -->
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-info">保存</button>
+                        <a type="submit" class="btn btn-default" th:href="@{'/specification/'}">取消</a>
+                    </div>
                 </div>
-            </div>
         </section>
+        </form>
     </div>
 </div>
 <th:block layout:fragment="commonscript">
@@ -158,16 +167,26 @@
 
             // 增加规格值
             $addSpecificationValueButton.click(function () {
-               var  disabledAttribute="";
+                var disabledAttribute = "";
                 if ($type.val() == "text") {
-                   // var trHtml = '<tr class="specificationValueTr"> <td> &nbsp; <\/td> <td> <input type="text" name="specificationValues[' + specificationValueIndex + '].name" class="text specificationValuesName" maxlength="200" \/> <\/td> <td> <span class="fieldSet"> <input type="text" name="specificationValues[' + specificationValueIndex + '].image" class="text specificationValuesImage" maxlength="200" disabled="disabled" \/> <input type="button" class="button browserButton" value="选择文件" disabled="disabled" \/> <\/span> <\/td> <td> <input type="text" name="specificationValues[' + specificationValueIndex + '].order" class="text specificationValuesOrder" maxlength="9" style="width: 30px;" \/> <\/td> <td> <a href="javascript:;" class="deleteSpecificationValue">[删除]<\/a> <\/td> <\/tr>';
+                    // var trHtml = '<tr class="specificationValueTr"> <td> &nbsp; <\/td> <td> <input type="text" name="specificationValues[' + specificationValueIndex + '].name" class="text specificationValuesName" maxlength="200" \/> <\/td> <td> <span class="fieldSet"> <input type="text" name="specificationValues[' + specificationValueIndex + '].image" class="text specificationValuesImage" maxlength="200" disabled="disabled" \/> <input type="button" class="button browserButton" value="选择文件" disabled="disabled" \/> <\/span> <\/td> <td> <input type="text" name="specificationValues[' + specificationValueIndex + '].order" class="text specificationValuesOrder" maxlength="9" style="width: 30px;" \/> <\/td> <td> <a href="javascript:;" class="deleteSpecificationValue">[删除]<\/a> <\/td> <\/tr>';
                 } else {
-                    disabledAttribute="disabled";
-                  //  var trHtml = '<tr class="specificationValueTr"> <td> &nbsp; <\/td> <td> <input type="text" name="specificationValues[' + specificationValueIndex + '].name" class="text specificationValuesName" maxlength="200" \/> <\/td> <td> <span class="fieldSet"> <input type="text" name="specificationValues[' + specificationValueIndex + '].image" class="text specificationValuesImage" maxlength="200" \/> <input type="button" class="button browserButton" value="选择文件" \/> <\/span> <\/td> <td> <input type="text" name="specificationValues[' + specificationValueIndex + '].order" class="text specificationValuesOrder" maxlength="9" style="width: 30px;" \/> <\/td> <td> <a href="javascript:;" class="deleteSpecificationValue">[删除]<\/a> <\/td> <\/tr>';
+                    disabledAttribute = "disabled";
+                    //  var trHtml = '<tr class="specificationValueTr"> <td> &nbsp; <\/td> <td> <input type="text" name="specificationValues[' + specificationValueIndex + '].name" class="text specificationValuesName" maxlength="200" \/> <\/td> <td> <span class="fieldSet"> <input type="text" name="specificationValues[' + specificationValueIndex + '].image" class="text specificationValuesImage" maxlength="200" \/> <input type="button" class="button browserButton" value="选择文件" \/> <\/span> <\/td> <td> <input type="text" name="specificationValues[' + specificationValueIndex + '].order" class="text specificationValuesOrder" maxlength="9" style="width: 30px;" \/> <\/td> <td> <a href="javascript:;" class="deleteSpecificationValue">[删除]<\/a> <\/td> <\/tr>';
                 }
-                var trHtml='<tr class="specificationValueTr"> <td class="col-xs-1"><input type="hidden"  name="specificationValues['+specificationValueIndex+'].id"> </td> <td class="col-xs-3"> <div> <input type="text" name="specificationValues['+specificationValueIndex+'].name" class="form-control input-sm specificationValuesName" maxlength="200"> </div> </td> <td class="col-xs-4"> <div class="form-inline"> <input type="text" name="specificationValues['+specificationValueIndex+'].image" class="form-control input-sm specificationValuesImage"  maxlength="200" disabled="'+disabledAttribute+'" > <input type="button" class="btn btn-default btn-sm browserButton" value="选择文件" disabled="'+disabledAttribute+'"> <img  style="width: 20px; height: 20px; padding: 1px; vertical-align: middle; border: 1px solid #b2d3f4;"> </div> </td> <td class="col-xs-2"> <input type="text" name="'+specificationValueIndex+'].order" class="form-control input-sm specificationValuesOrder" maxlength="9"> </td> <td class="col-xs-2"> <a href="javascript:;" class="deleteSpecificationValue">[删除]</a> </td> </tr>';
+                var trHtml = '<tr class="specificationValueTr"> <td class="col-xs-1"><input type="hidden"  name="specificationValues[' + specificationValueIndex + '].id"> </td> <td class="col-xs-3"> <div> <input type="text" name="specificationValues[' + specificationValueIndex + '].name" class="form-control input-sm specificationValuesName" maxlength="200"> </div> </td> <td class="col-xs-4"> <div class="form-inline"> <input type="text" name="specificationValues[' + specificationValueIndex + '].image" class="form-control input-sm specificationValuesImage"  maxlength="200" disabled="' + disabledAttribute + '" > <input type="button" class="btn btn-default btn-sm browserButton" value="选择文件" disabled="' + disabledAttribute + '"> <img  style="width: 20px; height: 20px; padding: 1px; vertical-align: middle; border: 1px solid #b2d3f4;"> </div> </td> <td class="col-xs-2"> <input type="text" name="' + specificationValueIndex + '].order" class="form-control input-sm specificationValuesOrder" maxlength="9"> </td> <td class="col-xs-2"> <a href="javascript:;" class="deleteSpecificationValue">[删除]</a> </td> </tr>';
                 $specificationTable.append(trHtml).find("input.browserButton:last").browser();
                 specificationValueIndex++;
+            });
+            // 删除规格值
+            $(document).on("click", "a.deleteSpecificationValue", function () {
+                console.log('click--');
+                var $this = $(this);
+                if ($specificationTable.find("tr.specificationValueTr").length <= 1) {
+                    $.message("warn", "必须至少保留一个规格值");
+                } else {
+                    $this.closest("tr").remove();
+                }
             });
 
         });

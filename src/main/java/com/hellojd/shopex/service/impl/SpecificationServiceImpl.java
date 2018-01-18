@@ -15,6 +15,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -35,7 +36,7 @@ public class SpecificationServiceImpl extends ShopBaseServiceImpl<SpecificationR
     @Override
     public void save(SpecificationBean specification) {
         this.baseMapper.insert(specification);
-        final Set<SpecificationValue> specificationValues = specification.getSpecificationValues();
+        final List<SpecificationValue> specificationValues = specification.getSpecificationValues();
         final Long id = specification.getId();
         if (CollectionUtils.isNotEmpty(specificationValues)) {
             for (SpecificationValue sv : specificationValues) {
@@ -51,17 +52,22 @@ public class SpecificationServiceImpl extends ShopBaseServiceImpl<SpecificationR
     public void update(SpecificationBean specification) {
         final SpecificationBean po = this.baseMapper.getSpecification(specification.getId());
         this.baseMapper.updateById(specification);
-        final Set<SpecificationValue> requests = specification.getSpecificationValues();
-        Set<SpecificationValue> specificationValues = po.getSpecificationValues();
-        this.updateRefResult(requests,specificationValues,new RefResultUpdater<SpecificationValue>(){
+        final List<SpecificationValue> requests = specification.getSpecificationValues();
+        List<SpecificationValue> specificationValues = po.getSpecificationValues();
+        this.doUpdateRefResult(requests,specificationValues,new RefUpdater<SpecificationValue>(){
             @Override
-            public void execute(RefResult<SpecificationValue> refResult) {
-                refResult.savingSet.forEach(item ->{
-                    specificationValueRepository.insert(item);
-                });
-                refResult.deletingSet.forEach(item ->{
-                    specificationValueRepository.delete(new EntityWrapper<>(item));
-                });
+            public void deleteById(Serializable id) {
+                specificationValueRepository.deleteById(id);
+            }
+
+            @Override
+            public void updateById(SpecificationValue entity) {
+                specificationValueRepository.updateById(entity);
+            }
+
+            @Override
+            public void insert(SpecificationValue entity) {
+                specificationValueRepository.insert(entity);
             }
         });
     }
