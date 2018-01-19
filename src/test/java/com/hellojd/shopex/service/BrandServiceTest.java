@@ -1,5 +1,6 @@
 package com.hellojd.shopex.service;
 
+import com.hellojd.shopex.bean.BrandBean;
 import com.hellojd.shopex.entity.Brand;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +19,6 @@ public class BrandServiceTest {
     BrandService brandService;
     @Test
     public void test1(){
-        List<Brand> brands = brandService.selectList(null);
-        assertNotNull(brands);
+        brandService.save(new BrandBean());
     }
 }

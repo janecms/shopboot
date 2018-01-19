@@ -1,4 +1,4 @@
-package com.hellojd.shopex.common.aop;
+package com.hellojd.shopex.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;

@@ -1,14 +1,15 @@
 package com.hellojd.shopex.service.impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.hellojd.shopex.bean.BrandBean;
 import com.hellojd.shopex.entity.Brand;
 import com.hellojd.shopex.repository.BrandRepository;
 import com.hellojd.shopex.service.BrandService;
 import com.hellojd.shopex.util.BeanUtils;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author Administrator
@@ -30,4 +31,5 @@ public class BrandServiceImpl extends ServiceImpl<BrandRepository,Brand> impleme
         BeanUtils.copyProperties(brandBean, brandPo,new String[] { "products", "productCategories", "promotions" });
         this.baseMapper.updateById(brandPo);
     }
+
 }

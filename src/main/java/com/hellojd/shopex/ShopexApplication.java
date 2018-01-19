@@ -11,6 +11,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -20,6 +21,7 @@ import org.springframework.web.context.request.RequestContextListener;
  * @author zhaoguoyu
  */
 @EnableAsync
+@EnableAspectJAutoProxy
 @SpringBootApplication
 public class ShopexApplication extends SpringBootServletInitializer {
 

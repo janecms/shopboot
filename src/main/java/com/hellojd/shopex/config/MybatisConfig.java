@@ -9,6 +9,7 @@ import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.auditing.AuditingHandler;
 
 import javax.sql.DataSource;
 
@@ -49,6 +50,8 @@ public class MybatisConfig {
         mybatisPlus.setDataSource(dataSource);
         return mybatisPlus;
     }*/
-
-
+    @Bean
+    public AuditingHandler newAuditingHandler(){
+        return new AuditingHandler();
+    }
 }
