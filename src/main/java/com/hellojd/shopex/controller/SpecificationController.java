@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * 规格
  * @author Administrator
  */
 @Controller
