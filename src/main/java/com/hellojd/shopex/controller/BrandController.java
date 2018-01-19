@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.hellojd.shopex.bean.BrandBean;
+import com.hellojd.shopex.bean.PageWrapper;
 import com.hellojd.shopex.common.Message;
 import com.hellojd.shopex.entity.Brand;
 import com.hellojd.shopex.enums.BrandType;
@@ -32,7 +33,7 @@ public class BrandController  extends BaseController {
     public String list(Page<Brand> page,Brand queryObj,ModelMap model){
         Wrapper wrapper = new EntityWrapper(queryObj);
         final Page<Brand> brandPage = this.brandService.selectPage(page,wrapper);
-        model.addAttribute("page", brandPage);
+        model.addAttribute("page", PageWrapper.wrapper(brandPage));
         return "product/brand_grid";
     }
 

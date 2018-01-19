@@ -21,11 +21,11 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class PersistAop {
-  @Pointcut(value = "execution(public * com.hellojd.shopex.service..*.save*(..))" +
-      "||execution(public * com.hellojd.shopex.service..*.update*(..))"+
-      "||execution(public * com.hellojd.shopex.service..*.insert*(..))"+
-      "||execution(public * com.hellojd.shopex.service..*.add*(..))"+
-      "||execution(public * com.hellojd.shopex.service..*.modify*(..))"
+  @Pointcut(value = "execution(public * com.hellojd.shopex.repository.*.save*(..))" +
+      "||execution(public * com.hellojd.shopex.repository.*.update*(..))"+
+      "||execution(public * com.hellojd.shopex.repository.*.insert*(..))"+
+      "||execution(public * com.hellojd.shopex.repository.*.add*(..))"+
+      "||execution(public * com.hellojd.shopex.repository.*.modify*(..))"
   )
   public void cutService() {
   }

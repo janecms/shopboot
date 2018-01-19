@@ -540,7 +540,7 @@ $().ready(function() {
 	
 	$("form").submit(function() {
 		var $this = $(this);
-		if ($this.attr("method") != null && $this.attr("method").toLowerCase() == "post" && $this.find("input[name='token']").size() == 0) {
+		if ($this.attr("method") != null && $this.attr("method").toLowerCase() == "post" && $this.find("input[name='token']").length == 0) {
 			var token = getCookie("token");
 			if (token != null) {
 				$this.append('<input type="hidden" name="token" value="' + token + '" \/>');

@@ -9,5 +9,4 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface BrandRepository extends BaseMapper<Brand> {
-  public void delete();
 }

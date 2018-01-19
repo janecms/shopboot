@@ -67,6 +67,7 @@ public class SpecificationServiceImpl extends ShopBaseServiceImpl<SpecificationR
 
             @Override
             public void insert(SpecificationValue entity) {
+                entity.setSpecification(specification.getId());
                 specificationValueRepository.insert(entity);
             }
         });

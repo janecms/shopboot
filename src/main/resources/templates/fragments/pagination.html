@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="pager">
+    <input type="hidden" id="searchCount" name="searchCount" value="${page.searchCount}"/>
+    <input type="hidden" id="size" name="size" value="${page.size}"/>
+    <input type="hidden" id="current" name="current" value="${page.current}"/>
+    <input type="hidden" id="orderByField" name="orderByField" value="${page.orderByField}"/>
+    <input type="hidden" id="openSort" name="openSort" value="${page.openSort}"/>
+    <input type="hidden" id="isAsc" name="isAsc" value="${page.isAsc}"/>
+    <ul th:if="${page.pages gt 0}" class="pagination pagination-sm no-margin pull-right">
+        <li th:if="${page.hasPrevious()}"><a href="#">«</a></li>
+        <li><a href="#">1</a></li>
+        <li th:each="segment : ${page.getSegments()}">
+            <a href="#" th:text="${segment}"></a>
+        </li>
+        <li th:if="${page.hasNext()}"><a href="#">»</a></li>
+    </ul>
+</div>
+</body>
+</html>
