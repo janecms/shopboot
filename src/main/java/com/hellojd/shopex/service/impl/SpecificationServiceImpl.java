@@ -24,7 +24,8 @@ import java.util.Set;
  */
 @Service
 @Slf4j
-public class SpecificationServiceImpl extends ShopBaseServiceImpl<SpecificationRepository, Specification> implements SpecificationService {
+public class SpecificationServiceImpl extends ShopBaseServiceImpl<SpecificationRepository, Specification>
+        implements SpecificationService {
     @Autowired
     SpecificationValueRepository specificationValueRepository;
 

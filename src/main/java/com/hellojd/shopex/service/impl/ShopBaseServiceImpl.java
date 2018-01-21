@@ -20,8 +20,7 @@ import java.util.*;
 public class ShopBaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> implements IService<T> {
 
     /**
-     * 同步
-     *
+     * 同步1（策略增删策略)
      * @param requests:提交列表*
      * @param persists       已保存列表
      */
@@ -58,6 +57,14 @@ public class ShopBaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl
         return refResult;
     }
 
+    /**
+     * 同步2（策略增删改策略，基于PK操作)
+     * @param requests
+     * @param persists
+     * @param updater
+     * @param <S>
+     * @return
+     */
     protected <S extends RefId> RefResult<S> doUpdateRefResult(Collection<S> requests, Collection<S> persists, RefUpdater<S> updater) {
         //已去除重复数据
         final Collection disjunction = CollectionUtils.disjunction(requests, persists);

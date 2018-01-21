@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hellojd.shopex.repository.ParameterGroupRepository">
+    <cache/>
+    <resultMap id="parameterGroupResultMap" type="com.hellojd.shopex.bean.ParameterGroupBean">
+        <id property="id" column="id"></id>
+        <result column="create_date" property="createDate"></result>
+        <result column="modify_date" property="modifyDate"></result>
+        <result column="orders" property="order"></result>
+        <result column="name" property="name"></result>
+        <result column="category_id" property="productCategoryId"></result>
+        <association property="productCategory" javaType="com.hellojd.shopex.bean.ProductCategoryBean"
+                     column="category_id"
+                     select="com.hellojd.shopex.repository.ProductCategoryRepository.getProductCategoryById"
+                     fetchType="lazy">
+        </association>
+        <collection property="parameters" select="getParameters" column="id"></collection>
+    </resultMap>
+    <resultMap id="parameterResultMap" type="com.hellojd.shopex.entity.Parameter">
+        <id property="id" column="id"></id>
+        <result column="create_date" property="createDate"></result>
+        <result column="modify_date" property="modifyDate"></result>
+        <result column="orders" property="order"></result>
+        <result column="name" property="name"></result>
+        <result column="parameterGroupId" property="parameterGroupId"></result>
+    </resultMap>
+    <select id="getParameterGroup" resultMap="parameterGroupResultMap">
+        SELECT
+            id,
+            create_date,
+            modify_date,
+            name,
+            orders,
+            category_id
+        FROM d_parameter_group
+        WHERE id = #{id}
+    </select>
+    <select id="getParameters" resultMap="parameterResultMap">
+        SELECT
+            id,
+            create_date,
+            modify_date,
+            orders,
+            name,
+            parameter_group
+        FROM d_parameter
+        WHERE parameter_group = #{parameter_group_id}
+    </select>
+    <select id="selectPage" resultMap="parameterGroupResultMap">
+        SELECT
+            id,
+            create_date,
+            modify_date,
+            name,
+            orders,
+            category_id
+        FROM d_parameter_group
+    </select>
+</mapper>

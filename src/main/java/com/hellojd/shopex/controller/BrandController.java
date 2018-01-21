@@ -34,21 +34,21 @@ public class BrandController  extends BaseController {
         Wrapper wrapper = new EntityWrapper(queryObj);
         final Page<Brand> brandPage = this.brandService.selectPage(page,wrapper);
         model.addAttribute("page", PageWrapper.wrapper(brandPage));
-        return "product/brand_grid";
+        return "admin/brand/grid";
     }
 
     @RequestMapping(value={"/add"}, method={RequestMethod.GET})
     public String add(ModelMap model)
     {
         model.addAttribute("types", BrandType.values());
-        return "product/brand_edit";
+        return "admin/brand/edit";
     }
     @RequestMapping(value={"/{id}"}, method={RequestMethod.GET})
     public String edit(@PathVariable Long id, ModelMap model)
     {
         model.addAttribute("types", BrandType.values());
         model.addAttribute("brand", this.brandService.selectById(id));
-        return "product/brand_edit";
+        return "admin/brand/edit";
     }
     @RequestMapping(value={"/save"}, method={RequestMethod.POST})
     public String save(BrandBean brand, RedirectAttributes redirectAttributes)

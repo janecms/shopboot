@@ -12,6 +12,7 @@ import com.hellojd.shopex.bean.dt.DataTables;
 import com.hellojd.shopex.service.BrandService;
 import com.hellojd.shopex.service.ProductCategoryService;
 import com.hellojd.shopex.service.ProductService;
+import com.hellojd.shopex.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class CategoryController extends BaseController{
     public String treeGrid(ModelMap modelMap){
         Set<ProductCategoryBean> grid = this.productCategoryService.getRootProductCategoryList();
         modelMap.put("grid",grid);
-        return "product/categorys_grid";
+        return "admin/category/grid";
     }
 
     @GetMapping("/{categoryId}/edit")
@@ -58,10 +59,9 @@ public class CategoryController extends BaseController{
         model.addAttribute("brands", allBrands);
         model.addAttribute("productCategory", productCategory);
         final List<TreeViewBean> productCategoryTreeView = this.productCategoryService.buildCategoryTree(productCategory.getParent());
-        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        final String productCategoryTreeViewJson = objectMapper.writeValueAsString(productCategoryTreeView);
+        final String productCategoryTreeViewJson=JsonUtils.toJson(productCategoryTreeView);
         model.addAttribute("productCategoryTreeViewJson", productCategoryTreeViewJson);
-        return "product/category_edit";
+        return "admin/category/edit";
     }
 
     @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})

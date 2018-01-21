@@ -40,7 +40,7 @@ public class ProductCatalogServiceImpl extends  ShopBaseServiceImpl<ProductCateg
     }
 
     @Override
-    public List<TreeViewBean> buildCategoryTree(ProductCategoryBean selectNode) {
+    public List<TreeViewBean> buildCategoryTree(ProductCategory selectNode) {
         Set<ProductCategoryBean> rootSet = this.productCategoryRepository.getRootProductCategoryList();
         final Iterator<ProductCategoryBean> iter = rootSet.iterator();
         List<TreeViewBean> treeNodeList = new ArrayList<>();
@@ -131,7 +131,7 @@ public class ProductCatalogServiceImpl extends  ShopBaseServiceImpl<ProductCateg
             log.info("delete brand for categoryId:{},num:{}",categoryId,deleteSet.size());
         }
     }
-    private void recurBuildCategoryTree(TreeViewBean parent, Set<ProductCategoryBean> children, ProductCategoryBean selectNode) {
+    private void recurBuildCategoryTree(TreeViewBean parent, Set<ProductCategoryBean> children, ProductCategory selectNode) {
         final Iterator<ProductCategoryBean> iter = children.iterator();
         while (iter.hasNext()) {
             final ProductCategoryBean productCategory = iter.next();

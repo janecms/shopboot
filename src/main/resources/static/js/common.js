@@ -163,6 +163,7 @@ function message(code) {
 		}
 		
 		if ($message == null) {
+			console.log("$message init--");
 			$message = $('<div class="xxMessage"><div class="messageContent message' + message.type + 'Icon"><\/div><\/div>');
 			if (!window.XMLHttpRequest) {
 				$message.append('<iframe class="messageIframe"><\/iframe>');

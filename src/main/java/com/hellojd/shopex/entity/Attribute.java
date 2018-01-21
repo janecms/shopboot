@@ -8,10 +8,8 @@ import java.util.List;
  */
 @TableName("d_attribute")
 @Data
-public class Attribute extends BaseEntity{
+public class Attribute extends OrderAbleEntity{
     String name;
-    int orders;
-    int propertyIndex;
-    ProductCategory category;
-    List<String> options;
+    Integer propertyIndex;
+    Integer productCategoryId;
 }
