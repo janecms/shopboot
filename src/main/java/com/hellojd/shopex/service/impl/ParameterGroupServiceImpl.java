@@ -17,6 +17,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.hellojd.shopex.entity.ParameterGroup;
 import com.hellojd.shopex.repository.ParameterGroupRepository;
 import com.hellojd.shopex.service.ParameterGroupService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -31,6 +32,7 @@ public class ParameterGroupServiceImpl extends ShopBaseServiceImpl<ParameterGrou
         ParameterGroupService {
     @Autowired
     ParameterRepository parameterRepository;
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void save(ParameterGroupBean parameterGroup) {
         this.baseMapper.insert(parameterGroup);
@@ -51,7 +53,7 @@ public class ParameterGroupServiceImpl extends ShopBaseServiceImpl<ParameterGrou
     public ParameterGroupBean getParameterGroup(Long parameterId) {
         return this.baseMapper.getParameterGroup(parameterId);
     }
-
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void update(ParameterGroupBean parameterGroup) {
         final ParameterGroupBean po = this.baseMapper.getParameterGroup(parameterGroup.getId());

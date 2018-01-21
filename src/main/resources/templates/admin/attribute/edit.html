@@ -23,61 +23,104 @@
             </ol>
         </section>
         <section class="content">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">编辑</h3>
-                </div>
-                <div class="box-body">
-                    <div class="row">
-
-                        <form class="form-horizontal">
+            <form id="inputForm" method="post" action="/attribute/update" class="form-horizontal">
+                <input type="hidden" name="id" th:value="${attribute.id}"/>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">编辑</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="productCategoryId">绑定分类</label>
+                                    <label class="col-sm-2 control-label">绑定分类</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="productCategoryId" type="text"/>
+                                        <div th:replace="fragments/input_treeview :: input('productCategoryId',${attribute.productCategory.id},${attribute.productCategory.name})">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="name">名称</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="name" type="text"/>
+                                        <input class="form-control" id="name" name="name" type="text" th:value="${attribute.name}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="order">排序</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="order" type="text"/>
+                                        <input class="form-control" id="order" name="order" type="text" th:value="${attribute.order}"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-10">
-                                <table class="table">
+                                <button class="btn btn-primary" type="button"id="addOption">增加可选项</button>
+                                <table id="attributeTable" class="table">
                                     <tbody>
                                     <tr>
-                                        <th>可选项 </th>
+                                        <th>#</th>
+                                        <th>可选项</th>
                                         <th>删除</th>
                                     </tr>
-                                    <tr>
-                                        <td>1.</td>
-                                        <td>Update software</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2.</td>
-                                        <td>Clean database</td>
+                                    <tr class="optionTr" th:each="option,stat : ${attribute.options}">
+                                        <td><th:block th:text="${stat.index}"></th:block>
+                                            <input type="hidden" th:value="${option.attribute}" th:name="'options['+${stat.index}+'].attribute'" /></td>
+                                        <td> <input type="text" th:value="${option.options}" class="form-control input-sm" th:name="'options['+${stat.index}+'].options'" /></td>
+                                        <td><a href="javascript:;" class="deleteOption">[删除]</a></td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </form>
 
+                        </div>
+                        <!-- /.row -->
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-info">保存</button>
+                            <a type="submit" class="btn btn-default" th:href="@{'/attribute/'}">取消</a>
+                        </div>
                     </div>
-                    <!-- /.row -->
                 </div>
-            </div>
+            </form>
         </section>
     </div>
 </div>
+<th:block layout:fragment="commonscript">
+    <link rel="stylesheet" href="../../../static/css/common.css" th:href="@{/static/css/common.css}">
+    <div th:replace="fragments/footer :: treeviewjs">JavaScript tags are loaded here</div>
+    <div th:replace="fragments/input_treeview :: treeview_script('productCategoryId',${productCategoryTreeViewJson})">
+        ...
+    </div>
+    <script th:src="@{/static/js/common.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+        $().ready(function () {
+            var $inputForm = $("#inputForm");
+            var $attributeTable = $("#attributeTable");
+            var $addOption = $("#addOption");
+            var $deleteOption = $("a.deleteOption");
+
+            var optionIndex = [[${#lists.size(attribute.options)}]];
+            var attributeId = [[${attribute.id}]];
+            // 增加可选项
+            $addOption.on("click", function() {
+                var $this = $(this);
+                var trHtml = '<tr class="optionTr"> <td><input type="hidden" name="options['+optionIndex+'].attribute" value="'+attributeId+'" /><\/td>'
+                            +' <td><input type="text" name="options['+optionIndex+'].options" class="form-control input-sm" \/><\/td>'
+                            +' <td><a href="javascript:;" class="deleteOption">[删除]<\/a> <\/td> <\/tr>';
+                $attributeTable.append(trHtml);
+                optionIndex++;
+            });
+
+            // 删除可选项
+            $(document).on("click","a.deleteOption", function() {
+                var $this = $(this);
+                if ($attributeTable.find("tr.optionTr").length<= 1) {
+                    $.message("warn", "必须至少保留一个可选项");
+                } else {
+                    $this.closest("tr").remove();
+                }
+            });
+        });
+    </script>
+</th:block>
 </body>
 </html>

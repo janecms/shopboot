@@ -61,7 +61,7 @@ public class ProductCatalogServiceImpl extends  ShopBaseServiceImpl<ProductCateg
 
         return treeNodeList;
     }
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int update(ProductCategoryBean categoryBean,List<Long> brandIds) {
         final Long categoryId = categoryBean.getId();

@@ -27,4 +27,9 @@
         select attribute,options
         from d_attribute_option  where attribute=#{id}
     </select>
+    <select id="selectPage" resultMap="attributeResultMap">
+        select
+            id,create_date,modify_date,name,orders,property_index
+        from d_attribute
+    </select>
 </mapper>

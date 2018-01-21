@@ -6,6 +6,7 @@ import com.hellojd.shopex.bean.PageWrapper;
 import com.hellojd.shopex.bean.treeview.TreeViewBean;
 import com.hellojd.shopex.common.Message;
 import com.hellojd.shopex.entity.Attribute;
+import com.hellojd.shopex.entity.AttributeOption;
 import com.hellojd.shopex.entity.BaseEntity;
 import com.hellojd.shopex.service.AttributeService;
 import com.hellojd.shopex.service.ProductCategoryService;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -31,6 +33,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/attribute")
 public class AttributeController  extends BaseController {
+    @Autowired
     private AttributeService attributeService;
     @Autowired
     ProductCategoryService productCategoryService;
@@ -53,15 +56,7 @@ public class AttributeController  extends BaseController {
     @RequestMapping(value={"/save"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
     public String save(AttributeBean attribute, Long productCategoryId, RedirectAttributes redirectAttributes)
     {
-        Iterator options = attribute.getOptions().iterator();
-        while (options.hasNext())
-        {
-            String option = (String)options.next();
-            if (!StringUtils.isEmpty(option)) {
-                continue;
-            }
-            options.remove();
-        }
+        this.prev(attribute);
         attribute.setProductCategory(this.productCategoryService.getProductCategoryById(productCategoryId));
         if (!validate(attribute, new Class[] { BaseEntity.Save.class })) {
             return "/admin/common/error";
@@ -82,22 +77,15 @@ public class AttributeController  extends BaseController {
     @RequestMapping(value={"/{id}"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
     public String edit(@PathVariable("id") Long id, ModelMap model)
     {
-        model.addAttribute("attribute", this.attributeService.getAttribute(id));
+        final AttributeBean attribute = this.attributeService.getAttribute(id);
+        model.addAttribute("attribute", attribute);
         return "/admin/attribute/edit";
     }
 
     @RequestMapping(value={"/update"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
     public String update(AttributeBean attribute, RedirectAttributes redirectAttributes)
     {
-        Iterator<String> iterator = attribute.getOptions().iterator();
-        while (iterator.hasNext())
-        {
-            String str = iterator.next();
-            if (!StringUtils.isEmpty(str)) {
-                continue;
-            }
-            iterator.remove();
-        }
+        this.prev(attribute);
         if (!validate(attribute, new Class[0])) {
             return "/admin/common/error";
         }
@@ -106,11 +94,26 @@ public class AttributeController  extends BaseController {
         return "redirect:/attribute/";
     }
 
+    /**
+     * 预处理
+     * @param attribute
+     */
+    private void prev(AttributeBean attribute) {
+        Iterator<AttributeOption> iterator = attribute.getOptions().iterator();
+        while (iterator.hasNext())
+        {
+            AttributeOption option = iterator.next();
+            if (option==null ||option.getOptions()==null) {
+                iterator.remove();
+            }
+        }
+    }
+
     @RequestMapping(value={"/"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-    public String list(Page<Attribute> page, ModelMap model)
+    public String list(Page<AttributeBean> page, ModelMap model)
     {
-        final Page<Attribute> attributePage = this.attributeService.selectPage(page);
+        final Page<AttributeBean> attributePage = this.attributeService.selectBeanPage(page,new AttributeBean());
         model.addAttribute("page", PageWrapper.wrapper(attributePage));
-        return "/admin/attribute/list";
+        return "/admin/attribute/grid";
     }
 }

@@ -4,7 +4,7 @@
 <body>
 <div th:fragment="pager">
     <input type="hidden" id="searchCount" name="searchCount" th:value="${page.searchCount}"/>
-    <input type="hidden" id="size" name="size" th:value="5"/>
+    <input type="hidden" id="size" name="size" th:value="${page.size}"/>
     <input type="hidden" id="orderProperty" name="orderByField"  th:value="${page.orderByField}" />
     <input type="hidden" id="orderDirection" name="asc"  th:value="${page.isAsc()}" />
     <input type="hidden" id="pageNumber" name="current" th:value="${page.current}"/>

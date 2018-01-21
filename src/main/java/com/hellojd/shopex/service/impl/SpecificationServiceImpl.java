@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -33,7 +34,7 @@ public class SpecificationServiceImpl extends ShopBaseServiceImpl<SpecificationR
     public SpecificationBean getSpecification(Long specificationId) {
         return baseMapper.getSpecification(specificationId);
     }
-
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void save(SpecificationBean specification) {
         this.baseMapper.insert(specification);
@@ -48,7 +49,7 @@ public class SpecificationServiceImpl extends ShopBaseServiceImpl<SpecificationR
             log.warn("没有为规格设置子项列表 {}", id);
         }
     }
-
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void update(SpecificationBean specification) {
         final SpecificationBean po = this.baseMapper.getSpecification(specification.getId());
