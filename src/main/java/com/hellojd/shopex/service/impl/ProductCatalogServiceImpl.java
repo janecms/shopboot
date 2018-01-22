@@ -30,7 +30,7 @@ public class ProductCatalogServiceImpl extends  ShopBaseServiceImpl<ProductCateg
 
     @Override
     public Set<ProductCategoryBean> getRootProductCategoryList() {
-        Set<ProductCategoryBean> rootSet = this.productCategoryRepository.getRootProductCategorySet();
+        Set<ProductCategoryBean> rootSet = this.productCategoryRepository.getRootProductCategoryList();
         return TreeGridUtils.build(rootSet);
     }
 
@@ -40,8 +40,8 @@ public class ProductCatalogServiceImpl extends  ShopBaseServiceImpl<ProductCateg
     }
 
     @Override
-    public List<TreeViewBean> buildCategoryTree(ProductCategoryBean selectNode) {
-        Set<ProductCategoryBean> rootSet = this.productCategoryRepository.getRootProductCategorySet();
+    public List<TreeViewBean> buildCategoryTree(ProductCategory selectNode) {
+        Set<ProductCategoryBean> rootSet = this.productCategoryRepository.getRootProductCategoryList();
         final Iterator<ProductCategoryBean> iter = rootSet.iterator();
         List<TreeViewBean> treeNodeList = new ArrayList<>();
         while (iter.hasNext()) {
@@ -61,7 +61,7 @@ public class ProductCatalogServiceImpl extends  ShopBaseServiceImpl<ProductCateg
 
         return treeNodeList;
     }
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int update(ProductCategoryBean categoryBean,List<Long> brandIds) {
         final Long categoryId = categoryBean.getId();
@@ -131,7 +131,7 @@ public class ProductCatalogServiceImpl extends  ShopBaseServiceImpl<ProductCateg
             log.info("delete brand for categoryId:{},num:{}",categoryId,deleteSet.size());
         }
     }
-    private void recurBuildCategoryTree(TreeViewBean parent, Set<ProductCategoryBean> children, ProductCategoryBean selectNode) {
+    private void recurBuildCategoryTree(TreeViewBean parent, Set<ProductCategoryBean> children, ProductCategory selectNode) {
         final Iterator<ProductCategoryBean> iter = children.iterator();
         while (iter.hasNext()) {
             final ProductCategoryBean productCategory = iter.next();

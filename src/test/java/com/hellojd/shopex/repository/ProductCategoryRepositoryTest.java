@@ -19,7 +19,7 @@ public class ProductCategoryRepositoryTest {
     ProductCategoryRepository productCategoryRepository;
     @Test
     public void getRootProductCategorySet() throws Exception {
-        Set<ProductCategoryBean> rootSet = productCategoryRepository.getRootProductCategorySet();
+        Set<ProductCategoryBean> rootSet = productCategoryRepository.getRootProductCategoryList();
         assertNotNull(rootSet);
 
         ProductCategory category = productCategoryRepository.selectById(29);

@@ -23,7 +23,7 @@ public interface ProductCategoryRepository extends BaseMapper<ProductCategory>{
      * @return 所有顶级商品分类集合
      *
      */
-    public Set<ProductCategoryBean> getRootProductCategorySet();
+    public Set<ProductCategoryBean> getRootProductCategoryList();
     public ProductCategoryBean getProductCategoryById(Long id);
     /**
      * 根据ProductCategory对象获取所有子类集合，若无子类则返回null;
@@ -31,7 +31,7 @@ public interface ProductCategoryRepository extends BaseMapper<ProductCategory>{
      * @return 子类集合
      *
      */
-    public Set<ProductCategoryBean> getChildren(ProductCategory productCategory);
+    public List<ProductCategoryBean> getChildrenProductCategoryList(ProductCategory productCategory);
     public void saveProductCategoryBrand(ProductCategoryBrand pcb);
     public void deleteProductCategoryBrand(ProductCategoryBrand pcb);
 }
