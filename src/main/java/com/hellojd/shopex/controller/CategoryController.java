@@ -69,7 +69,7 @@ public class CategoryController extends BaseController{
         redirectAttributes){
         productCategory.setParent(this.productCategoryService.getProductCategoryById(parentId));
          List<Long> brandIdList =null;
-        if (brandIds==null){
+        if (brandIds!=null){
            log.info("brandIds is null");
             brandIdList=Arrays.asList(brandIds);
         }

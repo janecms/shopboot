@@ -10,16 +10,18 @@ import com.hellojd.shopex.entity.ProductCategory;
 import java.util.List;
 import java.util.Set;
 
-public interface ProductCategoryService{
+public interface ProductCategoryService {
 
-    /**
-	 * 获取所有顶级商品分类集合;
-	 * 
-	 * @return 所有顶级商品分类集合
-	 * 
-	 */
-	public Set<ProductCategoryBean> getRootProductCategoryList();
-	public ProductCategoryBean getProductCategoryById(Long id);
-	public List<TreeViewBean> buildCategoryTree(ProductCategory selectNode);
-	public int update(ProductCategoryBean categoryBean,List<Long> brandIds);
+  /**
+   * 获取所有顶级商品分类集合;
+   *
+   * @return 所有顶级商品分类集合
+   */
+  public Set<ProductCategoryBean> getRootProductCategoryList();
+
+  public ProductCategoryBean getProductCategoryById(Long id);
+
+  public List<TreeViewBean> buildCategoryTree(ProductCategory selectNode);
+
+  public int update(ProductCategoryBean categoryBean, List<Long> brandIds);
 }

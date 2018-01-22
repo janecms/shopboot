@@ -1,5 +1,6 @@
 package com.hellojd.shopex.bean;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.hellojd.shopex.entity.Attribute;
@@ -7,21 +8,33 @@ import com.hellojd.shopex.entity.Brand;
 import com.hellojd.shopex.entity.ParameterGroup;
 import com.hellojd.shopex.entity.Product;
 import com.hellojd.shopex.entity.ProductCategory;
+import com.hellojd.shopex.util.BeanUtils;
 
 import lombok.Data;
 
 /**
- * Created by zhaoguoyu on 2018/1/8.
+ * @author zhaoguoyu
+ * @date 2018/1/8
  */
 @Data
-public class ProductCategoryBean extends ProductCategory implements CategoryBean<ProductCategoryBean>{
+public class ProductCategoryBean extends ProductCategory implements CategoryBean<ProductCategoryBean> {
+  public ProductCategoryBean() {
+
+  }
+
+  public ProductCategoryBean(ProductCategory productCategory) {
+    BeanUtils.copyProperties(productCategory, this, new String[]{"parent", "children", "products", "brands",
+        "parameterGroups", "attributes"});
+  }
+
   // 上级分类
   ProductCategoryBean parent;
-  Set<ProductCategoryBean> children;
+  Set<ProductCategoryBean> children =new HashSet<>();
   Set<Product> products;
   Set<Brand> brands;
   Set<ParameterGroup> parameterGroups;
   Set<Attribute> attributes;
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -54,13 +67,17 @@ public class ProductCategoryBean extends ProductCategory implements CategoryBean
   @Override
   public String toString() {
     return "ProductCategoryBean{" +
-            "name='" + name + '\'' +
-            ", seoTitle='" + seoTitle + '\'' +
-            ", treePath='" + treePath + '\'' +
-            ", grade=" + grade +
-            ", parentId=" + parentId +
-            ", order=" + order +
-            ", id=" + id +
-            '}';
+        "name='" + name + '\'' +
+        ", seoTitle='" + seoTitle + '\'' +
+        ", treePath='" + treePath + '\'' +
+        ", grade=" + grade +
+        ", parentId=" + parentId +
+        ", order=" + order +
+        ", id=" + id +
+        '}';
+  }
+
+  public void addChild(ProductCategoryBean child){
+    this.children.add(child);
   }
 }

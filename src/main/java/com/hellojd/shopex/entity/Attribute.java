@@ -17,7 +17,7 @@ public class Attribute extends OrderAbleEntity{
     @TableField("property_index")
     Integer propertyIndex;
     @TableField("product_category")
-    Integer productCategoryId;
+    Long productCategoryId;
 
     @Override
     public boolean equals(Object o) {

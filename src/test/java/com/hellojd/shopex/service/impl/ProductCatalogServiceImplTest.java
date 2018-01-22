@@ -21,7 +21,7 @@ public class ProductCatalogServiceImplTest {
   ProductCatalogServiceImpl productCatalogServiceImpl;
 @Test
   public void eqs(){
-  final Set<ProductCategoryBean> rootProductCategoryList = productCatalogServiceImpl.getRootProductCategoryList();
+   final Set<ProductCategoryBean> rootProductCategoryList = productCatalogServiceImpl.getRootProductCategoryList();
   assertNotNull(rootProductCategoryList);
 }
 }

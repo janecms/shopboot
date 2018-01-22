@@ -14,5 +14,25 @@
         <result column="introduction" property="introduction" />
         <result column="orders" property="order" />
     </resultMap>
-
+    <insert id="saveProductCategoryBrand" parameterType="com.hellojd.shopex.entity.ProductCategoryBrand">
+        insert into product_category_brand(product_category_id,brand_id)VALUES (#{productCategoryId},#{brandId})
+    </insert>
+    <delete id="deleteProductCategoryBrand">
+        delete from product_category_brand where  product_category_id=#{productCategoryId} and brand_id=#{brandId}
+    </delete>
+    <select id="getBrands" resultMap="brandResultMap">
+        select
+			d.id,
+			d.logo,
+			d.create_date,
+			d.modify_date,
+			d.orders,
+			d.introduction,
+			d.name,
+			d.type,
+			d.url
+		from d_brand d, product_category_brand t
+		where d.id=t.brand_id
+		and t.product_category_id=#{productCategoryId}
+    </select>
 </mapper>

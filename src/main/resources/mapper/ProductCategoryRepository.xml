@@ -5,7 +5,7 @@
 <mapper namespace="com.hellojd.shopex.repository.ProductCategoryRepository">
 
     <cache/>
-    <resultMap id="productCategoryResultMap" type="com.hellojd.shopex.bean.ProductCategoryBean">
+    <resultMap id="productCategoryResultMap" type="com.hellojd.shopex.entity.ProductCategory">
     <id property="id" column="id"></id>
     <result column="create_date" property="createDate"></result>
     <result column="modify_date" property="modifyDate"></result>
@@ -15,11 +15,6 @@
     <result column="seo_description" property="seoDescription"></result>
     <result column="parent_id" property="parentId"></result>
     <result column="tree_path" property="treePath"></result>
-    <association property="parent" javaType="com.hellojd.shopex.bean.ProductCategoryBean" column="parent_id"
-                 select="getProductCategoryById" fetchType="lazy"></association>
-    <collection property="children" ofType="com.hellojd.shopex.bean.ProductCategoryBean" column="id" select="getChildrenProductCategoryList" fetchType="lazy"></collection>
-    <collection property="brands" ofType="com.hellojd.shopex.entity.Brand" column="id" select="getBrandsByCategoryId">
-    </collection>
 </resultMap>
     <sql id="select_product_category">
         SELECT
@@ -37,18 +32,14 @@
         FROM
         product_category t
     </sql>
-    <insert id="saveProductCategoryBrand" parameterType="com.hellojd.shopex.entity.ProductCategoryBrand">
-        insert into product_category_brand(product_category_id,brand_id)VALUES (#{productCategoryId},#{brandId})
-    </insert>
-    <delete id="deleteProductCategoryBrand">
-        delete from product_category_brand where  product_category_id=#{productCategoryId} and brand_id=#{brandId}
-    </delete>
 
     <select id="getRootProductCategoryList" resultMap="productCategoryResultMap">
         <include refid="select_product_category"></include>
         WHERE parent_id is null
     </select>
-
+    <select id="getAll" resultMap="productCategoryResultMap">
+        <include refid="select_product_category"></include>
+    </select>
     <select id="getProductCategoryById" parameterType="long" resultMap="productCategoryResultMap">
         <include refid="select_product_category"/>
         WHERE  id = #{id}
@@ -57,22 +48,5 @@
     <select id="getChildrenProductCategoryList" parameterType="long" resultMap="productCategoryResultMap">
         <include refid="select_product_category"/>
         WHERE parent_id = #{id}
-    </select>
-
-    <select id="getBrandsByCategoryId" resultMap="com.hellojd.shopex.repository.BrandRepository.brandResultMap">
-        select
-               b.id,
-               b.introduction,
-               b.logo,
-               b.modify_date,
-               b.name,
-               b.orders,
-               b.type,
-               b.url,
-               b.create_date
-          from product_category_brand pcb, d_brand b
-         where b.id = pcb.brand_id
-         and pcb.product_category_id =#{categoryId}
-
     </select>
 </mapper>

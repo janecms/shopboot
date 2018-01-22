@@ -11,16 +11,12 @@
         <result column="orders" property="order"></result>
         <result column="name" property="name"></result>
         <result column="property_index" property="propertyIndex"></result>
-        <association property="productCategory" javaType="com.hellojd.shopex.bean.ProductCategoryBean" column="id"
-                    select="com.hellojd.shopex.repository.ProductCategoryRepository.getProductCategoryById"
-                    fetchType="lazy">
-        </association>
-        <collection property="options" select="getAttributeOptions" column="id">
-        </collection>
+        <result column="product_category" property="productCategoryId"></result>
+        <collection property="options" select="getAttributeOptions" column="id"></collection>
     </resultMap>
     <select id="getAttribute" resultMap="attributeResultMap">
         select
-            id,create_date,modify_date,name,orders,property_index
+            id,create_date,modify_date,name,orders,property_index,product_category
           from d_attribute  where id=#{id}
     </select>
     <select id="getAttributeOptions" resultType="com.hellojd.shopex.entity.AttributeOption">

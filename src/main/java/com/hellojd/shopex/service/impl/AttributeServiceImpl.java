@@ -11,6 +11,7 @@ import com.hellojd.shopex.entity.SpecificationValue;
 import com.hellojd.shopex.repository.AttributeOptionRepository;
 import com.hellojd.shopex.repository.AttributeRepository;
 import com.hellojd.shopex.service.AttributeService;
+import com.hellojd.shopex.service.ProductCategoryService;
 import com.hellojd.shopex.util.BeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -30,10 +31,15 @@ import java.util.List;
 public class AttributeServiceImpl extends ShopBaseServiceImpl<AttributeRepository,Attribute> implements AttributeService{
     @Autowired
     private AttributeOptionRepository attributeOptionRepository;
+    @Autowired
+    private ProductCategoryService productCategoryService;
 
     @Override
     public AttributeBean getAttribute(Long attributeId) {
-        return this.baseMapper.getAttribute(attributeId);
+        AttributeBean attribute = this.baseMapper.getAttribute(attributeId);
+        Long productCategoryId = attribute.getProductCategoryId();
+        attribute.setProductCategory(productCategoryService.getProductCategoryById(productCategoryId));
+        return attribute;
     }
     @Transactional(rollbackFor = Exception.class)
     @Override
