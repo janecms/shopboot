@@ -44,7 +44,7 @@
         delete from product_category_brand where  product_category_id=#{productCategoryId} and brand_id=#{brandId}
     </delete>
 
-    <select id="getRootProductCategoryList" resultMap="productCategoryResultMap">
+    <select id="getRootProductCategorySet" resultMap="productCategoryResultMap">
         <include refid="select_product_category"></include>
         WHERE parent_id is null
     </select>

@@ -30,7 +30,7 @@ public class ProductCatalogServiceImpl extends  ShopBaseServiceImpl<ProductCateg
 
     @Override
     public Set<ProductCategoryBean> getRootProductCategoryList() {
-        Set<ProductCategoryBean> rootSet = this.productCategoryRepository.getRootProductCategoryList();
+        Set<ProductCategoryBean> rootSet = this.productCategoryRepository.getRootProductCategorySet();
         return TreeGridUtils.build(rootSet);
     }
 
@@ -41,7 +41,7 @@ public class ProductCatalogServiceImpl extends  ShopBaseServiceImpl<ProductCateg
 
     @Override
     public List<TreeViewBean> buildCategoryTree(ProductCategoryBean selectNode) {
-        Set<ProductCategoryBean> rootSet = this.productCategoryRepository.getRootProductCategoryList();
+        Set<ProductCategoryBean> rootSet = this.productCategoryRepository.getRootProductCategorySet();
         final Iterator<ProductCategoryBean> iter = rootSet.iterator();
         List<TreeViewBean> treeNodeList = new ArrayList<>();
         while (iter.hasNext()) {

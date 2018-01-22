@@ -18,8 +18,8 @@ public class ProductCategoryRepositoryTest {
     @Autowired
     ProductCategoryRepository productCategoryRepository;
     @Test
-    public void getRootProductCategoryList() throws Exception {
-        Set<ProductCategoryBean> rootSet = productCategoryRepository.getRootProductCategoryList();
+    public void getRootProductCategorySet() throws Exception {
+        Set<ProductCategoryBean> rootSet = productCategoryRepository.getRootProductCategorySet();
         assertNotNull(rootSet);
 
         ProductCategory category = productCategoryRepository.selectById(29);
