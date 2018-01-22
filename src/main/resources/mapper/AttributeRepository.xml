@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hellojd.shopex.repository.AttributeRepository">
+    <cache/>
+    <resultMap id="attributeResultMap" type="com.hellojd.shopex.bean.AttributeBean">
+        <id property="id" column="id"></id>
+        <result column="create_date" property="createDate"></result>
+        <result column="modify_date" property="modifyDate"></result>
+        <result column="orders" property="order"></result>
+        <result column="name" property="name"></result>
+        <result column="property_index" property="propertyIndex"></result>
+        <association property="productCategory" javaType="com.hellojd.shopex.bean.ProductCategoryBean" column="id"
+                    select="com.hellojd.shopex.repository.ProductCategoryRepository.getProductCategoryById"
+                    fetchType="lazy">
+        </association>
+        <collection property="options" select="getAttributeOptions" column="id">
+        </collection>
+    </resultMap>
+    <select id="getAttribute" resultMap="attributeResultMap">
+        select
+            id,create_date,modify_date,name,orders,property_index
+          from d_attribute  where id=#{id}
+    </select>
+    <select id="getAttributeOptions" resultType="com.hellojd.shopex.entity.AttributeOption">
+        select attribute,options
+        from d_attribute_option  where attribute=#{id}
+    </select>
+    <select id="selectPage" resultMap="attributeResultMap">
+        select
+            id,create_date,modify_date,name,orders,property_index
+        from d_attribute
+    </select>
+</mapper>

@@ -31,7 +31,7 @@ public interface ProductCategoryRepository extends BaseMapper<ProductCategory>{
      * @return 子类集合
      *
      */
-    public List<ProductCategoryBean> getChildrenProductCategoryList(ProductCategory productCategory);
+    public Set<ProductCategoryBean> getChildren(ProductCategory productCategory);
     public void saveProductCategoryBrand(ProductCategoryBrand pcb);
     public void deleteProductCategoryBrand(ProductCategoryBrand pcb);
 }

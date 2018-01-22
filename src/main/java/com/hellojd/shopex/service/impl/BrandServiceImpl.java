@@ -10,6 +10,7 @@ import com.hellojd.shopex.entity.Brand;
 import com.hellojd.shopex.repository.BrandRepository;
 import com.hellojd.shopex.service.BrandService;
 import com.hellojd.shopex.util.BeanUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Administrator
@@ -19,12 +20,12 @@ public class BrandServiceImpl extends ServiceImpl<BrandRepository,Brand> impleme
     public List<Brand> findList(List<Long> brandIds) {
         return this.baseMapper.selectBatchIds(brandIds);
     }
-
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void save(BrandBean brand) {
         this.baseMapper.insert(brand);
     }
-
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void update(BrandBean brandBean) {
         final Brand brandPo = this.baseMapper.selectById(brandBean.getId());

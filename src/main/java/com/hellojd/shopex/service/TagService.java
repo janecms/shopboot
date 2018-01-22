@@ -10,4 +10,7 @@ import com.hellojd.shopex.entity.Tag;
  */
 public interface TagService  extends IService<Tag>{
 
+    void save(Tag tag);
+
+    void update(Tag tag);
 }

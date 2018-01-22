@@ -5,7 +5,7 @@
       layout:decorator="fragments/main">
 <th:block layout:fragment="commonhead">
     <title>品牌</title>
-    <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/static/css/common.css}">
+    <link rel="stylesheet" href="../../../static/css/common.css" th:href="@{/static/css/common.css}">
 </th:block>
 <body class="hold-transition skin-blue sidebar-mini">
 <div layout:fragment="content">
@@ -50,8 +50,9 @@
                                     <label class="col-sm-2 control-label" for="browserButton">logo</label>
                                     <div class="col-sm-10">
                                         <span class="fieldSet">
-                                        <input id="logo" class="text" name="logo" maxlength="200" type="text" th:value="${brand.logo}">
-                                        <input id="browserButton" class="button" value="选择文件" type="button">
+                                        <input id="logo" class="text" name="logo" maxlength="200" type="text"
+                                               th:value="${brand.logo}">
+                                        <input id="browserButton" class="button" value="选择文件" type="button"/>
                                         </span>
                                     </div>
                                 </div>

@@ -10,6 +10,8 @@ import java.util.Date;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Auditable;
 
+import javax.validation.groups.Default;
+
 /**
  * @author :shopex
  */
@@ -116,5 +118,11 @@ public class BaseEntity implements Auditable<String,Long>, Serializable {
     this.modifyDate=lastModifiedDate.toDate();
   }
 
+  public interface  Update extends Default{
 
+  }
+
+  public interface  Save extends Default{
+
+  }
 }

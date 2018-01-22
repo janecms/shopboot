@@ -5,7 +5,7 @@
       layout:decorator="fragments/main">
 <th:block layout:fragment="commonhead">
     <title>规格</title>
-    <link rel="stylesheet" href="../../static/bower_components/treeview/css/bootstrap-treeview.css"
+    <link rel="stylesheet" href="../../../static/bower_components/treeview/css/bootstrap-treeview.css"
           th:href="@{/static/bower_components/treeview/css/bootstrap-treeview.css}">
     <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
 </th:block>
@@ -126,8 +126,6 @@
                                     </tbody>
                                 </table>
                             </div>
-
-
                         </div>
                         <!-- /.row -->
                     </div>
@@ -141,7 +139,7 @@
     </div>
 </div>
 <th:block layout:fragment="commonscript">
-    <link rel="stylesheet" href="../../static/css/common.css" th:href="@{/static/css/common.css}">
+    <link rel="stylesheet" href="../../../static/css/common.css" th:href="@{/static/css/common.css}">
     <script th:src="@{/static/js/common.js}"></script>
     <script type="text/javascript" th:inline="javascript">
         $().ready(function () {

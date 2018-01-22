@@ -163,6 +163,7 @@ function message(code) {
 		}
 		
 		if ($message == null) {
+			console.log("$message init--");
 			$message = $('<div class="xxMessage"><div class="messageContent message' + message.type + 'Icon"><\/div><\/div>');
 			if (!window.XMLHttpRequest) {
 				$message.append('<iframe class="messageIframe"><\/iframe>');
@@ -332,7 +333,7 @@ function message(code) {
 				callback: null
 			};
 			$.extend(settings, options);
-			
+			console.log('browser---');
 			var token = getCookie("token");
 			var cache = new Array();
 			return this.each(function() {

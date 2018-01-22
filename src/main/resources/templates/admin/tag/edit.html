@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="fragments/main">
+<th:block layout:fragment="commonhead">
+    <title>标签</title>
+    <link rel="stylesheet" href="../../../static/css/common.css" th:href="@{/static/css/common.css}">
+</th:block>
+<body class="hold-transition skin-blue sidebar-mini">
+<div layout:fragment="content">
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                标签
+                <small>管理</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Forms</a></li>
+                <li class="active">General Elements</li>
+            </ol>
+        </section>
+
+        <form id="inputForm" action="/tag/update" method="post" class="form-horizontal">
+            <input type="hidden" id="id" name="id" th:value="${tag.id}"/>
+            <section class="content">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">编辑</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="type">类型</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" id="type" name="type">
+                                            <option th:each="op : ${types}" th:value="${op}"
+                                                    th:selected="${tag.type==op}"
+                                                    th:text="${op.name}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="name">名称</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="name" name="name" type="text"
+                                               th:value="${tag.name}"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="memo">图标</label>
+                                    <div class="col-sm-10">
+                                        <span class="fieldSet">
+                                        <input id="icon" class="text" name="icon" maxlength="200" type="text"
+                                               th:value="${tag.icon}">
+                                        <input id="browserButton" class="button" value="选择文件" type="button"/>
+                                        </span>
+                                        <a th:href="${tag.icon}" target="_blank">查看</a>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="memo">备注</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="memo" name="memo" type="text"
+                                               th:value="${tag.memo}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="order">排序</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="order" name="order" type="text"
+                                               th:value="${tag.order}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-info">保存</button>
+                        <a type="submit" class="btn btn-default" th:href="@{'/tag/'}">取消</a>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </div>
+</div>
+<th:block layout:fragment="commonscript">
+    <script th:src="@{/static/js/common.js}"></script>
+    <script type="text/javascript">
+        $().ready(function () {
+            var $inputForm = $("#inputForm");
+            var $type = $("#type");
+            var $icon = $("#icon");
+            var $browserButton = $("#browserButton");
+            $browserButton.browser();
+            $type.change(function () {
+                if ($(this).val() == "text") {
+                    $icon.val("").prop("disabled", true);
+                    $browserButton.prop("disabled", true);
+                } else {
+                    $icon.prop("disabled", false);
+                    $browserButton.prop("disabled", false);
+                }
+            });
+        });
+    </script>
+
+</th:block>
+</body>
+</html>

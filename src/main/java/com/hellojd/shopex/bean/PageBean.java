@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.plugins.Page;
  */
 public class PageBean<T> extends Page<T> {
   public List<Integer> getSegments() {
-    Integer pageNumber = this.getSize();
+    Integer pageNumber = this.getCurrent();//当前页
     Integer totalPages = this.getPages();
     Integer segmentCount = 5;
     /*

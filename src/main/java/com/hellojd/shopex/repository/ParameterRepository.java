@@ -1,11 +1,9 @@
 package com.hellojd.shopex.repository;
 
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.hellojd.shopex.bean.ParameterBean;
 import com.hellojd.shopex.entity.Parameter;
-import com.hellojd.shopex.entity.ParameterGroup;
-
-import java.util.List;
-import java.util.Set;
-
-public interface ParameterRepository {
-    public abstract List<Parameter> findList(ParameterGroup paramParameterGroup, Set<Parameter> paramSet);
+import org.springframework.stereotype.Repository;
+@Repository
+public interface ParameterRepository extends BaseMapper<Parameter> {
 }

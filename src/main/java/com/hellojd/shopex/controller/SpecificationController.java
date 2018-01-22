@@ -3,6 +3,7 @@ package com.hellojd.shopex.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.hellojd.shopex.bean.PageWrapper;
 import com.hellojd.shopex.bean.SpecificationBean;
 import com.hellojd.shopex.entity.Brand;
 import com.hellojd.shopex.entity.Specification;
@@ -35,15 +36,15 @@ public class SpecificationController extends BaseController {
     @RequestMapping("/")
     public String list(Page<Specification> page, Specification queryObj, ModelMap model) {
         Wrapper wrapper = new EntityWrapper(queryObj);
-        final Page<Brand> brandPage = this.specificationService.selectPage(page, wrapper);
-        model.addAttribute("page", brandPage);
-        return "product/specification_grid";
+        final Page<Brand> specificationPage = this.specificationService.selectPage(page, wrapper);
+        model.addAttribute("page", PageWrapper.wrapper(specificationPage));
+        return "admin/specification/grid";
     }
 
     @RequestMapping(value = {"/add"}, method = {RequestMethod.GET})
     public String add(ModelMap model) {
         model.addAttribute("types", SpecificationType.values());
-        return "product/specification_edit";
+        return "admin/specification/edit";
     }
 
     @RequestMapping(value = {"/{id}"}, method = {RequestMethod.GET})
@@ -51,7 +52,7 @@ public class SpecificationController extends BaseController {
         final SpecificationBean specification = this.specificationService.getSpecification(id);
         model.addAttribute("types", SpecificationType.values());
         model.put("specification", specification);
-        return "product/specification_edit";
+        return "admin/specification/edit";
     }
 
     @RequestMapping(value = {"/save"}, method = {RequestMethod.POST})
@@ -78,5 +79,6 @@ public class SpecificationController extends BaseController {
         addAttribute(redirectAttributes, SUCCESS);
         return "redirect:/specification/";
     }
+
 }
 

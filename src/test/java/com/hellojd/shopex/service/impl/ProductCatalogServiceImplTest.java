@@ -21,8 +21,7 @@ public class ProductCatalogServiceImplTest {
   ProductCatalogServiceImpl productCatalogServiceImpl;
 @Test
   public void eqs(){
-    final ProductCategoryBrand pc1 = new ProductCategoryBrand(10L, 1L);
-    final ProductCategoryBrand pc2 = new ProductCategoryBrand(10L, 1L);
-    assertTrue(pc1.equals(pc2));
-  }
+  final Set<ProductCategoryBean> rootProductCategoryList = productCatalogServiceImpl.getRootProductCategoryList();
+  assertNotNull(rootProductCategoryList);
+}
 }
