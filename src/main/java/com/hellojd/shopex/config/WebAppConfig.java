@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.hellojd.shopex.interceptor.ShopTemplateHandlerInterceptor;
 import com.hellojd.shopex.util.SpringUtils;
 
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
@@ -44,6 +46,13 @@ public class WebAppConfig extends WebMvcConfigurerAdapter implements Application
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         log.info("Registering resources...");
         registry.addResourceHandler(RESOURCES_HANDLER).addResourceLocations(RESOURCES_LOCATION);
+        registry.addResourceHandler("/eshop/naggy/**/*").addResourceLocations("classpath:templates/eshop/naggy/");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        super.addInterceptors(registry);
+        registry.addInterceptor(new ShopTemplateHandlerInterceptor()).addPathPatterns("/**");
     }
 
     @Override
