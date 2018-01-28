@@ -124,3 +124,7 @@ setting:
   isCnzzEnabled: false
   cnzzSiteId:
   cnzzPassword:
+logging:
+  level:
+    root: warn
+
