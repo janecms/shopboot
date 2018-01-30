@@ -22,6 +22,7 @@ package com.hellojd.shopex.config;
 import com.hellojd.shopex.interceptor.ShopTemplateHandlerInterceptor;
 import com.hellojd.shopex.thymeleaf.dialect.ShopDialect;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -47,8 +48,8 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter implements Applicat
 
 
     private ApplicationContext applicationContext;
-
-
+    @Autowired
+    private ShopDialect shopDialect;
 
     public SpringWebConfig() {
         super();
@@ -98,7 +99,7 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter implements Applicat
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setEnableSpringELCompiler(true); // Compiled SpringEL should speed up executions
         templateEngine.setTemplateResolver(templateResolver());
-        templateEngine.addDialect(new ShopDialect());
+        templateEngine.addDialect(shopDialect);
         return templateEngine;
     }
 
