@@ -35,6 +35,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
@@ -94,15 +95,15 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter implements Applicat
         resolver.setTemplateMode(TemplateMode.HTML);
         return resolver;
     }
-    @Bean
-    public SpringTemplateEngine templateEngine(){
-        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setEnableSpringELCompiler(true); // Compiled SpringEL should speed up executions
-        templateEngine.setTemplateResolver(templateResolver());
-        templateEngine.addDialect(shopDialect);
-        return templateEngine;
-    }
 
+    @Bean
+    public TemplateEngine templateEngine() {
+        SpringTemplateEngine engine = new SpringTemplateEngine();
+        engine.setEnableSpringELCompiler(true);
+        engine.setTemplateResolver(templateResolver());
+        engine.addDialect(shopDialect);
+        return engine;
+    }
     @Bean
     public ThymeleafViewResolver viewResolver(){
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();

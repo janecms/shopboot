@@ -1,17 +1,46 @@
 package com.hellojd.shopex.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.hellojd.shopex.bean.Pager;
 import com.hellojd.shopex.entity.Product;
 import com.hellojd.shopex.entity.ProductCategory;
 import com.hellojd.shopex.repository.ProductRepository;
 import com.hellojd.shopex.service.ProductService;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 @Service
 public class ProductServiceImpl extends ServiceImpl<ProductRepository,Product> implements ProductService{
+    @Autowired
+    private ProductRepository productRepository;
+    @Override
+    public boolean snExists(String sn) {
+        Product product = new Product();
+        product.setSn(sn);
+        Wrapper<Product> wrapper = new EntityWrapper<>(product);
+        return this.baseMapper.selectCount(wrapper)>0;
+    }
+
+    @Override
+    public Product findBySn(String sn) {
+        Product product = new Product();
+        product.setSn(sn);
+        return this.baseMapper.selectOne(product);
+    }
+
+    @Override
+    public boolean snUnique(String previousSn, String currentSn) {
+        if (StringUtils.equalsIgnoreCase(previousSn, currentSn)) {
+            return true;
+        }
+        return !this.snExists(currentSn);
+    }
+
     @Override
     public List<Product> getProductList(ProductCategory productCategory) {
         return null;

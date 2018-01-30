@@ -8,6 +8,9 @@ import com.hellojd.shopex.entity.ProductCategory;
 import java.util.Date;
 import java.util.List;
 public interface ProductService extends IService<Product> {
+    public  boolean snExists(String sn);
+    public abstract Product findBySn(String  sn);
+    public abstract boolean snUnique(String previousSn, String currentSn);
     /**
      * 根据ProductCategory对象，获取此分类下的所有商品（只包含isMarketable=true的对象，包含子分类商品）
      *

@@ -2,53 +2,85 @@ package com.hellojd.shopex.entity;
 
 import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 @TableName("product")
 @Data
-public class Product implements Serializable{
-    private static final long serialVersionUID = -7492639752670189553L;
-    // 重量单位（克、千克、吨）
-    public enum WeightUnit {
-        g, kg, t
+public class Product extends  BaseEntity implements Serializable{
+    @Pattern(regexp="^[0-9a-zA-Z_-]+$")
+    @Length(max=200)
+    private String sn;
+    @Length(max=200)
+    private String name;
+    private String fullName;
+
+    private BigDecimal price;
+    private BigDecimal cost;
+    private BigDecimal marketPrice;
+    private String image;
+    private String unit;
+    private Integer weight;
+    private Integer stock;
+    private Integer allocatedStock;
+    @Length(max=200)
+    private String stockMemo;
+    @Min(0L)
+    private Long point;
+    @NotNull
+    private Boolean isMarketable;
+    @NotNull
+    private Boolean isList;
+    @NotNull
+    private Boolean isTop;
+    @NotNull
+    private Boolean isGift;
+    private String introduction;
+    @Length(max=200)
+    private String memo;
+    @Length(max=200)
+    private String keyword;
+    private String seoTitle;
+    @Length(max=200)
+    private String seoKeywords;
+    @Length(max=200)
+    private String seoDescription;
+
+    private Float score;
+    private Long totalScore;
+    private Long scoreCount;
+    private Long hits;
+    private Long weekHits;
+    private Long monthHits;
+    private Long sales;
+    private Long weekSales;
+    private Long monthSales;
+    private Date weekHitsDate;
+    private Date monthHitsDate;
+    private Date weekSalesDate;
+    private Date monthSalesDate;
+
+    public void setKeyword(String keyword)
+    {
+        if (keyword != null) {
+            keyword = keyword.replaceAll("[,\\s]*,[,\\s]*", ",").replaceAll("^,|,$", "");
+        }
+        this.keyword = keyword;
+    }
+    public void setSeoKeywords(String seoKeywords)
+    {
+        if (seoKeywords != null) {
+            seoKeywords = seoKeywords.replaceAll("[,\\s]*,[,\\s]*", ",").replaceAll("^,|,$", "");
+        }
+        this.seoKeywords = seoKeywords;
     }
 
-    public static final int MAX_BEST_PRODUCT_LIST_COUNT = 20;// 精品商品列表最大商品数
-    public static final int MAX_NEW_PRODUCT_LIST_COUNT = 20;// 新品商品列表最大商品数
-    public static final int MAX_HOT_PRODUCT_LIST_COUNT = 20;// 热销商品列表最大商品数
-    public static final int DEFAULT_PRODUCT_LIST_PAGE_SIZE = 12;// 商品列表默认每页显示数
-
-    private String productSn;// 货号
-    private String name;// 商品名称
-    private BigDecimal price;// 商品价格
-    private BigDecimal marketPrice;// 市场价格
-    private Double weight;// 商品重量
-    private WeightUnit weightUnit;// 重量单位
-    private Integer store;// 商品库存数量
-    private Integer freezeStore;// 被占用库存数
-    private Integer point;// 积分
-    private Boolean isMarketable;// 是否上架
-    private Boolean isBest;// 是否为精品商品
-    private Boolean isNew;// 是否为新品商品
-    private Boolean isHot;// 是否为热销商品
-    private String description;// 描述
-    private String metaKeywords;// 页面关键词
-    private String metaDescription;// 页面描述
-    private String htmlFilePath;// HTML静态文件路径
-    private String productImageListStore;// 商品图片路径存储
-
-    private ProductCategory productCategory;// 商品分类
-    private Brand brand;// 品牌
-    private Map<Attribute, String> productAttributeMap;// 商品属性存储
-    private Map<Parameter, String>  parameterValue;
-    Map<MemberRank, BigDecimal> memberPrice;
-
-    private Set<Tag> tags = new HashSet();
-
-    private Set<Specification> specifications = new HashSet();
-    private Set<SpecificationValue> specificationValues = new HashSet();
 }
