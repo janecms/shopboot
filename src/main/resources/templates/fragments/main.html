@@ -46,6 +46,8 @@
     <link rel="stylesheet" href="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"
           th:href="@{/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css}">
 
+    <div th:replace="fragments/footer :: jqueryjs">JavaScript tags are loaded here</div>
+    <div th:replace="fragments/footer :: bootsrtapjs">JavaScript tags are loaded here</div>
     <th:block  layout:fragment="commonhead">
 
     </th:block>
@@ -57,6 +59,7 @@
     <![endif]-->
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
 </head>
 
 <body>
@@ -389,8 +392,6 @@
 <div class="wrapper"  layout:fragment="content">
 </div>
 <!-- commonjs -->
-<div th:replace="fragments/footer :: jqueryjs">JavaScript tags are loaded here</div>
-<div th:replace="fragments/footer :: bootsrtapjs">JavaScript tags are loaded here</div>
 <div th:replace="fragments/footer :: datatablesjs">JavaScript tags are loaded here</div>
 <div th:replace="fragments/footer :: slimscrolljs">JavaScript tags are loaded here</div>
 <div th:replace="fragments/footer :: fastclickjs">JavaScript tags are loaded here</div>

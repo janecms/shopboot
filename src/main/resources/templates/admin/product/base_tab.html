@@ -1,183 +1,155 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
-      layout:decorator="fragments/main">
-<th:block layout:fragment="commonhead">
-    <title>品牌</title>
-    <link rel="stylesheet" href="../../../static/css/common.css" th:href="@{/static/css/common.css}">
-</th:block>
-<body class="hold-transition skin-blue sidebar-mini">
-<div layout:fragment="content">
-    <div class="content-wrapper">
-        <section class="content">
-            <form class="form-horizontal" action="/brand/update" method="post">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">编辑</h3>
-                    </div>
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input type="hidden" name="id" />
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="productCategoryId">商品分类</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="productCategoryId" name="productCategoryId " type="text" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="name">名称</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="name" name="name " type="text" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="sn">编号</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="sn" name="sn " type="text" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="price">销售价</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="price" name="price" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="isMemberPrice">会员价</label>
-                                    <div class="col-sm-10">
-                                        <label>
-                                            <input type="checkbox" id="isMemberPrice" name="isMemberPrice" value="true">启用会员价
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="cost">成本价</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="cost" name="cost" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="marketPrice">市场价</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="marketPrice" name="marketPrice" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="image">展示图片</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="image" name="image" />
-                                        <input type="button" id="browserButton" class="button" value="选择文件">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="unit">单位</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="unit" name="unit" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="weight">重量</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="weight" name="weight" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="weight">库存</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="stock" name="stock" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="stockMemo">库存备注</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="stockMemo" name="stockMemo" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="point">赠送积分</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="point" name="point" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="brandId">品牌</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="brandId" name="brandId" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="point">标签</label>
-                                    <div class="col-sm-10">
-                                        <input type="checkbox" name="tagIds" value="2">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="point">设置</label>
-                                    <div class="col-sm-10">
-                                        <label>
-                                            <input type="checkbox" name="isMarketable" value="true" checked="checked">是否上架
-                                            <input type="hidden" name="_isMarketable" value="false">
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" name="isList" value="true" checked="checked">是否列出
-                                            <input type="hidden" name="_isList" value="false">
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" name="isTop" value="true">是否置顶
-                                            <input type="hidden" name="_isTop" value="false">
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" name="isGift" value="true">是否为赠品
-                                            <input type="hidden" name="_isGift" value="false">
-                                        </label>
-                                    </div>
+      xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="content" class="row">
+    <div class="col-md-12">
+        <input type="hidden" name="id" />
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="productCategoryId">商品分类</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="productCategoryId" name="productCategoryId " type="text" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="name">名称</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="name" name="name " type="text" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="sn">编号</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="sn" name="sn " type="text" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="price">销售价</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="price" name="price" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="isMemberPrice">会员价</label>
+            <div class="col-sm-10">
+                <label>
+                    <input type="checkbox" id="isMemberPrice" name="isMemberPrice" value="true">启用会员价
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="cost">成本价</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="cost" name="cost" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="marketPrice">市场价</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="marketPrice" name="marketPrice" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="image">展示图片</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="image" name="image" />
+                <input type="button" id="browserButton" class="button" value="选择文件">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="unit">单位</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="unit" name="unit" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="weight">重量</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="weight" name="weight" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="weight">库存</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="stock" name="stock" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="stockMemo">库存备注</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="stockMemo" name="stockMemo" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="point">赠送积分</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="point" name="point" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="brandId">品牌</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="brandId" name="brandId" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="point">标签</label>
+            <div class="col-sm-10">
+                <input type="checkbox" name="tagIds" value="2">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="point">设置</label>
+            <div class="col-sm-10">
+                <label>
+                    <input type="checkbox" name="isMarketable" value="true" checked="checked">是否上架
+                    <input type="hidden" name="_isMarketable" value="false">
+                </label>
+                <label>
+                    <input type="checkbox" name="isList" value="true" checked="checked">是否列出
+                    <input type="hidden" name="_isList" value="false">
+                </label>
+                <label>
+                    <input type="checkbox" name="isTop" value="true">是否置顶
+                    <input type="hidden" name="_isTop" value="false">
+                </label>
+                <label>
+                    <input type="checkbox" name="isGift" value="true">是否为赠品
+                    <input type="hidden" name="_isGift" value="false">
+                </label>
+            </div>
 
-                                </div>
+        </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="point">备注</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="memo" name="memo" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="keyword">搜索关键词</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="keyword" name="keyword" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="seoTitle">页面标题</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="seoTitle" name="seoTitle" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="seoKeywords">页面关键词</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="seoKeywords" name="seoKeywords" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="seoDescription">页面描述</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="seoDescription" name="seoDescription" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.row -->
-                    </div>
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-info">保存</button>
-                        <a type="submit" class="btn btn-default" th:href="@{'/brand/'}">取消</a>
-                    </div>
-                </div>
-            </form>
-        </section>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="point">备注</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="memo" name="memo" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="keyword">搜索关键词</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="keyword" name="keyword" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="seoTitle">页面标题</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="seoTitle" name="seoTitle" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="seoKeywords">页面关键词</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="seoKeywords" name="seoKeywords" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="seoDescription">页面描述</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="seoDescription" name="seoDescription" />
+            </div>
+        </div>
     </div>
 </div>
-</body>
 </html>

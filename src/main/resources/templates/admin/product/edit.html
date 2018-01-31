@@ -25,15 +25,40 @@
         </section>
 
         <form id="inputForm" action="/product/update"  method="post" class="form-horizontal">
-            <input type="hidden" id="id" name="id" th:value="${product.id}" />
+            <input type="hidden" id="id" name="id" />
             <section class="content">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">编辑</h3>
                     </div>
                     <div class="box-body">
-                        <div class="row">
+                        <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#basePane" data-toggle="tab" aria-expanded="true">基本信息</a></li>
+                                <li class=""><a href="#introductionPane" data-toggle="tab" aria-expanded="false">商品介绍</a></li>
+                                <li class=""><a href="#parameterPane" data-toggle="tab" aria-expanded="false">商品参数</a></li>
+                                <li class=""><a href="#attributePane" data-toggle="tab" aria-expanded="false">商品属性</a></li>
+                                <li class=""><a href="#specificationPane" data-toggle="tab" aria-expanded="false">商品规格</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="basePane">
+                                   <div th:replace="admin/product/base_tab :: content"></div>
+                                </div>
+                                <div class="tab-pane" id="introductionPane">
+                                    <div th:replace="admin/product/introduction_tab :: content"></div>
 
+                                </div>
+
+                                <div class="tab-pane" id="parameterPane">
+                                    <div th:replace="admin/product/parameter_tab :: content"></div>
+                                </div>
+                                <div class="tab-pane" id="attributePane">
+                                    <div th:replace="admin/product/attribute_tab :: content"></div>
+                                </div>
+                                <div class="tab-pane" id="specificationPane">
+                                    specificationPane
+                                </div>
+                            </div>
                         </div>
                         <!-- /.row -->
                     </div>
@@ -48,10 +73,9 @@
 </div>
 <th:block layout:fragment="commonscript">
     <link rel="stylesheet" href="../../../static/css/common.css" th:href="@{/static/css/common.css}">
+    <link rel="stylesheet" th:href="@{/static/bower_components/kindeditor/themes/default/default.css}"/>
+    <script th:src="@{/static/bower_components/kindeditor/kindeditor.js}"></script>
     <script th:src="@{/static/js/common.js}"></script>
-    <script type="text/javascript" th:inline="javascript">
-;
-    </script>
 </th:block>
 </body>
 </html>
