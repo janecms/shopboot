@@ -2,27 +2,39 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     2017/12/24 12:46:47                          */
 /*==============================================================*/
-
-
-drop table if exists d_attribute;
-
-drop table if exists d_attribute_option;
-
-drop table if exists d_brand;
-
-drop table if exists d_member_rank;
-
-drop table if exists d_parameter;
-
-drop table if exists d_parameter_group;
-
-drop table if exists d_tag;
-
-drop table if exists product;
+DROP TABLE IF EXISTS `log`;
 
 drop table if exists product_attribute;
+drop table if exists product_member_price;
+drop table if exists product_parameter_value;
+drop table if exists product_product_image;
+drop table if exists product_specification_value;
+DROP TABLE IF EXISTS `product_specification`;
+drop table if exists product_tag;
+DROP TABLE IF EXISTS `product`;
 
+drop table if exists d_attribute_option;
+drop table if exists d_attribute;
+
+
+drop table if exists d_parameter;
+drop table if exists d_parameter_group;
+drop table if exists d_tag;
+drop table if exists d_specification_value;
+drop table if exists d_specification;
+
+DROP TABLE IF EXISTS `admin_role`;
+DROP TABLE IF EXISTS `admin`;
+DROP TABLE IF EXISTS `role_authority`;
+DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `member`;
+drop table if exists d_member_rank;
+drop table if exists product_category_brand;
+drop table if exists d_brand;
 drop table if exists product_category;
+drop table if exists plugin_config_attribute;
+drop table if exists plugin_config;
+
 CREATE TABLE `product_category` (
  `id` bigint(20) NOT NULL AUTO_INCREMENT,
  `create_date` datetime NOT NULL,
@@ -40,20 +52,6 @@ CREATE TABLE `product_category` (
 );
 alter table product_category add constraint FKD05546EDB2990399 foreign key (parent_id)
 references product_category (id);
-
-drop table if exists product_member_price;
-
-drop table if exists product_parameter_value;
-
-drop table if exists product_product_image;
-
-drop table if exists product_specification_value;
-
-drop table if exists product_tag;
-
-drop table if exists d_specification;
-
-drop table if exists d_specification_value;
 
 /*==============================================================*/
 /* Table: d_attribute                                           */
@@ -89,7 +87,7 @@ alter table d_attribute_option comment '属性项';
 /*==============================================================*/
 create table d_brand
 (
-  id                    varchar(32) not null auto_increment,
+  id                    BIGINT(20) not null auto_increment,
   create_Date          datetime,
   modify_Date          datetime,
   introduction          text,
@@ -170,41 +168,81 @@ create table d_tag
 
 alter table d_tag comment '标签';
 
-/*==============================================================*/
-/* Table: product                                               */
-/*==============================================================*/
-create table product
-(
-  product_id            bigint(20) not null auto_increment,
-  create_Date          datetime comment '创建日期',
-  modify_Date          datetime comment '修改日期',
-  description           text comment '描述',
-  freeze_Store         int(11) not null comment '被占用库存数',
-  html_File_Path        varchar(255) not null comment 'HTML静态文件路径',
-  isBest               bit(1) not null comment '是否精品推荐',
-  isHot                bit(1) not null comment '是否热销推荐',
-  is_Marketable        bit(1) not null comment '是否上架',
-  is_New               bit(1) not null comment '是否新品推荐',
-  market_Price         decimal(15,5) not null comment '市场售价',
-  meta_Description      text comment '页面描述',
-  meta_Keywords         text comment '页面关键词',
-  name                  varchar(255) not null comment '商品名称',
-  point                int(11) not null comment '积分',
-  price                decimal(15,5) not null comment '本店售价',
-  Image_List_Store      text comment '商品图片路径存储',
-  product_sn            varchar(255) not null comment '货号',
-  store                int(11) comment '商品库存数量',
-  weight               double not null comment '商品重量',
-  weight_Unit          int(11) not null comment '重量单位',
-  brand_id              varchar(32) comment '商品品牌',
-  category_id           BIGINT(20) not null comment '产品分类',
-  key AK_pk_product_id (product_id)
-);
-alter table product add constraint FK50C664CF59CF1676 foreign key (category_id)
-references product_category (id);
 
-alter table product add constraint FK50C664CFF378EF16 foreign key (brand_id)
-references d_brand (id);
+
+CREATE TABLE `product` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_date` datetime NOT NULL,
+  `modify_date` datetime NOT NULL,
+  `allocated_stock` int(11) NOT NULL,
+  `attribute_value0` varchar(255) DEFAULT NULL,
+  `attribute_value1` varchar(255) DEFAULT NULL,
+  `attribute_value10` varchar(255) DEFAULT NULL,
+  `attribute_value11` varchar(255) DEFAULT NULL,
+  `attribute_value12` varchar(255) DEFAULT NULL,
+  `attribute_value13` varchar(255) DEFAULT NULL,
+  `attribute_value14` varchar(255) DEFAULT NULL,
+  `attribute_value15` varchar(255) DEFAULT NULL,
+  `attribute_value16` varchar(255) DEFAULT NULL,
+  `attribute_value17` varchar(255) DEFAULT NULL,
+  `attribute_value18` varchar(255) DEFAULT NULL,
+  `attribute_value19` varchar(255) DEFAULT NULL,
+  `attribute_value2` varchar(255) DEFAULT NULL,
+  `attribute_value3` varchar(255) DEFAULT NULL,
+  `attribute_value4` varchar(255) DEFAULT NULL,
+  `attribute_value5` varchar(255) DEFAULT NULL,
+  `attribute_value6` varchar(255) DEFAULT NULL,
+  `attribute_value7` varchar(255) DEFAULT NULL,
+  `attribute_value8` varchar(255) DEFAULT NULL,
+  `attribute_value9` varchar(255) DEFAULT NULL,
+  `cost` decimal(21,6) DEFAULT NULL,
+  `full_name` varchar(255) NOT NULL,
+  `hits` bigint(20) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `introduction` longtext,
+  `is_gift` bit(1) NOT NULL,
+  `is_list` bit(1) NOT NULL,
+  `is_marketable` bit(1) NOT NULL,
+  `is_top` bit(1) NOT NULL,
+  `keyword` varchar(255) DEFAULT NULL,
+  `market_price` decimal(21,6) NOT NULL,
+  `memo` varchar(255) DEFAULT NULL,
+  `month_hits` bigint(20) NOT NULL,
+  `month_hits_date` datetime NOT NULL,
+  `month_sales` bigint(20) NOT NULL,
+  `month_sales_date` datetime NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `point` bigint(20) NOT NULL,
+  `price` decimal(21,6) NOT NULL,
+  `sales` bigint(20) NOT NULL,
+  `score` float NOT NULL,
+  `score_count` bigint(20) NOT NULL,
+  `seo_description` varchar(255) DEFAULT NULL,
+  `seo_keywords` varchar(255) DEFAULT NULL,
+  `seo_title` varchar(255) DEFAULT NULL,
+  `sn` varchar(255) NOT NULL,
+  `stock` int(11) DEFAULT NULL,
+  `stock_memo` varchar(255) DEFAULT NULL,
+  `total_score` bigint(20) NOT NULL,
+  `unit` varchar(255) DEFAULT NULL,
+  `week_hits` bigint(20) NOT NULL,
+  `week_hits_date` datetime NOT NULL,
+  `week_sales` bigint(20) NOT NULL,
+  `week_sales_date` datetime NOT NULL,
+  `weight` int(11) DEFAULT NULL,
+  `brand` bigint(20) DEFAULT NULL,
+  `goods` bigint(20) NOT NULL,
+  `product_category` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `sn` (`sn`),
+  KEY `FK7C9E82B0D7629117` (`product_category`),
+  KEY `FK7C9E82B0FA9695CA` (`brand`),
+  CONSTRAINT `FK7C9E82B0D7629117` FOREIGN KEY (`product_category`) REFERENCES `product_category` (`id`),
+  CONSTRAINT `FK7C9E82B0FA9695CA` FOREIGN KEY (`brand`) REFERENCES `d_brand` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=301 DEFAULT CHARSET=utf8;
+
+
+
 /*==============================================================*/
 /* Table: product_attribute                                     */
 /*==============================================================*/
@@ -215,7 +253,7 @@ create table product_attribute
   options             varchar(255)
 );
 alter table product_attribute add constraint FK_Reference_17 foreign key (product_id)
-references product (product_id) on delete restrict on update restrict;
+references product (id) on delete restrict on update restrict;
 
 alter table product_attribute add constraint FK_Reference_18 foreign key (attribute_id)
 references d_attribute (id) on delete restrict on update restrict;
@@ -237,7 +275,7 @@ alter table product_member_price add constraint FKDCCD88935CCD83AE foreign key (
 references d_member_rank (id);
 
 alter table product_member_price add constraint FK_Reference_12 foreign key (product_id)
-references product (product_id) on delete restrict on update restrict;
+references product (id) on delete restrict on update restrict;
 alter table product_member_price comment '会员价格';
 
 /*==============================================================*/
@@ -251,7 +289,7 @@ create table product_parameter_value
   primary key (product_id, parameter_value_key)
 );
 alter table product_parameter_value add constraint FK_Reference_19 foreign key (product_id)
-references product (product_id) on delete restrict on update restrict;
+references product (id) on delete restrict on update restrict;
 
 alter table product_parameter_value add constraint FK_Reference_22 foreign key (parameter_value_key)
 references d_parameter (id) on delete restrict on update restrict;
@@ -273,7 +311,7 @@ create table product_product_image
   title                 varchar(255)
 );
 alter table product_product_image add constraint FK_Reference_10 foreign key (product_id)
-references product (product_id) on delete restrict on update restrict;
+references product (id) on delete restrict on update restrict;
 alter table product_product_image comment '产品图片';
 
 /*==============================================================*/
@@ -290,7 +328,7 @@ alter table product_tag add constraint FK2F6A998BC842716F foreign key (tag_id)
 references d_tag (id);
 
 alter table product_tag add constraint FK_Reference_9 foreign key (product_id)
-references product (product_id) on delete restrict on update restrict;
+references product (id) on delete restrict on update restrict;
 alter table product_tag comment '标签';
 
 /*==============================================================*/
@@ -323,13 +361,20 @@ create table d_specification_value
   primary key (id)
 );
 
-/*==============================================================*/
-/* Table: product_specification_value                           */
-/*==============================================================*/
+
+CREATE TABLE `product_specification` (
+  `products` bigint(20) NOT NULL,
+  `specifications` bigint(20) NOT NULL,
+  PRIMARY KEY (`products`,`specifications`),
+  KEY `FK622421B45096DE0F` (`products`),
+  KEY `FK622421B4840DA38F` (`specifications`),
+  CONSTRAINT `FK622421B45096DE0F` FOREIGN KEY (`products`) REFERENCES `product` (`id`),
+  CONSTRAINT `FK622421B4840DA38F` FOREIGN KEY (`specifications`) REFERENCES `d_specification` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 create table product_specification_value
 (
   product_id           bigint(20) not null,
-  specifications       bigint(20),
   specification_values bigint(20) not null,
   primary key (product_id, specification_values)
 );
@@ -338,12 +383,11 @@ alter table product_specification_value add constraint product_specification_val
 references d_specification_value (id);
 
 alter table product_specification_value add constraint FK_Reference_15 foreign key (product_id)
-references product (product_id) on delete restrict on update restrict;
+references product (id) on delete restrict on update restrict;
 
 alter table d_specification_value add constraint FK_specification_value_specID foreign key (specification)
 references d_specification (id);
 
-DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `create_date` datetime NOT NULL,
@@ -363,7 +407,6 @@ CREATE TABLE `admin` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `create_date` datetime NOT NULL,
@@ -374,7 +417,6 @@ CREATE TABLE `role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `admin_role`;
 CREATE TABLE `admin_role` (
   `admins` bigint(20) NOT NULL,
   `roles` bigint(20) NOT NULL,
@@ -385,9 +427,6 @@ CREATE TABLE `admin_role` (
   CONSTRAINT `FKD291D605A022690F` FOREIGN KEY (`admins`) REFERENCES `admin` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
-DROP TABLE IF EXISTS `role_authority`;
 CREATE TABLE `role_authority` (
   `role` bigint(20) NOT NULL,
   `authorities` varchar(255) DEFAULT NULL,
@@ -395,7 +434,6 @@ CREATE TABLE `role_authority` (
   CONSTRAINT `FKE06165D939B03AB0` FOREIGN KEY (`role`) REFERENCES `role` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `create_date` datetime NOT NULL,
@@ -430,9 +468,6 @@ CREATE TABLE `member` (
   CONSTRAINT `FK92D398B937884F5B` FOREIGN KEY (`member_rank`) REFERENCES `d_member_rank` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-
-
-DROP TABLE IF EXISTS `log`;
 CREATE TABLE `log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `create_date` datetime NOT NULL,

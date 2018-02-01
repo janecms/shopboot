@@ -9,6 +9,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import com.hellojd.shopex.bean.AttributeBean;
+import com.hellojd.shopex.bean.ParameterGroupBean;
+import com.hellojd.shopex.repository.AttributeRepository;
+import com.hellojd.shopex.repository.ParameterGroupRepository;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +43,12 @@ public class ProductCatalogServiceImpl extends ShopBaseServiceImpl<ProductCatego
   ProductCategoryRepository productCategoryRepository;
   @Autowired
   BrandRepository brandRepository;
+  @Autowired
+  AttributeRepository attributeRepository;
+  @Autowired
+  ParameterGroupRepository parameterGroupRepository;
+
+
   Map<Long, ProductCategoryBean> localCategoryMap = new HashMap<>();
 
   @Override
@@ -139,16 +149,21 @@ public class ProductCatalogServiceImpl extends ShopBaseServiceImpl<ProductCatego
   public void afterPropertiesSet() {
     List<ProductCategory> allSet = this.productCategoryRepository.getAll();
     allSet.forEach(pc -> {
-      ProductCategoryBean current = new ProductCategoryBean(pc);
-      Set<Brand> brands = brandRepository.getBrands(pc.getId());
-      current.setBrands(brands);
-      localCategoryMap.put(pc.getId(), current);
+      ProductCategoryBean productCategoryConsumer = new ProductCategoryBean(pc);
+      final Long categoryId = pc.getId();
+      Set<Brand> brands = brandRepository.getBrands(categoryId);
+      productCategoryConsumer.setBrands(brands);
+      final Set<ParameterGroupBean> parameterGroups = parameterGroupRepository.getParameterGroups(categoryId);
+      productCategoryConsumer.setParameterGroups(parameterGroups);
+      final Set<AttributeBean> attributes = attributeRepository.getAttributes(categoryId);
+      productCategoryConsumer.setAttributes(attributes);
+      localCategoryMap.put(categoryId, productCategoryConsumer);
       Long parentId = pc.getParentId();
       if (parentId != null) {
         ProductCategoryBean parent = localCategoryMap.get(parentId);
         if (parent != null) {
-          parent.addChild(current);
-          current.setParent(parent);
+          parent.addChild(productCategoryConsumer);
+          productCategoryConsumer.setParent(parent);
         }
       }
     });

@@ -9,4 +9,5 @@ import java.util.List;
 public interface BrandService extends IService<Brand> {
     public void save(BrandBean brand);
     public void update(BrandBean brand);
+    public List<Brand> findAll();
 }

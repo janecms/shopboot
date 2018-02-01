@@ -3,7 +3,94 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hellojd.shopex.repository.ProductRepository">
-
+  <resultMap id="productResultMap" type="com.hellojd.shopex.bean.ProductBean">
+    <result column="id" property="id"></result>
+    <result column="create_date" property="createDate"></result>
+    <result column="modify_date" property="modifyDate"></result>
+    <result column="allocated_stock" property="allocatedStock"></result>
+    <result column="cost" property="cost"></result>
+    <result column="full_name" property="fullName"></result>
+    <result column="hits" property="hits"></result>
+    <result column="image" property="image"></result>
+    <result column="introduction" property="introduction"></result>
+    <result column="is_gift" property="isGift"></result>
+    <result column="is_list" property="isList"></result>
+    <result column="is_marketable" property="isMarketable"></result>
+    <result column="is_top" property="isTop"></result>
+    <result column="keyword" property="keyword"></result>
+    <result column="market_price" property="marketPrice"></result>
+    <result column="memo" property="memo"></result>
+    <result column="month_hits" property="monthHits"></result>
+    <result column="month_hits_date" property="monthHitsDate"></result>
+    <result column="month_sales" property="monthSales"></result>
+    <result column="month_sales_date" property="monthSalesDate"></result>
+    <result column="name" property="name"></result>
+    <result column="point" property="point"></result>
+    <result column="price" property="price"></result>
+    <result column="sales" property="sales"></result>
+    <result column="score" property="score"></result>
+    <result column="score_count" property="scoreCount"></result>
+    <result column="seo_description" property="seoDescription"></result>
+    <result column="seo_keywords" property="seoKeywords"></result>
+    <result column="seo_title" property="seoTitle"></result>
+    <result column="sn" property="sn"></result>
+    <result column="stock" property="stock"></result>
+    <result column="stock_memo" property="stockMemo"></result>
+    <result column="total_score" property="stockScore"></result>
+    <result column="unit" property="unit"></result>
+    <result column="week_hits" property="weekHits"></result>
+    <result column="week_hits_date" property="weekHitsDate"></result>
+    <result column="week_sales" property="weekSales"></result>
+    <result column="week_sales_date" property="weekSalesDate"></result>
+    <result column="weight" property="weight"></result>
+    <result column="brand" property="brandId"></result>
+    <result column="product_category" property="productCategoryId"></result>
+  </resultMap>
   <cache />
+  <select id="getProduct" resultMap="productResultMap">
+    id,
+    create_date,
+    modify_date,
+    allocated_stock,
+    cost,
+    full_name,
+    hits,
+    image,
+    introduction,
+    is_gift,
+    is_list,
+    is_marketable,
+    is_top,
+    keyword,
+    market_price,
+    memo,
+    month_hits,
+    month_hits_date,
+    month_sales,
+    month_sales_date,
+    name,
+    point,
+    price,
+    sales,
+    score,
+    score_count,
+    seo_description,
+    seo_keywords,
+    seo_title,
+    sn,
+    stock,
+    stock_memo,
+    total_score,
+    unit,
+    week_hits,
+    week_hits_date,
+    week_sales,
+    week_sales_date,
+    weight,
+    brand,
+    goods,
+    product_category
+     from product where id=#{id}
+  </select>
 
 </mapper>

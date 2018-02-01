@@ -11,6 +11,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author zhaoguoyu
@@ -19,6 +20,9 @@ import java.util.List;
 public interface AttributeRepository extends BaseMapper<Attribute> {
 
     AttributeBean getAttribute(Long attributeId);
+    Set<AttributeBean> getAttributes(Long categoryId);
+
     List<AttributeOption> getAttributeOptions(Long attributeId);
+
     List<AttributeBean> selectPage(RowBounds rowBounds, AttributeBean attribute);
 }

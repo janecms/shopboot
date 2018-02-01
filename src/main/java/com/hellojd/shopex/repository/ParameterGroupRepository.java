@@ -9,6 +9,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -18,6 +19,7 @@ import java.util.List;
 @Repository
 public interface ParameterGroupRepository  extends BaseMapper<ParameterGroup>{
     ParameterGroupBean getParameterGroup(Long id);
+    Set<ParameterGroupBean> getParameterGroups(Long catId);
     List<ParameterBean> getParameters(Long parameterGroupId);
     List<ParameterGroupBean> selectPage(RowBounds rowBounds,ParameterGroup parameterGroup);
 }

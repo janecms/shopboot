@@ -4,9 +4,12 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.hellojd.shopex.bean.Pager;
+import com.hellojd.shopex.bean.ProductBean;
 import com.hellojd.shopex.entity.Product;
 import com.hellojd.shopex.entity.ProductCategory;
 import com.hellojd.shopex.repository.ProductRepository;
+import com.hellojd.shopex.service.BrandService;
+import com.hellojd.shopex.service.ProductCategoryService;
 import com.hellojd.shopex.service.ProductService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,5 +117,24 @@ public class ProductServiceImpl extends ServiceImpl<ProductRepository,Product> i
     @Override
     public Long getUnMarketableProductCount() {
         return null;
+    }
+    @Autowired
+    BrandService brandService;
+    @Autowired
+    ProductCategoryService productCategoryService;
+
+    @Override
+    public ProductBean getProduct(Long id) {
+        final ProductBean product = this.baseMapper.getProduct(id);
+        final Long brandId = product.getBrandId();
+        if(brandId!=null){
+            product.setBrand(brandService.selectById(brandId));
+        }
+        final Long productCategoryId = product.getProductCategoryId();
+        if(productCategoryId!=null){
+            product.setProductCategory(productCategoryService.getProductCategoryById(productCategoryId));
+        }
+
+        return product;
     }
 }

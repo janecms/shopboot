@@ -32,8 +32,8 @@ public class ProductCategoryBean extends ProductCategory implements CategoryBean
   Set<ProductCategoryBean> children =new HashSet<>();
   Set<Product> products;
   Set<Brand> brands;
-  Set<ParameterGroup> parameterGroups;
-  Set<Attribute> attributes;
+  Set<ParameterGroupBean> parameterGroups;
+  Set<AttributeBean> attributes;
 
   @Override
   public boolean equals(Object o) {

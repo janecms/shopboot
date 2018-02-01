@@ -2,6 +2,7 @@ package com.hellojd.shopex.service;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.hellojd.shopex.bean.Pager;
+import com.hellojd.shopex.bean.ProductBean;
 import com.hellojd.shopex.entity.Product;
 import com.hellojd.shopex.entity.ProductCategory;
 
@@ -179,4 +180,6 @@ public interface ProductService extends IService<Product> {
      * @return 已下架商品数
      */
     public Long getUnMarketableProductCount();
+
+    ProductBean getProduct(Long id);
 }

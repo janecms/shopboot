@@ -2,6 +2,7 @@ package com.hellojd.shopex.service.impl;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -31,6 +32,11 @@ public class BrandServiceImpl extends ServiceImpl<BrandRepository,Brand> impleme
         final Brand brandPo = this.baseMapper.selectById(brandBean.getId());
         BeanUtils.copyProperties(brandBean, brandPo,new String[] { "products", "productCategories", "promotions" });
         this.baseMapper.updateById(brandPo);
+    }
+
+    @Override
+    public List<Brand> findAll() {
+        return baseMapper.selectList(new EntityWrapper<>(new Brand()));
     }
 
 }
