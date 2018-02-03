@@ -126,5 +126,5 @@ setting:
   cnzzPassword:
 logging:
   level:
-    root: warn
+    root: info
 

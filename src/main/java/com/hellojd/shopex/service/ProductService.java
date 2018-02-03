@@ -1,6 +1,8 @@
 package com.hellojd.shopex.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
+import com.hellojd.shopex.bean.AttributeBean;
 import com.hellojd.shopex.bean.Pager;
 import com.hellojd.shopex.bean.ProductBean;
 import com.hellojd.shopex.entity.Product;
@@ -10,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 public interface ProductService extends IService<Product> {
     public  boolean snExists(String sn);
+
+    Page<ProductBean> selectPage(Page<ProductBean> page,ProductBean probe);
     public abstract Product findBySn(String  sn);
     public abstract boolean snUnique(String previousSn, String currentSn);
     /**

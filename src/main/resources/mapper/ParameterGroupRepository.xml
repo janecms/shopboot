@@ -11,14 +11,9 @@
         <result column="orders" property="order"></result>
         <result column="name" property="name"></result>
         <result column="category_id" property="productCategoryId"></result>
-        <association property="productCategory" javaType="com.hellojd.shopex.bean.ProductCategoryBean"
-                     column="category_id"
-                     select="com.hellojd.shopex.repository.ProductCategoryRepository.getProductCategoryById"
-                     fetchType="lazy">
-        </association>
         <collection property="parameters" select="getParameters" column="id"></collection>
     </resultMap>
-    <resultMap id="parameterResultMap" type="com.hellojd.shopex.entity.Parameter">
+    <resultMap id="parameterResultMap" type="com.hellojd.shopex.bean.ParameterBean">
         <id property="id" column="id"></id>
         <result column="create_date" property="createDate"></result>
         <result column="modify_date" property="modifyDate"></result>

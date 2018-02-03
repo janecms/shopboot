@@ -2,31 +2,49 @@ package com.hellojd.shopex.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.hellojd.shopex.bean.Pager;
-import com.hellojd.shopex.bean.ProductBean;
+import com.hellojd.shopex.bean.*;
 import com.hellojd.shopex.entity.Product;
 import com.hellojd.shopex.entity.ProductCategory;
+import com.hellojd.shopex.entity.ProductParameterValue;
+import com.hellojd.shopex.repository.ProductParameterValueRepository;
 import com.hellojd.shopex.repository.ProductRepository;
 import com.hellojd.shopex.service.BrandService;
 import com.hellojd.shopex.service.ProductCategoryService;
 import com.hellojd.shopex.service.ProductService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
+/**
+ * @author Administrator
+ */
 @Service
 public class ProductServiceImpl extends ServiceImpl<ProductRepository,Product> implements ProductService{
     @Autowired
-    private ProductRepository productRepository;
+    ProductParameterValueRepository productParameterValueRepository;
     @Override
     public boolean snExists(String sn) {
         Product product = new Product();
         product.setSn(sn);
         Wrapper<Product> wrapper = new EntityWrapper<>(product);
         return this.baseMapper.selectCount(wrapper)>0;
+    }
+
+    @Override
+    public Page<ProductBean> selectPage(Page<ProductBean> page,ProductBean probe) {
+        final List<ProductBean> records = this.baseMapper.selectPage(page,probe);
+        if (CollectionUtils.isNotEmpty(records)){
+            records.forEach(productBean -> {
+                productBean.setProductCategory(this.productCategoryService.getProductCategoryById(productBean.getProductCategoryId()));
+            });
+        }
+        page.setRecords(records);
+        return page;
     }
 
     @Override
@@ -124,17 +142,39 @@ public class ProductServiceImpl extends ServiceImpl<ProductRepository,Product> i
     ProductCategoryService productCategoryService;
 
     @Override
-    public ProductBean getProduct(Long id) {
-        final ProductBean product = this.baseMapper.getProduct(id);
+    public ProductBean getProduct(Long productId) {
+        final ProductBean product = this.baseMapper.getProduct(productId);
         final Long brandId = product.getBrandId();
         if(brandId!=null){
             product.setBrand(brandService.selectById(brandId));
         }
         final Long productCategoryId = product.getProductCategoryId();
         if(productCategoryId!=null){
-            product.setProductCategory(productCategoryService.getProductCategoryById(productCategoryId));
+            final ProductCategoryBean category = productCategoryService.getProductCategoryById(productCategoryId);
+            product.setProductCategory(category);
+            final Map<ParameterBean, String> parameterValueMap = getParameterValueMap(productId);
+            product.setParameterValue(parameterValueMap);
         }
 
         return product;
+    }
+
+    /**
+     *
+     * @param productId
+     * @return
+     */
+    public Map<ParameterBean, String> getParameterValueMap(Long productId){
+        ProductParameterValue probe = new ProductParameterValue();
+        probe.setProductId(productId);
+        Wrapper<ProductParameterValue> ew =new EntityWrapper<>(probe);
+        final List<ProductParameterValueBean> productParameterValues = this.productParameterValueRepository.getProductParameterValues(productId);
+        Map<ParameterBean, String> resultParameterMap = new HashMap<>();
+        if(CollectionUtils.isNotEmpty(productParameterValues)){
+            productParameterValues.forEach(productParameterValue -> {
+                resultParameterMap.put(productParameterValue.getParameter(),productParameterValue.getParameterValue());
+            });
+        }
+        return resultParameterMap;
     }
 }

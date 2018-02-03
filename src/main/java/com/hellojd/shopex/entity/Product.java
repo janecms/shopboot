@@ -1,5 +1,6 @@
 package com.hellojd.shopex.entity;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -18,7 +19,9 @@ public class Product extends  BaseEntity implements Serializable{
     @Pattern(regexp="^[0-9a-zA-Z_-]+$")
     @Length(max=200)
     private String sn;
+    @TableField("brand")
     private Long brandId;
+    @TableField("product_category")
     private Long productCategoryId;
 
     @Length(max=200)
@@ -37,13 +40,13 @@ public class Product extends  BaseEntity implements Serializable{
     @Min(0L)
     private Long point;
     @NotNull
-    private boolean isMarketable;
+    private Boolean isMarketable;
     @NotNull
-    private boolean isList;
+    private Boolean isList;
     @NotNull
-    private boolean isTop;
+    private Boolean isTop;
     @NotNull
-    private boolean isGift;
+    private Boolean isGift;
     private String introduction;
     @Length(max=200)
     private String memo;
@@ -68,7 +71,6 @@ public class Product extends  BaseEntity implements Serializable{
     private Date monthHitsDate;
     private Date weekSalesDate;
     private Date monthSalesDate;
-    private Long stockScore;
 
     public String getSn() {
         return sn;
@@ -180,38 +182,6 @@ public class Product extends  BaseEntity implements Serializable{
 
     public void setPoint(Long point) {
         this.point = point;
-    }
-
-    public boolean isMarketable() {
-        return isMarketable;
-    }
-
-    public void setMarketable(boolean marketable) {
-        isMarketable = marketable;
-    }
-
-    public boolean isList() {
-        return isList;
-    }
-
-    public void setList(boolean list) {
-        isList = list;
-    }
-
-    public boolean isTop() {
-        return isTop;
-    }
-
-    public void setTop(boolean top) {
-        isTop = top;
-    }
-
-    public boolean isGift() {
-        return isGift;
-    }
-
-    public void setGift(boolean gift) {
-        isGift = gift;
     }
 
     public String getIntroduction() {
@@ -356,19 +326,36 @@ public class Product extends  BaseEntity implements Serializable{
         this.monthSalesDate = monthSalesDate;
     }
 
-    public Long getStockScore() {
-        return stockScore;
+    public boolean getIsGift() {
+        return isGift;
     }
 
-    public void setStockScore(Long stockScore) {
-        this.stockScore = stockScore;
+    public void setIsGift(boolean gift) {
+        isGift = gift;
     }
-        public void setKeyword(String keyword)
-    {
-        if (keyword != null) {
-            keyword = keyword.replaceAll("[,\\s]*,[,\\s]*", ",").replaceAll("^,|,$", "");
-        }
-        this.keyword = keyword;
+
+    public Boolean getIsMarketable() {
+        return isMarketable;
+    }
+
+    public void setIsMarketable(Boolean marketable) {
+        isMarketable = marketable;
+    }
+
+    public Boolean getIsList() {
+        return isList;
+    }
+
+    public void setIsList(Boolean list) {
+        isList = list;
+    }
+
+    public Boolean getIsTop() {
+        return isTop;
+    }
+
+    public void setIsTop(Boolean top) {
+        isTop = top;
     }
 
     public String getKeyword() {

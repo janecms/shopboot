@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hellojd.shopex.repository.ProductParameterValueRepository">
+    <resultMap id="productParameterValueMap" type="com.hellojd.shopex.bean.ProductParameterValueBean">
+        <result property="parameterValue" column="parameter_value"></result>
+        <association property="parameter" resultMap="com.hellojd.shopex.repository.ParameterGroupRepository.parameterResultMap"></association>
+    </resultMap>
+    <select id="getProductParameterValues" resultMap="productParameterValueMap">
+        SELECT
+            p.id,
+            p.create_date,
+            p.modify_date,
+            p.orders,
+            p.name,
+            p.parameter_group,
+            v.parameter_value
+        FROM
+            product_parameter_value v,
+            d_parameter p
+        WHERE
+            p.id = v.parameter_value_key
+            AND  v.product_id=#{productId}
+    </select>
+
+</mapper>

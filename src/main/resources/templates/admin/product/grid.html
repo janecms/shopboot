@@ -5,18 +5,18 @@
       xmlns:shop="http://hellojd.org"
       layout:decorator="fragments/main">
 <th:block layout:fragment="commonhead">
-    <title>参数列表</title>
+    <title>商品列表</title>
     <link rel="stylesheet" href="../../../static/bower_components/treeview/css/bootstrap-treeview.css"
           th:href="@{/static/bower_components/treeview/css/bootstrap-treeview.css}">
     <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
 </th:block>
 <body class="hold-transition skin-blue sidebar-mini">
 <div layout:fragment="content">
-    <form id="listForm" method="get" action="/parameter_group/">
+    <form id="listForm" method="get" action="/product/">
         <div class="content-wrapper">
             <section class="content-header">
                 <h1>
-                    商品参数
+                    商品
                     <small>管理</small>
                 </h1>
                 <ol class="breadcrumb">
@@ -28,33 +28,34 @@
             <section class="content">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">商品参数列表</h3>
+                        <h3 class="box-title">商品列表</h3>
                     </div>
                     <div class="box-body">
                         <table class="table table-bordered">
                             <tbody>
                             <tr>
+                                <th>编号</th>
                                 <th>名称</th>
-                                <th>绑定分类</th>
-                                <th>参数</th>
-                                <th>排序</th>
+                                <th>商品分类</th>
+                                <th>销售价</th>
+                                <th>成本价</th>
+                                <th>库存</th>
+                                <th>是否上架</th>
+                                <th>创建日期</th>
                                 <th>操作</th>
                             </tr>
-                            <tr th:each="group : ${page.records}">
-                                <td th:text="${group.name}"></td>
-                                <td>
-                                   <shop:category id="${group.productCategoryId}">
-                                       <th:block th:text="${category.name}"></th:block>
-                                   </shop:category>
+                            <tr th:each="product : ${page.records}">
+                                <td th:text="${product.sn}"></td>
+                                <td >
+                                    <shop:abbreviate text="${product.fullName}" maxlength="50" />
                                 </td>
-                                <td>
-                                    <th:block th:each="parameter,stat: ${group.parameters}" th:if="${stat.index le 5}">
-                                       <span th:text="${parameter.name}"></span>
-                                        <span th:if="${stat.index==5}">...</span>
-                                    </th:block>
-                                </td>
-                                <td th:text="${group.order}">1</td>
-                                <td><a th:href="@{'/parameter_group/'+${group.id}}">[编辑]</a></td>
+                                <td th:text="${product.productCategory.name}"></td>
+                                <td th:text="${product.price}"></td>
+                                <td th:text="${product.cost}"></td>
+                                <td th:text="${product.stock}"></td>
+                                <td th:text="${product.isMarketable}"></td>
+                                <td th:text="${#dates.format(product.createDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+                                <td><a th:href="@{'/product/'+${product.id}}">[编辑]</a></td>
                             </tr>
                             </tbody>
                         </table>

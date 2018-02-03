@@ -76,6 +76,9 @@
     <link rel="stylesheet" th:href="@{/static/bower_components/kindeditor/themes/default/default.css}"/>
     <script th:src="@{/static/bower_components/kindeditor/kindeditor.js}"></script>
     <script th:src="@{/static/js/common.js}"></script>
+    <div th:replace="fragments/footer :: treeviewjs">JavaScript tags are loaded here</div>
+    <div th:replace="fragments/input_treeview :: treeview_script('productCategoryId',${productCategoryTreeViewJson})">
+    </div>
 </th:block>
 </body>
 </html>

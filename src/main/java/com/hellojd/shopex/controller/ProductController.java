@@ -1,25 +1,25 @@
 package com.hellojd.shopex.controller;
 
-import com.hellojd.shopex.bean.AttributeBean;
-import com.hellojd.shopex.bean.ParameterGroupBean;
-import com.hellojd.shopex.bean.ProductCategoryBean;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.hellojd.shopex.bean.*;
 import com.hellojd.shopex.bean.treeview.TreeViewBean;
-import com.hellojd.shopex.entity.Attribute;
-import com.hellojd.shopex.entity.ParameterGroup;
-import com.hellojd.shopex.entity.ProductCategory;
+import com.hellojd.shopex.entity.*;
 import com.hellojd.shopex.enums.TagType;
 import com.hellojd.shopex.service.*;
 import com.hellojd.shopex.util.JsonUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-
+@Controller
 @RequestMapping({"/product"})
 public class ProductController extends BaseController {
     @Autowired
@@ -60,7 +60,7 @@ public class ProductController extends BaseController {
         return productCategory.getAttributes();
     }
 
-    @RequestMapping(value = {"/add"}, method = {org.springframework.web.bind.annotation.RequestMethod.GET})
+    @RequestMapping(value = {"/add"}, method = {RequestMethod.GET})
     public String add(ModelMap model) {
         final List<TreeViewBean> productCategoryTreeView = this.productCategoryService.buildCategoryTree(null);
         final String productCategoryTreeViewJson = JsonUtils.toJson(productCategoryTreeView);
@@ -72,18 +72,26 @@ public class ProductController extends BaseController {
         return "/admin/product/add";
     }
 
-    @RequestMapping(value={"/edit"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-    public String edit(Long id, ModelMap model)
+    @RequestMapping(value={"/{productId}"}, method={RequestMethod.GET})
+    public String edit(@PathVariable("productId") Long id, ModelMap model)
     {
-        final List<TreeViewBean> productCategoryTreeView = this.productCategoryService.buildCategoryTree(null);
+        final ProductBean product = this.productService.getProduct(id);
+        final List<TreeViewBean> productCategoryTreeView = this.productCategoryService.buildCategoryTree(product.getProductCategory());
         final String productCategoryTreeViewJson = JsonUtils.toJson(productCategoryTreeView);
         model.addAttribute("productCategoryTreeViewJson", productCategoryTreeViewJson);
         model.addAttribute("brands", this.brandService.findAll());
         model.addAttribute("tags", this.tagService.findList(TagType.product));
         model.addAttribute("memberRanks", this.memberRankService.findAll());
         model.addAttribute("memberRanks", this.memberRankService.findAll());
-        model.addAttribute("product", this.productService.getProduct(id));
+        model.addAttribute("product", product);
         return "/admin/product/edit";
     }
 
+    @RequestMapping(value={"/"}, method={RequestMethod.GET})
+    public String list(ProductBean probe,Page<ProductBean> page, ModelMap model)
+    {
+        Page<ProductBean> productPage=this.productService.selectPage(page,probe);
+        model.addAttribute("page", PageWrapper.wrapper(productPage));
+        return "/admin/product/grid";
+    }
 }

@@ -14,7 +14,7 @@ public class MemberRank  extends BaseEntity{
     String name;
     double scale;
     BigDecimal amount;
-    Boolean isDefault;
-    Boolean isSpecial;
+    boolean isDefault;
+    boolean isSpecial;
 
 }

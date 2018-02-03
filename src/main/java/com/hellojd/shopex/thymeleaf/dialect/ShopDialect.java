@@ -37,7 +37,9 @@ public class ShopDialect extends AbstractProcessorDialect implements Application
     public Set<IProcessor> getProcessors(String dialectPrefix) {
         final Set<IProcessor> processors = new HashSet<IProcessor>();
         processors.add(new PathAttributeTagProcessor(dialectPrefix));
+        processors.add(new AbbreviateAttributeTagProcessor(dialectPrefix));
         processors.add(applicationContext.getBean(CategoryListTagProcessor.class));
+        processors.add(applicationContext.getBean(CategoryTagProcessor.class));
         processors.add(new StandardXmlNsTagProcessor(TemplateMode.HTML, dialectPrefix));
         return processors;
     }

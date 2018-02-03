@@ -17,9 +17,9 @@ import static com.baomidou.mybatisplus.toolkit.IdWorker.getId;
 
 @Data
 public class ProductBean extends Product {
-    ProductCategory productCategory;
+    ProductCategoryBean productCategory;
     private Brand brand;
-    private Map<Parameter, String> parameterValue;
+    private Map<ParameterBean, String> parameterValue;
     Set<Tag> tags;
     Set<Specification> specifications;
     Set<SpecificationValue> specificationValues;
