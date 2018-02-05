@@ -4,7 +4,7 @@
 /*==============================================================*/
 DROP TABLE IF EXISTS `log`;
 
-drop table if exists product_attribute;
+drop table if exists product_attribute_value;
 drop table if exists product_member_price;
 drop table if exists product_parameter_value;
 drop table if exists product_product_image;
@@ -246,16 +246,16 @@ CREATE TABLE `product` (
 /*==============================================================*/
 /* Table: product_attribute                                     */
 /*==============================================================*/
-create table product_attribute
+create table product_attribute_value
 (
-  attribute_id         bigint(20),
   product_id           bigint(20),
+  attribute_id         bigint(20),
   options             varchar(255)
 );
-alter table product_attribute add constraint FK_Reference_17 foreign key (product_id)
+alter table product_attribute_value add constraint FK_Reference_17 foreign key (product_id)
 references product (id) on delete restrict on update restrict;
 
-alter table product_attribute add constraint FK_Reference_18 foreign key (attribute_id)
+alter table product_attribute_value add constraint FK_Reference_18 foreign key (attribute_id)
 references d_attribute (id) on delete restrict on update restrict;
 
 

@@ -1,5 +1,6 @@
 package com.hellojd.shopex.bean;
 
+import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.hellojd.shopex.entity.*;
 import com.hellojd.shopex.util.FreemarkerUtils;
 import lombok.Data;
@@ -20,48 +21,12 @@ public class ProductBean extends Product {
     ProductCategoryBean productCategory;
     private Brand brand;
     private Map<ParameterBean, String> parameterValue;
+    private Map<AttributeBean, String> attributeValueMap;
     Set<Tag> tags;
     Set<Specification> specifications;
     Set<SpecificationValue> specificationValues;
     Map<MemberRank, BigDecimal> memberPrice;
 
-    @Transient
-    public String getAttributeValue(Attribute attribute) {
-        if ((attribute != null) && (attribute.getPropertyIndex() != null)) {
-            try {
-                String str = "attributeValue" + attribute.getPropertyIndex();
-                return (String) PropertyUtils.getProperty(this, str);
-            } catch (IllegalAccessException localIllegalAccessException1) {
-                localIllegalAccessException1.printStackTrace();
-            } catch (InvocationTargetException localInvocationTargetException1) {
-                localInvocationTargetException1.printStackTrace();
-            } catch (NoSuchMethodException localNoSuchMethodException1) {
-                localNoSuchMethodException1.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    @Transient
-    public void setAttributeValue(AttributeBean attribute, String value) {
-        if ((attribute != null) && (attribute.getPropertyIndex() != null)) {
-            if (StringUtils.isEmpty(value)) {
-                value = null;
-            }
-            if ((value == null) || ((attribute.getOptions() != null) && (attribute.getOptions().contains(value)))) {
-                try {
-                    String str = "attributeValue" + attribute.getPropertyIndex();
-                    PropertyUtils.setProperty(this, str, value);
-                } catch (IllegalAccessException localIllegalAccessException1) {
-                    localIllegalAccessException1.printStackTrace();
-                } catch (InvocationTargetException localInvocationTargetException1) {
-                    localInvocationTargetException1.printStackTrace();
-                } catch (NoSuchMethodException localNoSuchMethodException1) {
-                    localNoSuchMethodException1.printStackTrace();
-                }
-            }
-        }
-    }
     @Transient
     public Integer getAvailableStock()
     {
@@ -83,5 +48,12 @@ public class ProductBean extends Product {
             return Boolean.valueOf(true);
         }
         return Boolean.valueOf(false);
+    }
+
+   public String getAttributeValue(AttributeBean attributeBean){
+        if(this.attributeValueMap==null){
+            return "";
+        }
+        return attributeValueMap.get(attributeBean);
     }
 }

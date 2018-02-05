@@ -3,11 +3,14 @@
       xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="content" class="row">
     <div class="col-md-12">
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="productCategoryId">材质</label>
+        <div class="form-group" th:each="attribute : ${product.productCategory.attributes}">
+            <label class="col-sm-2 control-label" th:text="${attribute.name}"></label>
             <div class="col-sm-10">
-                <select class="form-control" id="productCategoryId" name="productCategoryId">
-
+                <select th:name="'attribute_'+${attribute.id}">
+                    <option value="">请选择</option>
+                    <option th:each="option : ${attribute.options}" th:value="${option.options}"
+                            th:selected="${product.getAttributeValue(attribute)==option.options}"
+                            th:text="${option.options}"></option>
                 </select>
             </div>
         </div>

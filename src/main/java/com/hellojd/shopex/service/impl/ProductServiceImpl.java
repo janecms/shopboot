@@ -8,6 +8,7 @@ import com.hellojd.shopex.bean.*;
 import com.hellojd.shopex.entity.Product;
 import com.hellojd.shopex.entity.ProductCategory;
 import com.hellojd.shopex.entity.ProductParameterValue;
+import com.hellojd.shopex.repository.ProductAttributeValueRepository;
 import com.hellojd.shopex.repository.ProductParameterValueRepository;
 import com.hellojd.shopex.repository.ProductRepository;
 import com.hellojd.shopex.service.BrandService;
@@ -27,6 +28,9 @@ import java.util.*;
 public class ProductServiceImpl extends ServiceImpl<ProductRepository,Product> implements ProductService{
     @Autowired
     ProductParameterValueRepository productParameterValueRepository;
+    @Autowired
+    ProductAttributeValueRepository productAttributeValueRepository;
+
     @Override
     public boolean snExists(String sn) {
         Product product = new Product();
@@ -154,10 +158,14 @@ public class ProductServiceImpl extends ServiceImpl<ProductRepository,Product> i
             product.setProductCategory(category);
             final Map<ParameterBean, String> parameterValueMap = getParameterValueMap(productId);
             product.setParameterValue(parameterValueMap);
+            final Map<AttributeBean, String> attributeValueMap = this.getAttributeValueMap(productId);
+            product.setAttributeValueMap(attributeValueMap);
         }
 
         return product;
     }
+
+
 
     /**
      *
@@ -167,7 +175,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductRepository,Product> i
     public Map<ParameterBean, String> getParameterValueMap(Long productId){
         ProductParameterValue probe = new ProductParameterValue();
         probe.setProductId(productId);
-        Wrapper<ProductParameterValue> ew =new EntityWrapper<>(probe);
         final List<ProductParameterValueBean> productParameterValues = this.productParameterValueRepository.getProductParameterValues(productId);
         Map<ParameterBean, String> resultParameterMap = new HashMap<>();
         if(CollectionUtils.isNotEmpty(productParameterValues)){
@@ -176,5 +183,18 @@ public class ProductServiceImpl extends ServiceImpl<ProductRepository,Product> i
             });
         }
         return resultParameterMap;
+    }
+
+    public Map<AttributeBean, String> getAttributeValueMap(Long productId){
+        ProductParameterValue probe = new ProductParameterValue();
+        probe.setProductId(productId);
+        final List<ProductAttributeValueBean> productParameterValues = this.productAttributeValueRepository.getProductAttributeValues(productId);
+        Map<AttributeBean, String> resultAttributeMap = new HashMap<>();
+        if(CollectionUtils.isNotEmpty(productParameterValues)){
+            productParameterValues.forEach(productParameterValue -> {
+                resultAttributeMap.put(productParameterValue.getAttribute(),productParameterValue.getAttributeValue());
+            });
+        }
+        return resultAttributeMap;
     }
 }
