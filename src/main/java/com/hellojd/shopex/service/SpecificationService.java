@@ -19,5 +19,5 @@ public interface SpecificationService extends IService<Specification> {
 
     void update(SpecificationBean specification);
 
-    List<SpecificationValue> findAll();
+    List<SpecificationBean> findAll();
 }

@@ -16,5 +16,5 @@ public interface SpecificationRepository extends BaseMapper<Specification>{
     Set<SpecificationValue> getSpecificationValues(Long specificationId);
     Set<SpecificationValue> getSpecificationValuesByProductId(Long productId);
     Set<Specification> getSpecificationsByProductId(Long productId);
-    List<SpecificationValue> findAll();
+    List<SpecificationBean> findAll();
 }

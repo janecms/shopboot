@@ -3,12 +3,35 @@
       xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="content" class="row">
     <div class="col-md-12">
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="editor">介绍</label>
-            <div class="col-sm-10">
-                <textarea id="editor" name="introduction" rows="10" cols="80"></textarea>
+        <div class="box box-default box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">请选择商品规格:</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-2" th:each="specification : ${specifications}">
+                        <label>
+                            <input type="checkbox" name="specificationIds"
+                                   th:value="${specification.id}" th:checked="${product.specifications!=null && #sets.contains(product.specifications,specification)}"
+                                    th:text="${specification.name}" />
+                            <span class="gray" th:if="${specification.memo!=null}" th:text="'['+${specification.memo}+']'"></span>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th th:each="specification : ${specifications}" th:class="${#sets.contains(product.specifications,specification)? '':'hidden'}">
+                    <th:block  th:text="${specification.name}"></th:block>
+                     <span class="gray" th:if="${specification.memo!=null}" th:text="'['+${specification.memo}+']'"></span>
+                </th>
+
+                <th>操作</th>
+            </tr>
+            </thead>
+        </table>
     </div>
 </div>
 </html>

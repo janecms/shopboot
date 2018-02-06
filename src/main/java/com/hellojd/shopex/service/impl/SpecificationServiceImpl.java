@@ -76,7 +76,7 @@ public class SpecificationServiceImpl extends ShopBaseServiceImpl<SpecificationR
     }
 
     @Override
-    public List<SpecificationValue> findAll() {
+    public List<SpecificationBean> findAll() {
         return baseMapper.findAll();
     }
 

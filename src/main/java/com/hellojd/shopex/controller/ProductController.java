@@ -83,7 +83,11 @@ public class ProductController extends BaseController {
         model.addAttribute("tags", this.tagService.findList(TagType.product));
         model.addAttribute("memberRanks", this.memberRankService.findAll());
         model.addAttribute("memberRanks", this.memberRankService.findAll());
+        final List<SpecificationBean> specifications = this.specificationService.findAll();
+        model.addAttribute("specifications", specifications);
         model.addAttribute("product", product);
+
+
         return "/admin/product/edit";
     }
 

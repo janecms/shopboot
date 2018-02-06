@@ -27,4 +27,5 @@ public enum  SpecificationType implements IEnum {
     public void setName(String name) {
         this.name = name;
     }
+
 }

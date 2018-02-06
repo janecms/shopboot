@@ -5,12 +5,11 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.hellojd.shopex.bean.*;
-import com.hellojd.shopex.entity.Product;
-import com.hellojd.shopex.entity.ProductCategory;
-import com.hellojd.shopex.entity.ProductParameterValue;
+import com.hellojd.shopex.entity.*;
 import com.hellojd.shopex.repository.ProductAttributeValueRepository;
 import com.hellojd.shopex.repository.ProductParameterValueRepository;
 import com.hellojd.shopex.repository.ProductRepository;
+import com.hellojd.shopex.repository.SpecificationRepository;
 import com.hellojd.shopex.service.BrandService;
 import com.hellojd.shopex.service.ProductCategoryService;
 import com.hellojd.shopex.service.ProductService;
@@ -30,6 +29,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductRepository,Product> i
     ProductParameterValueRepository productParameterValueRepository;
     @Autowired
     ProductAttributeValueRepository productAttributeValueRepository;
+    @Autowired
+    SpecificationRepository specificationRepository;
 
     @Override
     public boolean snExists(String sn) {
@@ -161,7 +162,10 @@ public class ProductServiceImpl extends ServiceImpl<ProductRepository,Product> i
             final Map<AttributeBean, String> attributeValueMap = this.getAttributeValueMap(productId);
             product.setAttributeValueMap(attributeValueMap);
         }
-
+        final Set<Specification> specifications = specificationRepository.getSpecificationsByProductId(productId);
+        product.setSpecifications(specifications);
+        final Set<SpecificationValue> specificationValues = specificationRepository.getSpecificationValuesByProductId(productId);
+        product.setSpecificationValues(specificationValues);
         return product;
     }
 
