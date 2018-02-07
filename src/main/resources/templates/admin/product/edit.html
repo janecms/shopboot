@@ -50,13 +50,16 @@
                                 </div>
 
                                 <div class="tab-pane" id="parameterPane">
+
                                     <div th:replace="admin/product/parameter_tab :: content"></div>
+                                    <!--  -->
                                 </div>
                                 <div class="tab-pane" id="attributePane">
-                                    <div th:replace="admin/product/attribute_tab :: content"></div>
-                                </div>
-                                <div class="tab-pane" id="specificationPane">
-                                    <div th:replace="admin/product/specification_tab :: content"></div>
+
+                                   <div th:replace="admin/product/attribute_tab :: content"></div>
+                               </div>
+                               <div class="tab-pane" id="specificationPane">
+                                   <div th:replace="admin/product/specification_tab :: content"></div>
                                 </div>
                             </div>
                         </div>
