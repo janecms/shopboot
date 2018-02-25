@@ -20,4 +20,6 @@ public interface SpecificationService extends IService<Specification> {
     void update(SpecificationBean specification);
 
     List<SpecificationBean> findAll();
+    SpecificationValue getSpecificationValue(Long id);
+
 }

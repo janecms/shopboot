@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 
 public enum  BrandType implements IEnum {
-    text(0,"文本"), image(1,"图片");
+    text(0,"text"), image(1,"image");
     int code;
     String name;
 
@@ -30,4 +30,5 @@ public enum  BrandType implements IEnum {
     public String getName() {
         return name;
     }
+
 }

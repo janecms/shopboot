@@ -49,6 +49,7 @@ public class AttributeServiceImpl extends ShopBaseServiceImpl<AttributeRepositor
         final Long id = attribute.getId();
         if (CollectionUtils.isNotEmpty(options)) {
             for (AttributeOption option : options) {
+                option.setAttribute(attribute.getId());
                 this.attributeOptionRepository.insert(option);
             }
         } else {

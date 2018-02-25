@@ -30,11 +30,11 @@
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <input type="hidden" name="id" th:value="${brand.id}"/>
+                                <input type="hidden" name="id" th:value="${brand!=null ? brand.id:''}"/>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="name">名称</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" id="name" type="text" th:value="${brand.name}"/>
+                                        <input class="form-control" id="name" type="text" th:value="${brand!=null ? brand.name:''}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -42,7 +42,7 @@
                                     <div class="col-sm-10">
                                         <select class="form-control" id="type" name="type">
                                             <option th:each="op : ${types}" th:value="${op}"
-                                                    th:selected="${brand.type==op}" th:text="${op.name}"></option>
+                                                    th:selected="${brand!=null && brand.type==op}" th:text="${op.name}"></option>
                                         </select>
                                     </div>
                                 </div>
@@ -51,7 +51,7 @@
                                     <div class="col-sm-10">
                                         <span class="fieldSet">
                                         <input id="logo" class="text" name="logo" maxlength="200" type="text"
-                                               th:value="${brand.logo}">
+                                               th:value="${brand!=null?brand.logo:''}">
                                         <input id="browserButton" class="button" value="选择文件" type="button"/>
                                         </span>
                                     </div>
@@ -60,21 +60,21 @@
                                     <label class="col-sm-2 control-label" for="url">网址</label>
                                     <div class="col-sm-10">
                                         <input class="form-control" id="url" name="url" type="text"
-                                               th:value="${brand.url}"/>
+                                               th:value="${brand!=null?brand.url:''}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="order">排序</label>
                                     <div class="col-sm-10">
                                         <input class="form-control" id="order" name="order" type="text"
-                                               th:value="${brand.order}"/>
+                                               th:value="${brand!=null?brand.order:''}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="editor">介绍</label>
                                     <div class="col-sm-10">
                                         <textarea id="editor" name="introduction" rows="10" cols="80"
-                                                  th:text="${brand.introduction}"></textarea>
+                                                  th:text="${brand!=null?brand.introduction:''}"></textarea>
                                     </div>
                                 </div>
                             </div>

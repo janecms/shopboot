@@ -44,6 +44,13 @@
                     $('#'+name+'Text').val(node.text);
                     $('#'+name).val(node.href);
                     canClose = true;
+                    try {
+                    if (typeof(eval("treeview_onNodeSelected")) == "function") {
+                        treeview_onNodeSelected(event, node);
+                    }
+                    }catch (e){
+
+                    }
                 }
             });
         });

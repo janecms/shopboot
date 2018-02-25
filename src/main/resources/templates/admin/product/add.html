@@ -5,8 +5,7 @@
       layout:decorator="fragments/main">
 <th:block layout:fragment="commonhead">
     <title>产品管理</title>
-    <link rel="stylesheet" href="../../../static/bower_components/treeview/css/bootstrap-treeview.css"
-          th:href="@{/static/bower_components/treeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="../../../static/bower_components/treeview/css/bootstrap-treeview.css" th:href="@{/static/bower_components/treeview/css/bootstrap-treeview.css}">
     <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
 </th:block>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -23,7 +22,7 @@
                 <li class="active">General Elements</li>
             </ol>
         </section>
-        <form id="inputForm" action="/product/update"  method="post" class="form-horizontal">
+        <form id="inputForm" action="/product/save"  method="post" class="form-horizontal">
             <section class="content">
                 <div class="box box-primary">
                     <div class="box-header with-border">
@@ -52,7 +51,6 @@
                                     <!--  -->
                                 </div>
                                 <div class="tab-pane" id="attributePane">
-
                                    <div th:replace="admin/product/attribute_tab :: content"></div>
                                </div>
                             </div>
@@ -76,6 +74,73 @@
     <div th:replace="fragments/footer :: treeviewjs">JavaScript tags are loaded here</div>
     <div th:replace="fragments/input_treeview :: treeview_script('productCategoryId',${productCategoryTreeViewJson})">
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var $inputForm = $("#inputForm");
+            var $productCategoryId = $("#productCategoryId");
+            var $isMemberPrice = $("#isMemberPrice");
+            var $memberPriceTr = $("#memberPriceTr");
+            var $memberPrice = $("#memberPriceTr input");
+            var $browserButton = $("#browserButton");
+            var $productImageTable = $("#productImageTable");
+            var $addProductImage = $("#addProductImage");
+            var $deleteProductImage = $("a.deleteProductImage");
+            var $attributeTable = $("#attributeTable");
+            var $specificationIds = $("#specificationSelect :checkbox");
+            var $specificationProductTable = $("#specificationProductTable");
+            var $addSpecificationProduct = $("#addSpecificationProduct");
+            var $deleteSpecificationProduct = $("a.deleteSpecificationProduct");
+            var productImageIndex = 0;
+            var previousProductCategoryId = getCookie("previousProductCategoryId");
+            if (previousProductCategoryId != null) {
+                $productCategoryId.val(previousProductCategoryId);
+            } else {
+                previousProductCategoryId = $productCategoryId.val();
+            }
+            $browserButton.browser();
+        });
+
+        // 加载参数
+        function loadParameter() {
+            var $productCategoryId = $("#productCategoryId");
+            if($productCategoryId==''){return "";}
+            var $parameterTable = $("#parameterPane");
+            $.ajax({
+                url: "parameter_groups",
+                type: "GET",
+                data: {id: $productCategoryId.val()},
+                dataType: "html",
+                beforeSend: function() {
+                    $parameterTable.empty();
+                },
+                success: function(trHtml) {;
+                    $parameterTable.append(trHtml);
+                }
+            });
+        }
+        // 加载属性
+        function loadAttribute() {
+            var $productCategoryId = $("#productCategoryId");
+            if($productCategoryId==''){return "";}
+            var $attributeTable = $("#attributePane");
+            $.ajax({
+                url: "attributes",
+                type: "GET",
+                data: {id: $productCategoryId.val()},
+                dataType: "html",
+                beforeSend: function() {
+                    $attributeTable.empty();
+                },
+                success: function(trHtml) {
+                    $attributeTable.append(trHtml);
+                }
+            });
+        }
+        function treeview_onNodeSelected(event, node) {
+            loadParameter();
+            loadAttribute();
+        }
+    </script>
 </th:block>
 </body>
 </html>

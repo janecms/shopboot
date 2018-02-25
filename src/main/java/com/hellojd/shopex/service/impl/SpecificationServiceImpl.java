@@ -80,4 +80,9 @@ public class SpecificationServiceImpl extends ShopBaseServiceImpl<SpecificationR
         return baseMapper.findAll();
     }
 
+    @Override
+    public SpecificationValue getSpecificationValue(Long id) {
+        return this.specificationValueRepository.selectById(id);
+    }
+
 }

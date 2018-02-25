@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="panel(parameterGroups,product)">
+    <div class="panel"
+         th:each="parameterGroup : ${parameterGroups}">
+        <div class="panel-heading" th:text="${parameterGroup.name}"></div>
+        <div class="panel-body">
+            <div class="form-group" th:each="parameter : ${parameterGroup.parameters}">
+                <label class="col-sm-2 control-label" for="name" th:text="${parameter.name}"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="name" th:name="'parameter_'+${parameter.id}" th:value="${product!=null?product.parameterValue.get(parameter):''}" type="text" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>   
+    

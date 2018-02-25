@@ -192,7 +192,7 @@ public class ShopxxSettings {
     private String stockAllocationTime;
 
     @Value("${setting.defaultPointScale}")
-    private String defaultPointScale;
+    private Double defaultPointScale;
 
     @Value("${setting.isDevelopmentEnabled}")
     private String isDevelopmentEnabled;
@@ -714,11 +714,11 @@ public class ShopxxSettings {
         this.stockAllocationTime = stockAllocationTime;
     }
 
-    public String getDefaultPointScale() {
+    public Double getDefaultPointScale() {
         return defaultPointScale;
     }
 
-    public void setDefaultPointScale(String defaultPointScale) {
+    public void setDefaultPointScale(Double defaultPointScale) {
         this.defaultPointScale = defaultPointScale;
     }
 

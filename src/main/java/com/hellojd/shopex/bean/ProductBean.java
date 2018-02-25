@@ -20,8 +20,8 @@ import static com.baomidou.mybatisplus.toolkit.IdWorker.getId;
 public class ProductBean extends Product {
     ProductCategoryBean productCategory;
     private Brand brand;
-    private Map<ParameterBean, String> parameterValue;
-    private Map<AttributeBean, String> attributeValueMap;
+    private Map<ParameterBean, String> parameterValue=new HashMap<>();
+    private Map<AttributeBean, String> attributeValueMap=new HashMap<>();
     Set<Tag> tags;
     Set<Specification> specifications;
     Set<SpecificationValue> specificationValues;

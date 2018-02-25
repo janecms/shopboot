@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="panel(attributes,product)">
+    <div class="form-group"
+         th:each="attribute : ${attributes}">
+        <label class="col-sm-2 control-label" th:text="${attribute.name}"></label>
+        <div class="col-sm-10">
+            <select th:name="'attribute_'+${attribute.id}">
+                <option value="">请选择</option>
+                <option th:each="option : ${attribute.options}" th:value="${option.options}"
+                        th:selected="${product!=null && product.getAttributeValue(attribute)==option.options}"
+                        th:text="${option.options}"></option>
+            </select>
+        </div>
+    </div>
+</div>
+</body>
+</html>   
+    

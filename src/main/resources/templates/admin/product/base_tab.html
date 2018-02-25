@@ -3,88 +3,89 @@
       xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="content" class="row">
     <div class="col-md-12">
-        <input type="hidden" name="id" th:value="${product.id}" />
+        <input type="hidden" name="id" th:value="${product!=null ?product.id:''}" />
         <div class="form-group">
             <label class="col-sm-2 control-label" >商品分类</label>
             <div class="col-sm-10">
-                <div th:replace="fragments/input_treeview :: input('productCategoryId',${product.productCategory.id},${product.productCategory.name})">
-                </div>
+                <div
+                     th:replace="fragments/input_treeview :: input('productCategoryId',${product!=null && product.productCategory!=null?product.productCategory.id:null},
+                     ${product!=null && product.productCategory!=null?product.productCategory.name:null})"></div>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="name">名称</label>
             <div class="col-sm-10">
-                <input class="form-control" id="name" name="name" th:value="${product.name}" type="text" />
+                <input class="form-control" id="name" name="name" th:value="${product!=null?product.name:''}" type="text" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="sn">编号</label>
             <div class="col-sm-10">
-                <input class="form-control" id="sn" name="sn " th:value="${product.sn}" type="text" />
+                <input class="form-control" id="sn" name="sn " th:value="${product!=null?product.sn:''}" type="text" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="price">销售价</label>
             <div class="col-sm-10">
-                <input class="form-control" id="price" name="price" th:value="${product.price}"/>
+                <input class="form-control" id="price" name="price" th:value="${product!=null?product.price:''}"/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="isMemberPrice">会员价</label>
             <div class="col-sm-10">
                 <label>
-                    <input type="checkbox" id="isMemberPrice" name="isMemberPrice"  th:checked="${!#maps.isEmpty(product.memberPrice)}">启用会员价
+                    <input type="checkbox" id="isMemberPrice" name="isMemberPrice"  th:checked="${product!=null && !#maps.isEmpty(product.memberPrice)}">启用会员价
                 </label>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="cost">成本价</label>
             <div class="col-sm-10">
-                <input class="form-control" id="cost" name="cost" th:value="${product.cost}"/>
+                <input class="form-control" id="cost" name="cost" th:value="${product!=null?product.cost:''}"/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="marketPrice">市场价</label>
             <div class="col-sm-10">
-                <input class="form-control" id="marketPrice" name="marketPrice" th:value="${product.marketPrice}" />
+                <input class="form-control" id="marketPrice" name="marketPrice" th:value="${product!=null?product.marketPrice:''}" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="image">展示图片</label>
             <div class="col-sm-10">
-                <input class="form-control" id="image" name="image" th:value="${product.image}" />
+                <input class="form-control" id="image" name="image" th:value="${product!=null?product.image:''}" />
                 <input type="button" id="browserButton" class="button" value="选择文件">
-                <a href="${product.image}" th:if="${! #strings.isEmpty(product.image)}" target="_blank">查看</a>
+                <a href="${product.image}" th:if="${product!=null && ! #strings.isEmpty(product.image)}" target="_blank">查看</a>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="unit">单位</label>
             <div class="col-sm-10">
-                <input class="form-control" id="unit" name="unit" th:value="${product.unit}" />
+                <input class="form-control" id="unit" name="unit" th:value="${product!=null ? product.unit:''}" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="weight">重量</label>
             <div class="col-sm-10">
-                <input class="form-control" id="weight" name="weight" th:value="${product.weight}"/>
+                <input class="form-control" id="weight" name="weight" th:value="${product!=null ?product.weight:''}"/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="weight">库存</label>
             <div class="col-sm-10">
-                <input class="form-control" id="stock" name="stock" th:value="${product.stock}"/>
+                <input class="form-control" id="stock" name="stock" th:value="${product!=null ?product.stock:''}"/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="stockMemo">库存备注</label>
             <div class="col-sm-10">
-                <input class="form-control" id="stockMemo" name="stockMemo" th:value="${product.stockMemo}"/>
+                <input class="form-control" id="stockMemo" name="stockMemo" th:value="${product!=null ?product.stockMemo:''}"/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="point">赠送积分</label>
             <div class="col-sm-10">
-                <input class="form-control" id="point" name="point" th:value="${product.point}"/>
+                <input class="form-control" id="point" name="point" th:value="${product!=null?product.point:''}"/>
             </div>
         </div>
         <div class="form-group">
@@ -92,7 +93,7 @@
             <div class="col-sm-10">
                 <select class="form-control" name="brandId" id="brandId">
                     <option value="">请选择</option>
-                    <option th:each="brand : ${brands}" th:value="${brand.id}"  th:selected="${brand.id==product.brandId}" th:text="${brand.name}"></option>
+                    <option th:each="brand : ${brands}" th:value="${brand.id}"  th:selected="${product!=null && brand.id==product.brandId}" th:text="${brand.name}"></option>
                 </select>
             </div>
         </div>
@@ -100,23 +101,23 @@
             <label class="col-sm-2 control-label" for="point">标签</label>
             <div class="col-sm-10">
                 <input type="checkbox" th:each="tag : ${tags}" name="tagIds" th:value="${tag.id}" th:text="${tag.name}"
-                       th:checked="${product.tags!=null && #sets.contains(product.tags,tag)}">
+                       th:checked="${product!=null && product.tags!=null && #sets.contains(product.tags,tag)}">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="point">设置</label>
             <div class="col-sm-10">
                 <label>
-                    <input type="checkbox" name="isMarketable" value="true" th:checked="${product.isMarketable}">是否上架
+                    <input type="checkbox" name="isMarketable" value="true" th:checked="${product!=null && product.isMarketable}">是否上架
                 </label>
                 <label>
-                    <input type="checkbox" name="isList" value="true" th:checked="${product.isList}">是否列出
+                    <input type="checkbox" name="isList" value="true" th:checked="${product!=null && product.isList}">是否列出
                 </label>
                 <label>
-                    <input type="checkbox" name="isTop" value="true" th:checked="${product.isTop}">是否置顶
+                    <input type="checkbox" name="isTop" value="true" th:checked="${product!=null && product.isTop}">是否置顶
                 </label>
                 <label>
-                    <input type="checkbox" name="isGift" th:checked="${product.isGift}">是否为赠品
+                    <input type="checkbox" name="isGift" th:checked="${product!=null && product.isGift}">是否为赠品
                 </label>
             </div>
 
@@ -125,31 +126,31 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="point">备注</label>
             <div class="col-sm-10">
-                <input class="form-control" id="memo" name="memo" th:value="${product.memo}" />
+                <input class="form-control" id="memo" name="memo" th:value="${product!=null?product.memo:''}" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="keyword">搜索关键词</label>
             <div class="col-sm-10">
-                <input class="form-control" id="keyword" name="keyword" th:value="${product.keyword}"/>
+                <input class="form-control" id="keyword" name="keyword" th:value="${product!=null?product.keyword:''}"/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="seoTitle">页面标题</label>
             <div class="col-sm-10">
-                <input class="form-control" id="seoTitle" name="seoTitle" th:value="${product.seoTitle}"  />
+                <input class="form-control" id="seoTitle" name="seoTitle" th:value="${product!=null?product.seoTitle:''}"  />
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="seoKeywords">页面关键词</label>
             <div class="col-sm-10">
-                <input class="form-control" id="seoKeywords" name="seoKeywords" th:value="${product.seoKeywords}" />
+                <input class="form-control" id="seoKeywords" name="seoKeywords" th:value="${product!=null?product.seoKeywords:''}" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="seoDescription">页面描述</label>
             <div class="col-sm-10">
-                <input class="form-control" id="seoDescription" name="seoDescription" th:value="${product.seoDescription}"/>
+                <input class="form-control" id="seoDescription" name="seoDescription" th:value="${product!=null?product.seoDescription:''}"/>
             </div>
         </div>
     </div>

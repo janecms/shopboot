@@ -67,7 +67,7 @@ public class AttributeController  extends BaseController {
         }
         else
         {
-            attribute.setPropertyIndex(null);
+            attribute.setPropertyIndex(0);
             this.attributeService.save(attribute);
             addAttribute(redirectAttributes, SUCCESS);
         }
